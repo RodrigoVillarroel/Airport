@@ -37,11 +37,15 @@ public class Passanger extends Person{
         this.luggage = luggage;
     }
 
-    /*public boolean isOverweight(){
-        for (int i=0; i<luggage.getLuggage().size();i++) {
-            if (getLuggage().getLuggage().get(i).)
+    public boolean isOverweight(){
+        boolean response = false;
+        int i = 0;
+        while (i <= luggage.getLuggage().size() && !response) {
+            response = getLuggage().isOverweight(i);
+            i++;
         }
-    }*/
+        return response;
+    }
 
     @Override
     public String toString() {
