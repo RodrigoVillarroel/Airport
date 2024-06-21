@@ -1,4 +1,4 @@
-package Interface;
+package Interfaces;
 
 import Exceptions.NotAvailableForSaleException;
 import Model.Flight;
