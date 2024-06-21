@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class Airport {
     @JsonProperty("airlines")
     private LinkedList<Airline> airlines;
-    @JsonProperty("passangers")
+    @JsonProperty("passengers")
     private HashSet<Passanger> passangers;
 
 
@@ -23,6 +23,7 @@ public class Airport {
         setPassangers(new HashSet<>());
     }
 
+    // region Getters & Setters
     public LinkedList<Airline> getAirlines() {
         return airlines;
     }
@@ -38,6 +39,7 @@ public class Airport {
     public void setPassangers(HashSet<Passanger> passangers) {
         this.passangers = passangers;
     }
+    // endregion
 
     @Override
     public String toString() {

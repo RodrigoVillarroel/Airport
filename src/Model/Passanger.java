@@ -1,10 +1,17 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.MessageFormat;
 
-public class Passanger extends Person{
+public class Passanger extends Person {
+    @JsonProperty("passport_number")
     private String nroPassport;
     private Luggage luggage;
+
+    public Passanger() {
+        super();
+    }
 
     public Passanger(String name, String surname,
                      Integer age, Integer numberIdentify,
@@ -21,6 +28,7 @@ public class Passanger extends Person{
         setNroPassport(nroPassport);
     }
 
+    // region Getters & Setters
     public String getNroPassport() {
         return nroPassport;
     }
@@ -36,8 +44,9 @@ public class Passanger extends Person{
     public void setLuggage(Luggage luggage) {
         this.luggage = luggage;
     }
+    // endregion
 
-    public boolean isOverweight(){
+    public boolean isOverweight() {
         boolean response = false;
         int i = 0;
         while (i <= luggage.getLuggage().size() && !response) {

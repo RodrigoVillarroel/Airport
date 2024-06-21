@@ -1,12 +1,21 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-public class Location {
+public class Location implements Comparable {
+    @JsonProperty("airport_name")
     private String nameAirport;
+    @JsonProperty("location")
     private String location;
+    @JsonProperty("doors")
     private ArrayList<BoardingDoor> doors;
+
+    public Location() {
+
+    }
 
     public Location(String nameAirport, String location) {
         setLocation(location);
@@ -20,6 +29,7 @@ public class Location {
         setDoors(doors);
     }
 
+    // region Getters & Setters
     public String getNameAirport() {
         return nameAirport;
     }
@@ -43,9 +53,16 @@ public class Location {
     public void setDoors(ArrayList<BoardingDoor> doors) {
         this.doors = doors;
     }
+    // endregion
 
     @Override
     public String toString() {
         return MessageFormat.format("Location'{'nameAirport=''{0}'', location=''{1}'', doors={2}'}'", getNameAirport(), getLocation(), getDoors());
+    }
+
+    // TODO
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

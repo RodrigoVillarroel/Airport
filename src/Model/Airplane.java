@@ -38,6 +38,7 @@ public class Airplane {
         setStatus(status);
     }
 
+    // region Getters & Setters
     public String getRegistrationNumber() {
         return registrationNumber;
     }
@@ -101,6 +102,7 @@ public class Airplane {
     public void setStatus(String status) {
         this.status = status;
     }
+    // endregion
 
     @Override
     public String toString() {

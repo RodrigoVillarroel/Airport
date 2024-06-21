@@ -1,16 +1,32 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 
 public class Flight {
+    @JsonProperty("code")
     private String code;
+    @JsonProperty("airplane")
     private Airplane airplane;
+    @JsonProperty("door")
     private String door;
+    @JsonProperty("origin")
     private String origin;
+    @JsonProperty("destiny")
     private String destiny;
+
+    // TODO
+    // `java.time.LocalDateTime` not supported by default: add Module "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling
+    @JsonProperty("time")
     private LocalDateTime time;
+    @JsonProperty("state")
     private String stateFlight;
+
+    public Flight() {
+
+    }
 
     public Flight(String code,String door, Airplane airplane, String origin, String destiny, LocalDateTime time, String stateFlight) {
         setCode(code);
@@ -22,6 +38,7 @@ public class Flight {
         setStateFlight(stateFlight);
     }
 
+    // region Getters & Setters
     public String getDoor() {
         return door;
     }
@@ -77,6 +94,7 @@ public class Flight {
     public void setStateFlight(String stateFlight) {
         this.stateFlight = stateFlight;
     }
+    // endregion
 
     @Override
     public String toString() {

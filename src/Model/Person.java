@@ -1,12 +1,21 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.text.MessageFormat;
 
 public class Person {
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("surname")
     private String surname;
+    @JsonProperty("age")
     private Integer age;
+    @JsonProperty("numberIdentify")
     private Integer numberIdentify;
+
+    public Person () {
+
+    }
 
     public Person(String name, String surname, Integer age, Integer numberIdentify) {
         setName(name);
@@ -15,6 +24,7 @@ public class Person {
         setNumberIdentify(numberIdentify);
     }
 
+    // region Getters & Setters
     public String getName() {
         return name;
     }
@@ -46,6 +56,7 @@ public class Person {
     public void setNumberIdentify(Integer numberIdentify) {
         this.numberIdentify = numberIdentify;
     }
+    // endregion
 
     @Override
     public String toString() {

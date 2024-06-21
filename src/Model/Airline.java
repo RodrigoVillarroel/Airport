@@ -13,8 +13,11 @@ public class Airline {
     private String IATAcode;
     @JsonProperty("airplanes")
     private ArrayList<Airplane> airplanes;
+    @JsonProperty("employees")
     private ArrayList<Employee> employees;
+    @JsonProperty("flights")
     private ArrayList<Flight> flights;
+    @JsonProperty("locations")
     private TreeSet<Location> locations;
 
     public Airline() {
@@ -40,6 +43,7 @@ public class Airline {
         setLocations(new TreeSet<>());
     }
 
+    // region Getters & Setters
     public String getAirlineName() {
         return airlineName;
     }
@@ -87,6 +91,7 @@ public class Airline {
     public void setLocations(TreeSet<Location> locations) {
         this.locations = locations;
     }
+    // endregion
 
     @Override
     public String toString() {

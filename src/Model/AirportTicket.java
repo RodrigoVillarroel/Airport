@@ -22,6 +22,7 @@ public class AirportTicket {
         this.gate = gate;
     }
 
+    // region Getters & Setters
     public String getFrom() {
         return from;
     }
@@ -77,5 +78,6 @@ public class AirportTicket {
     public String getGate() {
         return gate;
     }
+    // endregion
 }
 

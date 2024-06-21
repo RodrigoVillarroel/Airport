@@ -6,6 +6,7 @@ public abstract class OfficeTicket {
 
     OfficeTicket(){}
 
+    // region Getters & Setters
     public Double getPrice() {
         return price;
     }
@@ -21,6 +22,7 @@ public abstract class OfficeTicket {
     public void setAdditionalCost(Double additionalCost) {
         this.additionalCost = additionalCost;
     }
+    // endregion
 
     public Double additionalCost(){
         return getPrice() + getAdditionalCost();

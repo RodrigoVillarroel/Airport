@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Airport;
 import View.AirportMenuView;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -27,12 +28,16 @@ public class AirportController {
             if (!file.exists()) return;
 
             ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
             Airport airportReadValue = mapper.readValue(file, Airport.class);
 
             airport.setAirlines(airportReadValue.getAirlines());
-            airportMenuView.displayAirlines(airport.getAirlines());
+            airport.setPassangers(airportReadValue.getPassangers());
 
-            // System.out.println(airportReadValue);
+            airportMenuView.displayAirlines(airport.getAirlines());
+            airportMenuView.displayPassengers(airport.getPassangers());
+
         } catch (Exception e) {
             System.out.println(e);
         }
