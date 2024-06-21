@@ -1,16 +1,25 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Airline {
+    @JsonProperty("airline_name")
     private String airlineName;
+    @JsonProperty("iata_code")
     private String IATAcode;
+    @JsonProperty("airplanes")
     private ArrayList<Airplane> airplanes;
     private ArrayList<Employee> employees;
     private ArrayList<Flight> flights;
     private TreeSet<Location> locations;
+
+    public Airline() {
+
+    }
 
     public Airline(String airlineName, String IATAcode, ArrayList<Airplane> airplanes,
                    ArrayList<Employee> employees, ArrayList<Flight> flights, TreeSet<Location> locations) {

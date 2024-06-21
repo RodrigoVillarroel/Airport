@@ -1,0 +1,34 @@
+{
+  "airlines": [
+    {
+      "airline_name": "American Airlines",
+      "iata_code": "AA",
+      "airplanes": [
+        {
+          "registration_number": "YR-BAC",
+          "plane_status": "active",
+          "first_class_capacity": 15,
+          "executive_class_capacity": 20,
+          "premium_economic_class_capacity": 30,
+          "economic_class_capacity": 30,
+          "total_capacity": 30
+        }
+      ]
+    },
+    {
+      "airline_name": "American Airlines 2",
+      "iata_code": "AA-2",
+      "airplanes": [
+        {
+          "registration_number": "YR-BAC-2",
+          "plane_status": "inactive",
+          "first_class_capacity": 15,
+          "executive_class_capacity": 20,
+          "premium_economic_class_capacity": 30,
+          "economic_class_capacity": 30,
+          "total_capacity": 30
+        }
+      ]
+    }
+  ]
+}

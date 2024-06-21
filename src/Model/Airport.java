@@ -1,12 +1,17 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.LinkedList;
 
 public class Airport {
+    @JsonProperty("airlines")
     private LinkedList<Airline> airlines;
+    @JsonProperty("passangers")
     private HashSet<Passanger> passangers;
+
 
     public Airport(LinkedList<Airline> airlines, HashSet<Passanger> passangers) {
         setAirlines(airlines);

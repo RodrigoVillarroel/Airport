@@ -1,16 +1,30 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.MessageFormat;
 
 public class Airplane {
+    @JsonProperty("registration_number")
     private String registrationNumber;
+    // TODO la capacidad se pordia manejar distinto
+    @JsonProperty("first_class_capacity")
     private int capacityFirstClass;
+    @JsonProperty("executive_class_capacity")
     private int capacityEjecutive;
+    @JsonProperty("premium_economic_class_capacity")
     private int capacityPremiumEconomic;
+    @JsonProperty("economic_class_capacity")
     private int capacityEconomic;
+    @JsonProperty("total_capacity")
     private int totalCapacity;
     private int seatForLetter;
+    @JsonProperty("plane_status")
     private String status;
+
+    public Airplane() {
+
+    }
 
     public Airplane(String registrationNumber, int capacityFirstClass, int capacityEjecutive,
                     int capacityPremiumEconomic, int capacityEconomic, int totalCapacity, int seatForLetter, String status) {
