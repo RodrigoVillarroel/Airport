@@ -1,23 +1,21 @@
 package Model;
-
 import Exceptions.AlreadyExistsException;
 import Exceptions.NotAvailableForSaleException;
-import Interface.ITicketManagement;
-
-import java.sql.Time;
+import Interfaces.ITicketManagement;
+import java.time.LocalDateTime;
 
 public class OnlineTicketOffice extends OfficeTicket implements ITicketManagement<String, AirportTicketOffice> {
     public OnlineTicketOffice() {
         super();
     }
 
-    public String sellTicket(Flight flight, Time time, String seat, Passanger passanger, AirportTicketOffice airportTicketOffice) throws NotAvailableForSaleException {
-        if (airportTicketOffice.isTicketAvailable(flight.getOrigen().getLocation(), flight.getDestiny().getLocation(), time, seat, flight.getGate())) {
+    public String sellTicket(Flight flight, LocalDateTime time, String seat, Passanger passanger, AirportTicketOffice airportTicketOffice) throws NotAvailableForSaleException {
+        if (airportTicketOffice.isTicketAvailable(flight.getOrigin(), flight.getDestiny(), time, seat, flight.getDoor())) {
             double price = getPrice();
             /*if () {
                 price = additionalCost(); VERIFICACION DE ASIENTO VIP Y APLICACION DE COSTOS ADICIONALES
             }*/
-            AirportTicket ticket = airportTicketOffice.removeTicketFromStock(flight.getOrigen().getLocation(), flight.getDestiny().getLocation(), time, seat, flight.getGate());
+            AirportTicket ticket = airportTicketOffice.removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), time, seat, flight.getDoor());
             ticket.setPrice(price);
 
             String code = RandomCodeGenerator.generateRandomCode();

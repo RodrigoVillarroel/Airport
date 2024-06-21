@@ -1,18 +1,18 @@
 package Model;
 
-import java.sql.Time;
-import java.util.concurrent.atomic.LongAccumulator;
+import java.time.LocalDateTime;
+
 
 public class AirportTicket {
-    private Location from;
-    private Location to;
-    private Time bordingTime;
+    private String from;
+    private String to;
+    private LocalDateTime bordingTime;
     private Passanger passanger;
     private Double price;
     private String seat;
     private String gate;
 
-    public AirportTicket(Location from, Location to, Time bordingTime, String seat, Passanger passanger, Double price, String gate) {
+    public AirportTicket(String from, String to, LocalDateTime bordingTime, String seat, Passanger passanger, Double price, String gate) {
         this.from = from;
         this.to = to;
         this.bordingTime = bordingTime;
@@ -22,27 +22,27 @@ public class AirportTicket {
         this.gate = gate;
     }
 
-    public Location getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Location from) {
+    public void setFrom(String from) {
         this.from = from;
     }
 
-    public Location getTo() {
+    public String getTo() {
         return to;
     }
 
-    public void setTo(Location to) {
+    public void setTo(String to) {
         this.to = to;
     }
 
-    public Time geBordingTime() {
+    public LocalDateTime geBordingTime() {
         return bordingTime;
     }
 
-    public void setBordingTime(Time abordingTime) {
+    public void setBordingTime(LocalDateTime abordingTime) {
         this.bordingTime = abordingTime;
     }
 
@@ -50,7 +50,7 @@ public class AirportTicket {
         return passanger;
     }
 
-    public Time getBordingTime() {
+    public LocalDateTime getBordingTime() {
         return bordingTime;
     }
 
@@ -78,3 +78,4 @@ public class AirportTicket {
         return gate;
     }
 }
+
