@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Airport;
+import Model.*;
 import View.AirportMenuView;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +11,8 @@ public class AirportController {
     private static final String airportJsonPath = "airport.json";
     Airport airport;
     AirportMenuView airportMenuView;
+    AirportTicketOffice airportTicketOffice;
+    OnlineTicketOffice onlineTicketOffice;
 
     public AirportController() {
         loadFromJson();
@@ -19,6 +21,8 @@ public class AirportController {
     public AirportController(Airport airport, AirportMenuView airportMenuView) {
         this.airport = airport;
         this.airportMenuView = airportMenuView;
+        airportTicketOffice = new AirportTicketOffice();
+        onlineTicketOffice = new OnlineTicketOffice();
         loadFromJson();
     }
 
@@ -94,7 +98,16 @@ public class AirportController {
         switch (opcion) {
             case 1:
                 // TODO
-                // System.out.println("Funcionalidad de Compra Online aún no implementada.");
+                int dni = airportMenuView.displayRequestPassangerInfo();
+                Passanger p = airport.searchPersonByDNI(dni);
+                airport.showAirlines();
+                int index = airportMenuView.displayRequesAirlineIndex();
+                Airline airline = airport.searchAirlineByIndex(index);
+                airline.showFlights();
+                index = airportMenuView.displayRequestFlight();
+                Flight flight = airline.searchFlightByIndex(index);
+
+                airportTicketOffice.sellTicket(flight, flight.getTime(),ASIENTO, p);
                 break;
             case 2:
                 // administrarAerolineas.mostrarAerolineas();
