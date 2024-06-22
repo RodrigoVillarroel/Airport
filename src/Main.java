@@ -12,9 +12,13 @@ public class Main {
         AirportMenuView airportMenuView = new AirportMenuView();
 
         /** Controllers **/
-        new AirportController(airport, airportMenuView);
+        AirportController airportController = new AirportController(airport, airportMenuView);
 
-        /** Initializations **/
-        airportMenuView.setVisible(true);
+        /** Display main menu **/
+        int opcion;
+        do {
+            airportController.displayMenu();
+            opcion = airportController.handleUserInput();
+        } while (opcion != 4);
     }
 }
