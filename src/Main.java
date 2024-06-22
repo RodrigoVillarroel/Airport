@@ -1,7 +1,6 @@
 import Controller.AirportController;
 import Model.Airport;
 import View.AirportMenuView;
-import View.SellsMenuView;
 
 public class Main {
     public static void main(String[] args) {
