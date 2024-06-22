@@ -1,4 +1,6 @@
 import Controller.AirportController;
+import Model.Airplane;
+import Model.AirplaneCapabilities;
 import Model.Airport;
 import View.AirportMenuView;
 

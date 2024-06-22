@@ -56,9 +56,9 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
 
     public void updateTicketStock(Flight flight) {
         char seatRow = 'A';  // Letra inicial para la fila de asientos
-        int maxSeatsPerRow = flight.getAirplane().getSeatForLetter();
+        int maxSeatsPerRow = flight.getAirplane().getCapabilities().getSeatForLetter();
 
-        for (int i = 1; i <= flight.getAirplane().getTotalCapacity(); i++) {
+        for (int i = 1; i <= flight.getAirplane().getCapabilities().getTotalCapacity(); i++) {
             int seatNumber = i % maxSeatsPerRow;  // Número de asiento (1-10)
 
             // Si hemos alcanzado el asiento número 10, incrementamos la letra de la fila
@@ -92,14 +92,14 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
     public String listSeats(String from, String to, LocalDateTime time, Flight flight){
         StringBuilder builder = new StringBuilder();
         char seatRow = 'A';  // Letra inicial para la fila de asientos
-        int maxSeatsPerRow = flight.getAirplane().getSeatForLetter();
+        int maxSeatsPerRow = flight.getAirplane().getCapabilities().getSeatForLetter();
         int sideRows = 2;
         if (maxSeatsPerRow <= 6) {
             sideRows = 1;
         }
         int middleRow = maxSeatsPerRow - sideRows * 2;
 
-        for (int i = 1; i <= flight.getAirplane().getTotalCapacity(); i++) {
+        for (int i = 1; i <= flight.getAirplane().getCapabilities().getTotalCapacity(); i++) {
             int seatNumber = i % maxSeatsPerRow;  // Número de asiento
 
             if (seatNumber == 0) {
@@ -125,10 +125,10 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
 
     public boolean hasStock(String from, String to, LocalDateTime time, Flight flight) {
         char seatRow = 'A';  // Letra inicial para la fila de asientos
-        int maxSeatsPerRow = flight.getAirplane().getSeatForLetter();
+        int maxSeatsPerRow = flight.getAirplane().getCapabilities().getSeatForLetter();
         int i = 1;
         boolean ans = false;
-        while ((i <= flight.getAirplane().getTotalCapacity()) && !ans) {
+        while ((i <= flight.getAirplane().getCapabilities().getTotalCapacity()) && !ans) {
             int seatNumber = i % maxSeatsPerRow;  // Número de asiento
 
             if (seatNumber == 0) {
@@ -148,9 +148,9 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
 
     public void removeTicketStock(String from, String to, LocalDateTime time, Flight flight) {
         char seatRow = 'A';  // Letra inicial para la fila de asientos
-        int maxSeatsPerRow = flight.getAirplane().getSeatForLetter();
+        int maxSeatsPerRow = flight.getAirplane().getCapabilities().getSeatForLetter();
 
-        for (int i = 1; i <= flight.getAirplane().getTotalCapacity(); i++) {
+        for (int i = 1; i <= flight.getAirplane().getCapabilities().getTotalCapacity(); i++) {
             int seatNumber = i % maxSeatsPerRow;  // Número de asiento (1-10)
 
             // Si hemos alcanzado el asiento número 10, incrementamos la letra de la fila
