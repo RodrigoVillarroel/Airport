@@ -2,40 +2,41 @@ package Model;
 
 import java.util.Scanner;
 
-public class MainMenu {
-        public void masterMenu() {
-            Scanner scanner = new Scanner(System.in);
-            int opcion;
+public class Menu {
+    private Airport airport;
 
-            do {
-                System.out.println("Menu Principal:");
-                System.out.println("1. Administrar Aerolíneas");
-                System.out.println("2. Administrar Locaciones");
-                System.out.println("3. Menu de Venta");
-                System.out.println("4. Salir");
-                System.out.print("Seleccione una opción: ");
-                opcion = scanner.nextInt();
+    public static void masterMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
 
-                switch (opcion) {
-                    case 1:
-                        menuAerolineas();
-                        break;
-                    case 2:
-                        menuLocaciones();
-                        break;
-                    case 3:
-                        menuVentas();
-                        break;
-                    case 4:
-                        System.out.println("Saliendo...");
-                        break;
-                    default:
-                        System.out.println("Opción no válida, intente nuevamente.");
-                }
-            } while (opcion != 4);
-        }
+        do {
+            System.out.println("Menu Principal:");
+            System.out.println("1. Administrar Aerolíneas");
+            System.out.println("2. Administrar Locaciones");
+            System.out.println("3. Menu de Venta");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
 
-        private static void menuAerolineas() {
+            switch (opcion) {
+                case 1:
+                    menuAerolineas();
+                    break;
+                case 2:
+                    menuLocaciones();
+                    break;
+                case 3:
+                    menuVentas();
+                    break;
+                case 4:
+                    System.out.println("Saliendo...");
+                    break;
+                default:
+                    System.out.println("Opción no válida, intente nuevamente.");
+            }
+        } while (opcion != 4);
+    }
+    private static void menuAerolineas () {
             Scanner scanner = new Scanner(System.in);
             int opcion;
 
@@ -65,9 +66,8 @@ public class MainMenu {
                         System.out.println("Opción no válida, intente nuevamente.");
                 }
             } while (opcion != 4);
-        }
-
-        private static void menuLocaciones() {
+    }
+    private static void menuLocaciones () {
             Scanner scanner = new Scanner(System.in);
             int opcion;
 
@@ -93,32 +93,32 @@ public class MainMenu {
                         System.out.println("Opción no válida, intente nuevamente.");
                 }
             } while (opcion != 3);
-        }
-        public void agregarLocacion() {
+    }
+    public void agregarLocacion () {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Ingrese el nombre de la nueva locación:");
             String nombre = scanner.nextLine();
             locaciones.add(new Locacion(nombre));
             System.out.println("Locación agregada.");
-        }
+    }
 
-        public void quitarLocacion() {
+    public void quitarLocacion () {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Ingrese el nombre de la locación a quitar:");
             String nombre = scanner.nextLine();
             locaciones.removeIf(locacion -> locacion.getNombre().equals(nombre));
             System.out.println("Locación eliminada.");
-        }
+    }
 
-        public void mostrarLocaciones() {
+    public void mostrarLocaciones () {
             System.out.println("Locaciones disponibles:");
             for (Locacion locacion : locaciones) {
                 System.out.println(locacion);
             }
-        }
+    }
 
 
-        private static void menuVentas() {
+    private static void menuVentas () {
             Scanner scanner = new Scanner(System.in);
             int opcion;
 
@@ -151,26 +151,26 @@ public class MainMenu {
                     default:
                         System.out.println("Opción no válida, intente nuevamente.");
                 }
-            } while (opcion!=5);
-        }
+            } while (opcion != 5);
+    }
 
-        public void agregarAerolinea() {
+    public void agregarAerolinea () {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Ingrese el nombre de la nueva aerolínea:");
             String nombre = scanner.nextLine();
             aerolineas.add(new Aerolinea(nombre));
             System.out.println("Aerolínea agregada.");
-        }
+    }
 
-        public void quitarAerolinea() {
+    public void quitarAerolinea () {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Ingrese el nombre de la aerolínea a quitar:");
             String nombre = scanner.nextLine();
             aerolineas.removeIf(aerolinea -> aerolinea.getNombre().equals(nombre));
             System.out.println("Aerolínea eliminada.");
-        }
+    }
 
-        public void modificarAerolinea() {
+    public void modificarAerolinea () {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Ingrese el nombre de la aerolínea a modificar:");
             String nombre = scanner.nextLine();
@@ -184,12 +184,13 @@ public class MainMenu {
                 }
             }
             System.out.println("Aerolínea no encontrada.");
-        }
+    }
 
-        public void mostrarAerolineas() {
+    public void mostrarAerolineas () {
             System.out.println("Aerolíneas disponibles:");
             for (Aerolinea aerolinea : aerolineas) {
                 System.out.println(aerolinea);
             }
-        }
     }
+}
+

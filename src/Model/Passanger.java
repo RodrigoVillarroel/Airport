@@ -46,18 +46,17 @@ public class Passanger extends Person {
     }
     // endregion
 
-    public boolean isOverweight() {
-        boolean response = false;
-        int i = 0;
-        while (i <= luggage.getLuggage().size() && !response) {
-            response = getLuggage().isOverweight(i);
-            i++;
-        }
-        return response;
+    public int isOverweight() {
+       return getLuggage().isOverweight();
     }
 
     @Override
     public String toString() {
         return super.toString().concat(MessageFormat.format("Passanger'{'nroPassport=''{0}'', luggage={1}'}'", getNroPassport(), getLuggage()));
     }
+
+    public int getSizeLuggage(){
+        return luggage.getLuggage().size();
+    }
+
 }

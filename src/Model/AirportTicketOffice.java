@@ -32,9 +32,6 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
            /* if (seat) {
                 price = additionalCost(); //Verificar el tipo de asiento para definir costos adicionales
             }*/
-            if(passanger.isOverweight()){//PENDIENTE DE CREACION
-                price = additionalCost();
-            }
             AirportTicket ticket = removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), time, seat, flight.getDoor());
             ticket.setPrice(price);
             return ticket;
@@ -179,5 +176,14 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
             throw new AlreadyExistsException("This ticket code already exists: " + code);
         }
     }
+
+    public AirportTicket exchangeTicket(String code) throws NotFoundException {
+        if (getReservedTickets().containsKey(code)) {
+            return getReservedTickets().remove(code);
+        } else {
+            throw new NotFoundException("This ticket code doesn't exist: " + code);
+        }
+    }
+
 
 }

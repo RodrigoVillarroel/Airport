@@ -3,31 +3,42 @@ package Model;
 import java.util.ArrayList;
 
 public class Luggage<T>{
-    private ArrayList<T> luggage;
+    private ArrayList<T> luggages;
 
     public Luggage() {
-        luggage = new ArrayList<>();
+        luggages = new ArrayList<>();
     }
 
     public ArrayList<T> getLuggage() {
-        return luggage;
+        return luggages;
     }
 
-    public boolean isOverweight(int index){
-        boolean response = false;
-//        if(luggage.get(index).getClass().getSimpleName().equalsIgnoreCase("Suitcase")){
-//            Suitcase suitcase = (Suitcase) luggage.get(index);
-//            if (suitcase.getWeight()>24F){
-//                response = true;
-//            }
-//        }
-//        if (luggage.get(index).getClass().getSimpleName().equalsIgnoreCase("Backpack")){
-//            Backpack backpack = (Backpack) luggage.get(index);
-//            if (backpack.getWeight()>4F){
-//                response = true;
-//            }
-//        }
-        return response;
+    public int isOverweight(){
+        int count = 0;
+        for (int i=0; i<luggages.size();i++) {
+            boolean response=false;
+            if (!luggages.isEmpty()) {
+                if (luggages.get(i) instanceof Suitcase suitcase) {
+                     response = suitcase.isOverweight();
+                }
+                if (luggages.get(i) instanceof Backpack backpack) {
+                    response = backpack.isOverweight();
+                }
+            }
+            if (response){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public boolean isOverDimension(int index){
+        if(!luggages.isEmpty()){
+            if(luggages.get(index) instanceof Suitcase suitcase){
+                return suitcase.isOverDimension();
+            }
+        }
+        return false;
     }
 
 }

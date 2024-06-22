@@ -1,10 +1,11 @@
 package Model;
 import Exceptions.AlreadyExistsException;
 import Exceptions.NotAvailableForSaleException;
+import Interfaces.IAdditionalCost;
 import Interfaces.ITicketManagement;
 import java.time.LocalDateTime;
 
-public class OnlineTicketOffice extends OfficeTicket implements ITicketManagement<String, AirportTicketOffice> {
+public class OnlineTicketOffice extends OfficeTicket implements ITicketManagement<String, AirportTicketOffice>, IAdditionalCost {
     public OnlineTicketOffice() {
         super();
     }
@@ -12,9 +13,8 @@ public class OnlineTicketOffice extends OfficeTicket implements ITicketManagemen
     public String sellTicket(Flight flight, LocalDateTime time, String seat, Passanger passanger, AirportTicketOffice airportTicketOffice) throws NotAvailableForSaleException {
         if (airportTicketOffice.isTicketAvailable(flight.getOrigin(), flight.getDestiny(), time, seat, flight.getDoor())) {
             double price = getPrice();
-            /*if () {
-                price = additionalCost(); VERIFICACION DE ASIENTO VIP Y APLICACION DE COSTOS ADICIONALES
-            }*/
+            int count = passanger.isOverweight();
+            price = price + (getAdditionalCost() * count);
             AirportTicket ticket = airportTicketOffice.removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), time, seat, flight.getDoor());
             ticket.setPrice(price);
 
@@ -34,4 +34,9 @@ public class OnlineTicketOffice extends OfficeTicket implements ITicketManagemen
     }
 
 
+    @Override
+    public Double addAdditionalCost() {
+
+        return getAdditionalCost();
+    }
 }
