@@ -1,50 +1,34 @@
 package Model;
 
-public enum Suitcase {
-    NORMAL(0.56F, 0.40F, 0.25F, 23F),
-    SOBREPESO(0.56F, 0.40F, 0.25F, 24.7F),
-    SOBREDIMENSIONES(0.60F, 0.50F, 0.30F, 23F);
+public class  Suitcase extends Equipaje{
+    private SuitcaseCharacteristics suitcaseCharacteristics;
+    public Suitcase(){}
 
-    private Float alto;
-    private Float largo;
-    private Float ancho;
-    private Float peso;
-
-    Suitcase(Float alto, Float largo, Float ancho, Float peso) {
-        this.alto = alto;
-        this.largo = largo;
-        this.ancho = ancho;
-        this.peso = peso;
+    public void setSuitcaseCharacteristics(SuitcaseCharacteristics suitcaseCharacteristics) {
+        this.suitcaseCharacteristics = suitcaseCharacteristics;
     }
 
-    public Float getAlto() {
-        return alto;
+    public SuitcaseCharacteristics getSuitcaseCharacteristics() {
+        return suitcaseCharacteristics;
     }
 
-    public Float getLargo() {
-        return largo;
-    }
-
-    public Float getAncho() {
-        return ancho;
-    }
-
-    public Float getPeso() {
-        return peso;
+    public void setRandomCharacteristcs(int reference){
+        if (reference<6){
+            setSuitcaseCharacteristics(SuitcaseCharacteristics.NORMAL);
+        }
+        if (reference<11 && reference>6){
+            setSuitcaseCharacteristics(SuitcaseCharacteristics.SOBREDIMENSIONES);
+        }
+        if (reference<16 && reference>11){
+            setSuitcaseCharacteristics(SuitcaseCharacteristics.SOBREPESO);
+        }
     }
 
     public boolean isOverDimension(){
-        if (getAlto()>0.56F || getAncho()>0.40F || getLargo()>0.40F){
-            return true;
-        }
-        return false;
+        return suitcaseCharacteristics.isOverDimension();
     }
     public boolean isOverweight(){
-        if (getPeso()>23F){
-            return true;
-        }
-
-        return false;
+        return suitcaseCharacteristics.isOverweight();
     }
 
 

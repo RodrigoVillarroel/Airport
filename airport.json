@@ -31,11 +31,14 @@
           "airplane": {
             "registration_number": "YR-BAC",
             "plane_status": "active",
-            "first_class_capacity": 15,
-            "executive_class_capacity": 20,
-            "premium_economic_class_capacity": 30,
-            "economic_class_capacity": 30,
-            "total_capacity": 30
+            "capabilities": {
+              "name": "MEDIUM",
+              "first_class_capacity": 15,
+              "executive_class_capacity": 20,
+              "premium_economic_class_capacity": 30,
+              "economic_class_capacity": 30,
+              "total_capacity": 30
+            }
           },
           "door": "1",
           "origin": "Buenos Aires",
@@ -85,7 +88,7 @@
       "name": "Paulo",
       "surname:": "Diaz",
       "age": 29,
-      "numberIdentify": 55555555
+      "numberIdentify": 5
     }
   ]
 }

@@ -1,23 +1,22 @@
 package Model;
 
-public enum Backpack {
-    SOBREPESO(4F),
-    NORMAL(3F);
-    private Float peso;
+public class Backpack extends Equipaje{
+    ;
+    private BackpackWeight backpackWeight;
 
-    Backpack(Float peso){
-        this.peso = peso;
+    public Backpack() {
     }
 
-    public Float getPeso() {
-        return peso;
+    public void setBackpackWeight(BackpackWeight backpackWeight) {
+        this.backpackWeight = backpackWeight;
     }
 
-    public boolean isOverweight(){
-        if(getPeso()>3){
-            return true;
-        }
-
-        return false;
+    public BackpackWeight getBackpackWeight() {
+        return backpackWeight;
     }
+    public void setRandomsCharacteristics(int reference){
+
+    }
+
 }
+

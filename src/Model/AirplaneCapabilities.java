@@ -1,7 +1,8 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+@JsonFormat (shape = JsonFormat.Shape.OBJECT)
 public enum AirplaneCapabilities {
     SMALL(18,24,48,60,6),
     MEDIUM(21,35,63,77,7),
@@ -17,6 +18,7 @@ public enum AirplaneCapabilities {
     private Integer capacityEconomic;
     @JsonProperty("total_capacity")
     private Integer totalCapacity;
+    @JsonProperty("seatForLetter")
     private Integer seatForLetter;
 
 

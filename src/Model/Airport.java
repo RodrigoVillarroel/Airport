@@ -3,6 +3,7 @@ package Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -11,6 +12,8 @@ public class Airport {
     private LinkedList<Airline> airlines;
     @JsonProperty("passengers")
     private HashSet<Passanger> passangers;
+    AirportTicketOffice airportTicketOffice;
+    OnlineTicketOffice onlineTicketOffice;
 
 
     public Airport(LinkedList<Airline> airlines, HashSet<Passanger> passangers) {
@@ -21,6 +24,8 @@ public class Airport {
     public Airport() {
         setAirlines(new LinkedList<>());
         setPassangers(new HashSet<>());
+        airportTicketOffice = new AirportTicketOffice();
+        onlineTicketOffice = new OnlineTicketOffice();
     }
 
     // region Getters & Setters
@@ -39,14 +44,20 @@ public class Airport {
     public void setPassangers(HashSet<Passanger> passangers) {
         this.passangers = passangers;
     }
+
+    public AirportTicketOffice getAirportTicketOffice() {
+        return airportTicketOffice;
+    }
+
+    public OnlineTicketOffice getOnlineTicketOffice() {
+        return onlineTicketOffice;
+    }
+
     // endregion
 
     @Override
     public String toString() {
         return MessageFormat.format("Airport'{'airlines={0}, passangers={1}'}'", getAirlines(), getPassangers());
-    }
-    public void addPassanger(){
-
     }
     public Passanger searchPersonByDNI(Integer dni){
         if(!passangers.isEmpty()){
@@ -73,5 +84,10 @@ public class Airport {
             }
         }
         return null;
+    }
+
+    public boolean hasStock(Flight flight){
+        Airplane airplane = flight.getAirplane();
+        return airportTicketOffice.hasStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), airplane.getCapabilities().getSeatForLetter(), airplane.getCapabilities().getTotalCapacity(), flight.getDoor());
     }
 }

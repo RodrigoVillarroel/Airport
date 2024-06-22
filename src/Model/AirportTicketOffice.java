@@ -9,7 +9,7 @@ import Interfaces.ITicketManagement;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-public class AirportTicketOffice extends OfficeTicket implements ITicketManagement <AirportTicket, Double> {
+public class AirportTicketOffice extends OfficeTicket implements ITicketManagement <AirportTicket, Luggage> {
     private HashMap <String, AirportTicket> reservedTickets;
     private HashMap<String, AirportTicket> ticketStock;
 
@@ -27,13 +27,16 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         return ticketStock;
     }
 
-    public AirportTicket sellTicket(Flight flight, LocalDateTime time, String seat, Passanger passanger) throws NotAvailableForSaleException {
-        if (isTicketAvailable(flight.getOrigin(), flight.getDestiny(), time, seat, flight.getDoor())) {
+    public AirportTicket sellTicket(Flight flight, String seat, Passanger passanger, Luggage luggage) throws NotAvailableForSaleException {
+        if (isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
             double price = getPrice();
            /* if (seat) {
                 price = additionalCost(); //Verificar el tipo de asiento para definir costos adicionales
             }*/
-            AirportTicket ticket = removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), time, seat, flight.getDoor());
+
+            int count = luggage.isOverweight();
+            price = price + (getAdditionalCost() * count);
+            AirportTicket ticket = removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor());
             ticket.setPrice(price);
             return ticket;
         } else {
@@ -84,30 +87,32 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
     }
 
     public void regenerateTicketStock(Airline airline) throws NotFoundException, InvalidIndexException {
-        for(int i=0; i<airline.getFlights().size(); i++){
-            Flight flight = airline.getFlights().get(i);
-            updateTicketStock(flight);
+        if (!airline.getFlights().isEmpty()) {
+            for (int i = 0; i < airline.getFlights().size(); i++) {
+
+                Flight flight = airline.getFlights().get(i);
+                updateTicketStock(flight);
+            }
         }
     }
 
-    public String listSeats(String from, String to, LocalDateTime time, Flight flight){
+    public String listSeats(String from, String to, LocalDateTime time, int maxSeatsPerRow, int totalCapacity, String door){
         StringBuilder builder = new StringBuilder();
         char seatRow = 'A';  // Letra inicial para la fila de asientos
-        int maxSeatsPerRow = flight.getAirplane().getCapabilities().getSeatForLetter();
         int sideRows = 2;
         if (maxSeatsPerRow <= 6) {
             sideRows = 1;
         }
         int middleRow = maxSeatsPerRow - sideRows * 2;
 
-        for (int i = 1; i <= flight.getAirplane().getCapabilities().getTotalCapacity(); i++) {
+        for (int i = 1; i <= totalCapacity; i++) {
             int seatNumber = i % maxSeatsPerRow;  // Número de asiento
 
             if (seatNumber == 0) {
                 seatNumber = maxSeatsPerRow;
             }
             String seat = seatRow + String.valueOf(seatNumber);
-            if (!isTicketAvailable(from, to, time, seat, flight.getDoor())) {
+            if (!isTicketAvailable(from, to, time, seat, door)) {
                 builder.append("\u001B[31m"); // Color rojo para los asientos no disponibles
             } else {
                 builder.append("\u001B[32m"); // Color verde para los asientos disponibles
@@ -124,19 +129,18 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         return builder.toString();
     }
 
-    public boolean hasStock(String from, String to, LocalDateTime time, Flight flight) {
+    public boolean hasStock(String from, String to, LocalDateTime time, int maxSeatsPerRow, int totalCapacity, String door) {
         char seatRow = 'A';  // Letra inicial para la fila de asientos
-        int maxSeatsPerRow = flight.getAirplane().getCapabilities().getSeatForLetter();
         int i = 1;
         boolean ans = false;
-        while ((i <= flight.getAirplane().getCapabilities().getTotalCapacity()) && !ans) {
+        while (i <= totalCapacity && !ans) {
             int seatNumber = i % maxSeatsPerRow;  // Número de asiento
 
             if (seatNumber == 0) {
                 seatNumber = maxSeatsPerRow;
             }
             String seat = seatRow + String.valueOf(seatNumber);
-            if (isTicketAvailable(from, to, time, seat, flight.getDoor())) {
+            if (isTicketAvailable(from, to, time, seat, door)) {
                 ans = true;
             }
             if (seatNumber == maxSeatsPerRow) {

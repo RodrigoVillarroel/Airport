@@ -9,7 +9,7 @@ public class Airplane {
     private String registrationNumber;
     @JsonProperty("plane_status")
     private String status;
-
+    @JsonProperty("capabilities")
     private AirplaneCapabilities capabilities;
 
     public Airplane() {
@@ -48,8 +48,6 @@ public class Airplane {
     }
 
     // endregion
-
-
     @Override
     public String toString() {
         return "Airplane{" +
@@ -58,4 +56,5 @@ public class Airplane {
                 ", capabilities=" + getCapabilities() +
                 '}';
     }
+
 }

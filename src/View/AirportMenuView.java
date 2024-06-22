@@ -1,5 +1,7 @@
 package View;
 
+import Exceptions.InvalidIndexException;
+
 import java.util.Scanner;
 
 public class AirportMenuView {
@@ -45,7 +47,7 @@ public class AirportMenuView {
     public int displayRequestPassangerInfo(){
         System.out.println("Ingresar Informacion del Pasagero:");
         System.out.println("Numero de Identificacion:");
-        return handleUserInput();
+        return scanner.nextInt();
     }
 
     public int displayRequesAirlineIndex(){
@@ -55,8 +57,14 @@ public class AirportMenuView {
 
     public int displayRequestFlight(){
         System.out.println("Seleccione el indice del Vuelo:");
-        return handleUserInput()-1;
+        return scanner.nextInt() - 1;
     }
+
+    public String displayRequestSeat(){
+        System.out.println("Seleccione el numero de asiento que desee");
+        return scanner.nextLine();
+    }
+
 
     // endregion
 
