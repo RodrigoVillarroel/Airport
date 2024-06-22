@@ -27,8 +27,9 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         return ticketStock;
     }
 
-    public AirportTicket sellTicket(Flight flight, LocalDateTime time, String seat, Passanger passanger, Double price) throws NotAvailableForSaleException {
+    public AirportTicket sellTicket(Flight flight, LocalDateTime time, String seat, Passanger passanger) throws NotAvailableForSaleException {
         if (isTicketAvailable(flight.getOrigin(), flight.getDestiny(), time, seat, flight.getDoor())) {
+            double price = getPrice();
            /* if (seat) {
                 price = additionalCost(); //Verificar el tipo de asiento para definir costos adicionales
             }*/

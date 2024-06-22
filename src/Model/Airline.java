@@ -98,4 +98,22 @@ public class Airline {
         return MessageFormat.format("Airline'{'airlineName=''{0}'', IATAcode=''{1}'', airplanes={2}, employees={3}, flights={4}, locations={5}'}'", getAirlineName(), getIATAcode(), getAirplanes(), getEmployees(), getFlights(), getLocations());
     }
 
+    public void showFlights(){
+        int i=1;
+        for (Flight f : flights){
+            System.out.println(i + ")" + "\n" + "\t");
+            System.out.println("Desde: " + f.getOrigin() + " - ");
+            System.out.println("Hasta: " + f.getDestiny() + "\n");
+            System.out.println("Horario: " + f.getTime());
+            i++;
+        }
+    }
+    public Flight searchFlightByIndex(int index){
+        if (!flights.isEmpty()){
+            if(flights.size()>index){
+                return flights.get(index);
+            }
+        }
+        return null;
+    }
 }

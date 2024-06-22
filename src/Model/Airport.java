@@ -45,4 +45,33 @@ public class Airport {
     public String toString() {
         return MessageFormat.format("Airport'{'airlines={0}, passangers={1}'}'", getAirlines(), getPassangers());
     }
+    public void addPassanger(){
+
+    }
+    public Passanger searchPersonByDNI(Integer dni){
+        if(!passangers.isEmpty()){
+            for (Passanger p : passangers){
+                if(p.getNumberIdentify().equals(dni)){
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+    public void showAirlines(){
+        int i = 1;
+        for (Airline a : airlines){
+            System.out.println(i + ")" + a.getAirlineName());
+            i++;
+        }
+    }
+
+    public Airline searchAirlineByIndex(int index){
+        if (!airlines.isEmpty()) {
+            if (index < airlines.size()) {
+                return airlines.get(index);
+            }
+        }
+        return null;
+    }
 }

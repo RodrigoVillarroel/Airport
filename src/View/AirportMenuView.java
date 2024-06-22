@@ -41,6 +41,23 @@ public class AirportMenuView {
         System.out.println("4. Simular Vuelo");
         System.out.println("5. Volver al Menú Principal");
     }
+
+    public int displayRequestPassangerInfo(){
+        System.out.println("Ingresar Informacion del Pasagero:");
+        System.out.println("Numero de Identificacion:");
+        return handleUserInput();
+    }
+
+    public int displayRequesAirlineIndex(){
+        System.out.println("Selecciones el indice de la Aerolinea:");
+        return handleUserInput()-1;
+    }
+
+    public int displayRequestFlight(){
+        System.out.println("Seleccione el indice del Vuelo:");
+        return handleUserInput()-1;
+    }
+
     // endregion
 
     // region Commons

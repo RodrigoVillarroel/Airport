@@ -37,10 +37,10 @@
             "economic_class_capacity": 30,
             "total_capacity": 30
           },
-          "door": "",
-          "origin": "",
-          "destiny": "",
-          "state": ""
+          "door": "1",
+          "origin": "Buenos Aires",
+          "destiny": "Madrid",
+          "state": "Espera"
         }
       ],
       "locations": [
