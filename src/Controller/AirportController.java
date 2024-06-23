@@ -5,27 +5,21 @@ import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Model.*;
 import View.AirportMenuView;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
-import java.io.File;
 
 public class AirportController {
-    private static final String airportJsonPath = "airport.json";
     Airport airport;
     Airline airLine;
     AirportMenuView airportMenuView;
 
     public AirportController() {
-        loadFromJson();
+
     }
 
     public AirportController(Airport airport, AirportMenuView airportMenuView, Airline airline) {
         this.airport = airport;
         this.airportMenuView = airportMenuView;
         this.airLine = airline;
-        loadFromJson();
+
     }
 
     // region View
@@ -52,7 +46,7 @@ public class AirportController {
                 default:
                     airportMenuView.displayInvalidOptionMessage();
             }
-        }catch (NotAvailableForSaleException e){
+        } catch (NotAvailableForSaleException e) {
             System.out.println(e.getMessage());
         } catch (InvalidIndexException e) {
             System.out.println(e.getMessage());
@@ -86,18 +80,37 @@ public class AirportController {
                 airportMenuView.displayInvalidOptionMessage();
         }
     }
+
     private void handleAirportMenu() {
         airportMenuView.displayAirportMenu();
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
-                // administrarAerolineas.agregarAerolinea();
+                handleAirlineMenu();
                 break;
             case 2:
-                // administrarAerolineas.quitarAerolinea();
+                handlePassengersMenu();
                 break;
             case 3:
-                // administrarAerolineas.modificarAerolinea();
+                airportMenuView.displayBackMessage();
+                break;
+            default:
+                airportMenuView.displayInvalidOptionMessage();
+        }
+    }
+
+    private void handleAirlineMenu() {
+        airportMenuView.displayAirlineMenu();
+        int opcion = airportMenuView.handleUserInput();
+        switch (opcion) {
+            case 1:
+                handleAddAirlineOption();
+                break;
+            case 2:
+                handleDeleteAirlineOption();
+                break;
+            case 3:
+                handleModifyAirlineOption();
                 break;
             case 4:
                 airportMenuView.displayBackMessage();
@@ -106,21 +119,55 @@ public class AirportController {
                 airportMenuView.displayInvalidOptionMessage();
         }
     }
+
+    private void handleAddAirlineOption() {
+        airportMenuView.displayLineBreak();
+        airportMenuView.displayAirlinesSummaryOption(airport.getAirlines());
+        String [] inputs = airportMenuView.handleAddAirlineInput();
+        String airlineName = inputs[0];
+        String airlineIotaCode = inputs[1];
+        airport.addAirline(new Airline(airlineName, airlineIotaCode));
+    }
+
+    private void handleDeleteAirlineOption() {
+        airportMenuView.displayLineBreak();
+        airportMenuView.displayAirlinesSummaryOption(airport.getAirlines());
+        String iataAirlineCode = airportMenuView.handleDeleteAirlineInput();
+        // TODO funciona pero se puede mejorar con equals
+        airport.removeAirline(iataAirlineCode);
+    }
+
+    private void handleModifyAirlineOption() {
+        airportMenuView.displayLineBreak();
+        airportMenuView.displayAirlinesSummaryOption(airport.getAirlines());
+        String iataAirlineCode = airportMenuView.handleModifyAirlineInput();
+        for(Airline airline : airport.getAirlines()) {
+            if(airline.getIATAcode().equals(iataAirlineCode)) {
+                String airlineName = airportMenuView.handleModifyAirlineNameInput();
+                airline.setAirlineName(airlineName);
+            }
+        }
+    }
+
+    private void handlePassengersMenu() {
+
+    }
+
     private void handleFlightsMenu() {
         airportMenuView.displayFlightsMenu();
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
-                    // crear vuelo
+                // crear vuelo
                 break;
             case 2:
-                    // borrar vuelo
+                // borrar vuelo
                 break;
             case 3:
-                    // modificar vuelo
+                // modificar vuelo
                 break;
             case 4:
-                    // buscar vuelo
+                // buscar vuelo
                 break;
             case 5:
                 airportMenuView.displayBackMessage();
@@ -216,9 +263,8 @@ public class AirportController {
                 airport.getAirportTicketOffice().regenerateTicketStock(airline);
                 airline.showFlights();
                 index = airportMenuView.displayRequestFlight();
-                if (index>airport.getAirlines().size())
-                {
-                    throw new  InvalidIndexException("Indice no valido");
+                if (index > airport.getAirlines().size()) {
+                    throw new InvalidIndexException("Indice no valido");
                 }
                 Flight flight = airline.searchFlightByIndex(index);
                 if (airport.hasStock(flight)) {
@@ -227,7 +273,7 @@ public class AirportController {
                     String asiento = airportMenuView.displayRequestSeat();
                     Luggage<Equipaje> luggage = Luggage.addRandomLuggage();
                     airport.getAirportTicketOffice().sellTicket(flight, asiento, p, luggage);
-                }else {
+                } else {
                     throw new NotAvailableForSaleException("Asiento no disponible");
                 }
                 break;
@@ -249,41 +295,4 @@ public class AirportController {
         }
     }
     // endregion
-
-    private void loadFromJson() {
-        try {
-            File file = new File(airportJsonPath);
-            if (!file.exists()) return;
-
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-            Airport airportReadValue = mapper.readValue(file, Airport.class);
-
-            airport.setAirlines(airportReadValue.getAirlines());
-            airport.setPassangers(airportReadValue.getPassangers());
-
-            // airportMenuView.displayAirlines(airport.getAirlines());
-            //  airportMenuView.displayPassengers(airport.getPassangers());
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void saveToJson() {
-        try {
-            File file = new File(airportJsonPath);
-            if (!file.exists()) return;
-
-            ObjectMapper mapper = new ObjectMapper();
-
-            mapper.writeValue(file, airport);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-
 }

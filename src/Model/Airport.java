@@ -86,6 +86,14 @@ public class Airport {
         return null;
     }
 
+    public void addAirline(Airline airline) {
+        this.airlines.add(airline);
+    }
+
+    public void removeAirline(String iataAirlineCode) {
+        this.airlines.removeIf(airline -> airline.getIATAcode().equals(iataAirlineCode));
+    }
+
     public boolean hasStock(Flight flight){
         Airplane airplane = flight.getAirplane();
         return airportTicketOffice.hasStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), airplane.getCapabilities().getSeatForLetter(), airplane.getCapabilities().getTotalCapacity(), flight.getDoor());

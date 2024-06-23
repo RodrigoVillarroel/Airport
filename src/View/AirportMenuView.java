@@ -1,7 +1,10 @@
 package View;
 
 import Exceptions.InvalidIndexException;
+import Model.Airline;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class AirportMenuView {
@@ -25,6 +28,14 @@ public class AirportMenuView {
         System.out.println("1. Administrar Aerolínea");
         System.out.println("2. Administrar Pasajeros");
         System.out.println("3. Volver al Menú Principal");
+    }
+
+    public void displayAirlineMenu() {
+        System.out.println("\n----Administrar Aerolinea----");
+        System.out.println("1. Dar de alta");
+        System.out.println("2. Dar de baja");
+        System.out.println("3. Modificar nombre");
+        System.out.println("4. Volver al Menú Principal");
     }
 
     public void displayFlightsMenu() {
@@ -80,6 +91,41 @@ public class AirportMenuView {
         System.out.println("4. Simular Vuelo");
         System.out.println("5. Volver al Menú Principal");
     }
+    // endregion
+
+    public void displayAirlinesSummaryOption(LinkedList<Airline> airlines) {
+        System.out.println("Aerolíneas disponibles:");
+        for (Airline airline : airlines) {
+            System.out.printf("(%s) Name: %s, Aita: %s, Airplanes: %d, Employees: %d, Flights: %d, Locations: %d  \n", airline.getClass().getSimpleName(), airline.getAirlineName(), airline.getIATAcode(), getSize(airline.getAirplanes()), getSize(airline.getEmployees()), getSize(airline.getFlights()), getSize(airline.getLocations()) );
+        }
+    }
+
+    public String handleModifyAirlineInput() {
+        scanner.nextLine();
+        System.out.println("Ingrese el codigo iata de la aerolínea a modificar:");
+        return scanner.nextLine();
+    }
+
+    public String handleModifyAirlineNameInput() {
+        scanner.nextLine();
+        System.out.println("Ingrese el nuevo nombre:");
+        return scanner.nextLine();
+    }
+
+    public String[] handleAddAirlineInput() {
+        scanner.nextLine();
+        System.out.println("Ingrese el nombre de la nueva aerolínea:");
+        String airlineName = scanner.nextLine();
+        System.out.println("Ingrese el IATA Code de la nueva aerolínea:");
+        String iataCode = scanner.nextLine();
+        return new String[] { airlineName, iataCode };
+    }
+
+    public String handleDeleteAirlineInput() {
+        scanner.nextLine();
+        System.out.println("Ingrese el codigo iata de la aerolínea a quitar:");
+        return scanner.nextLine();
+    }
 
     public int displayRequestPassangerInfo(){
         System.out.println("Ingresar Informacion del Pasagero:");
@@ -102,9 +148,6 @@ public class AirportMenuView {
         return scanner.nextLine();
     }
 
-
-    // endregion
-
     // region Commons
     public void displayInvalidOptionMessage() {
         System.out.println("Opción no válida, intente nuevamente.");
@@ -118,9 +161,17 @@ public class AirportMenuView {
         System.out.println("Saliendo...");
     }
 
+    public void displayLineBreak() {
+        System.out.println("\n");
+    };
+
     public int handleUserInput() {
         System.out.print("Seleccione una opción: ");
         return scanner.nextInt();
+    }
+
+    private int getSize(Collection<?> list) {
+        return list == null ? 0 : list.size();
     }
     // endregion
 
