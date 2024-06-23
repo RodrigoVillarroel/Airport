@@ -2,6 +2,7 @@ package View;
 
 import Exceptions.InvalidIndexException;
 import Model.Airline;
+import Utils.Input;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -167,7 +168,7 @@ public class AirportMenuView {
 
     public int handleUserInput() {
         System.out.print("Seleccione una opción: ");
-        return scanner.nextInt();
+        return Input.requestUserInputInt();
     }
 
     private int getSize(Collection<?> list) {
