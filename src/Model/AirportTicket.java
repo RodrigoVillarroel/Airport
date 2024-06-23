@@ -78,6 +78,19 @@ public class AirportTicket {
     public String getGate() {
         return gate;
     }
+
+    @Override
+    public String toString() {
+        return "AirportTicket{" +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", bordingTime=" + bordingTime +
+                ", passanger=" + passanger +
+                ", price=" + price +
+                ", seat='" + seat + '\'' +
+                ", gate='" + gate + '\'' +
+                '}';
+    }
     // endregion
 }
 

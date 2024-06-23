@@ -1,14 +1,4 @@
 {
-  "airportTicketOffice": {
-    "price": null,
-    "additionalCost": null,
-    "reservedTickets": {},
-    "ticketStock": {}
-  },
-  "onlineTicketOffice": {
-    "price": null,
-    "additionalCost": null
-  },
   "airlines": [
     {
       "iatacode": "AA",
@@ -18,7 +8,7 @@
         {
           "registration_number": "YR-BAC",
           "plane_status": "active",
-          "capabilities": null
+          "capabilities": "SMALL"
         }
       ],
       "employees": [
@@ -38,7 +28,7 @@
           "airplane": {
             "registration_number": "YR-BAC",
             "plane_status": "active",
-            "capabilities": null
+            "capabilities": "SMALL"
           },
           "door": "1",
           "origin": "Buenos Aires",
@@ -78,18 +68,18 @@
   ],
   "passengers": [
     {
-      "name": "Paulo",
-      "surname": null,
-      "age": 29,
-      "numberIdentify": 5,
-      "passport_number": "2"
-    },
-    {
       "name": "Lionel Andres",
       "surname": null,
       "age": 36,
       "numberIdentify": 33016244,
       "passport_number": "1"
+    },
+    {
+      "name": "Paulo",
+      "surname": null,
+      "age": 29,
+      "numberIdentify": 5,
+      "passport_number": "2"
     }
   ]
 }

@@ -255,27 +255,7 @@ public class AirportController {
         switch (opcion) {
             case 1:
                 // TODO
-                int dni = airportMenuView.displayRequestPassangerInfo();
-                Passanger p = airport.searchPersonByDNI(dni);
-                airport.showAirlines();
-                int index = airportMenuView.displayRequesAirlineIndex();
-                Airline airline = airport.searchAirlineByIndex(index);
-                airport.getAirportTicketOffice().regenerateTicketStock(airline);
-                airline.showFlights();
-                index = airportMenuView.displayRequestFlight();
-                if (index > airport.getAirlines().size()) {
-                    throw new InvalidIndexException("Indice no valido");
-                }
-                Flight flight = airline.searchFlightByIndex(index);
-                if (airport.hasStock(flight)) {
-                    Airplane airplane = flight.getAirplane();
-                    airport.getAirportTicketOffice().listSeats(flight.getOrigin(), flight.getDestiny(), flight.getTime(), airplane.getCapabilities().getSeatForLetter(), airplane.getCapabilities().getTotalCapacity(), flight.getDoor());
-                    String asiento = airportMenuView.displayRequestSeat();
-                    Luggage<Equipaje> luggage = Luggage.addRandomLuggage();
-                    airport.getAirportTicketOffice().sellTicket(flight, asiento, p, luggage);
-                } else {
-                    throw new NotAvailableForSaleException("Asiento no disponible");
-                }
+                airport.sellAirportTicket();
                 break;
             case 2:
                 // administrarAerolineas.mostrarAerolineas();

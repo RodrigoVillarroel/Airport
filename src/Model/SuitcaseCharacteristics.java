@@ -46,5 +46,13 @@ public enum SuitcaseCharacteristics {
         return false;
     }
 
-
+    @Override
+    public String toString() {
+        return "SuitcaseCharacteristics{" +
+                "alto=" + alto +
+                ", largo=" + largo +
+                ", ancho=" + ancho +
+                ", peso=" + peso +
+                '}';
+    }
 }

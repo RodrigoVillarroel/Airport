@@ -24,4 +24,11 @@ public enum BackpackWeight {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "BackpackWeight{" +
+                "peso=" + peso +
+                '}';
+    }
 }

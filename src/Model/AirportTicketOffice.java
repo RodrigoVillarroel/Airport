@@ -5,12 +5,15 @@ import Exceptions.InvalidIndexException;
 import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Interfaces.ITicketManagement;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class AirportTicketOffice extends OfficeTicket implements ITicketManagement <AirportTicket, Luggage> {
+    @JsonProperty("reserved_tickets")
     private HashMap <String, AirportTicket> reservedTickets;
+    @JsonProperty("ticket_stock")
     private HashMap<String, AirportTicket> ticketStock;
 
     public AirportTicketOffice() {
@@ -33,7 +36,6 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
            /* if (seat) {
                 price = additionalCost(); //Verificar el tipo de asiento para definir costos adicionales
             }*/
-
             int count = luggage.isOverweight();
             price = price + (getAdditionalCost() * count);
             AirportTicket ticket = removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor());
@@ -89,7 +91,6 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
     public void regenerateTicketStock(Airline airline) throws NotFoundException, InvalidIndexException {
         if (!airline.getFlights().isEmpty()) {
             for (int i = 0; i < airline.getFlights().size(); i++) {
-
                 Flight flight = airline.getFlights().get(i);
                 updateTicketStock(flight);
             }

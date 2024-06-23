@@ -18,5 +18,11 @@ public class Backpack extends Equipaje{
 
     }
 
+    @Override
+    public String toString() {
+        return "Backpack{" +
+                "backpackWeight=" + backpackWeight +
+                '}';
+    }
 }
 
