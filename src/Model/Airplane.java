@@ -3,6 +3,7 @@ package Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.MessageFormat;
+import java.util.Objects;
 
 public class Airplane {
     @JsonProperty("registration_number")
@@ -50,11 +51,19 @@ public class Airplane {
     // endregion
     @Override
     public String toString() {
-        return "Airplane{" +
-                "registrationNumber='" + getRegistrationNumber() + '\'' +
-                ", status='" + getStatus() + '\'' +
-                ", capabilities=" + getCapabilities() +
-                '}';
+        return MessageFormat.format("Airplane'{'registrationNumber=''{0}'', status=''{1}'', capabilities={2}'}'", getRegistrationNumber(), getStatus(), getCapabilities());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airplane airplane = (Airplane) o;
+        return Objects.equals(registrationNumber, airplane.registrationNumber) && Objects.equals(status, airplane.status) && capabilities == airplane.capabilities;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(registrationNumber, status, capabilities);
+    }
 }

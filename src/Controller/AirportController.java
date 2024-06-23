@@ -14,15 +14,17 @@ import java.io.File;
 public class AirportController {
     private static final String airportJsonPath = "airport.json";
     Airport airport;
+    Airline airLine;
     AirportMenuView airportMenuView;
 
     public AirportController() {
         loadFromJson();
     }
 
-    public AirportController(Airport airport, AirportMenuView airportMenuView) {
+    public AirportController(Airport airport, AirportMenuView airportMenuView, Airline airline) {
         this.airport = airport;
         this.airportMenuView = airportMenuView;
+        this.airLine = airline;
         loadFromJson();
     }
 
@@ -39,7 +41,7 @@ public class AirportController {
                     handleAirlinesMenu();
                     break;
                 case 2:
-                    handleLocationMenu();
+                    handleAirportMenu();
                     break;
                 case 3:
                     handleTicketsSellsMenu();
@@ -66,6 +68,29 @@ public class AirportController {
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
+                handleFlightsMenu();
+                break;
+            case 2:
+                handleAirplanesMenu();
+                break;
+            case 3:
+                handleLocationMenu();
+                break;
+            case 4:
+                handleEmployeeMenu();
+                break;
+            case 5:
+                airportMenuView.displayBackMessage();
+                break;
+            default:
+                airportMenuView.displayInvalidOptionMessage();
+        }
+    }
+    private void handleAirportMenu() {
+        airportMenuView.displayAirportMenu();
+        int opcion = airportMenuView.handleUserInput();
+        switch (opcion) {
+            case 1:
                 // administrarAerolineas.agregarAerolinea();
                 break;
             case 2:
@@ -81,18 +106,95 @@ public class AirportController {
                 airportMenuView.displayInvalidOptionMessage();
         }
     }
+    private void handleFlightsMenu() {
+        airportMenuView.displayFlightsMenu();
+        int opcion = airportMenuView.handleUserInput();
+        switch (opcion) {
+            case 1:
+                    // crear vuelo
+                break;
+            case 2:
+                    // borrar vuelo
+                break;
+            case 3:
+                    // modificar vuelo
+                break;
+            case 4:
+                    // buscar vuelo
+                break;
+            case 5:
+                airportMenuView.displayBackMessage();
+                break;
+            default:
+                airportMenuView.displayInvalidOptionMessage();
+        }
+    }
+
+    private void handleAirplanesMenu() {
+        airportMenuView.displayAirplanesMenu();
+        int opcion = airportMenuView.handleUserInput();
+        switch (opcion) {
+            case 1:
+                // agregar avion
+                System.out.println(airLine.addAirplaneByKeyboard());
+                break;
+            case 2:
+                // borrar avion
+                break;
+            case 3:
+                // modificar avion
+                break;
+            case 4:
+                // buscar avion
+                break;
+            case 5:
+                airportMenuView.displayBackMessage();
+                break;
+            default:
+                airportMenuView.displayInvalidOptionMessage();
+        }
+    }
+
+    private void handleEmployeeMenu() {
+        airportMenuView.displayEmployeeMenu();
+        int opcion = airportMenuView.handleUserInput();
+        switch (opcion) {
+            case 1:
+                // agregar empleado
+                break;
+            case 2:
+                // borrar empleado
+                break;
+            case 3:
+                // modificar empleado
+                break;
+            case 4:
+                // buscar empleado
+            case 5:
+                airportMenuView.displayBackMessage();
+                break;
+            default:
+                airportMenuView.displayInvalidOptionMessage();
+        }
+    }
 
     private void handleLocationMenu() {
         airportMenuView.displayLocationsMenu();
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
-                // administrarLocaciones.agregarLocacion();
+                // agregar locacion
                 break;
             case 2:
-                // administrarLocaciones.quitarLocacion();
+                // borrar locacion
                 break;
             case 3:
+                // modificar locacion
+                break;
+            case 4:
+                // buscar locacion
+                break;
+            case 5:
                 airportMenuView.displayBackMessage();
                 break;
             default:

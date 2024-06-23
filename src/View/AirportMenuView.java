@@ -14,25 +14,62 @@ public class AirportMenuView {
     // region Menu
     public void displayMainMenu() {
         System.out.println("Menu Principal:");
-        System.out.println("1. Administrar Aerolíneas");
-        System.out.println("2. Administrar Locaciones");
+        System.out.println("1. Menu Aerolíneas");
+        System.out.println("2. Menu Aeropuerto");
         System.out.println("3. Menu de Venta");
         System.out.println("4. Salir");
     }
 
+    public void displayAirportMenu() {
+        System.out.println("Administrar Aeropuerto:");
+        System.out.println("1. Administrar Aerolínea");
+        System.out.println("2. Administrar Pasajeros");
+        System.out.println("3. Volver al Menú Principal");
+    }
+
+    public void displayFlightsMenu() {
+        System.out.println("Menu Vuelos:");
+        System.out.println("1. Crear Vuelo");
+        System.out.println("2. Borrar Vuelo");
+        System.out.println("3. Modificar Vuelo");
+        System.out.println("4. Buscar Vuelo");
+        System.out.println("5. Volver al Menú Principal");
+    }
+
     public void displayAirlinesMenu() {
-        System.out.println("Administrar Aerolíneas:");
-        System.out.println("1. Agregar Aerolínea");
-        System.out.println("2. Quitar Aerolínea");
-        System.out.println("3. Modificar Aerolínea");
-        System.out.println("4. Volver al Menú Principal");
+        System.out.println("Menu Aerolíneas:");
+        System.out.println("1. Menu Vuelos");
+        System.out.println("2. Menu Aviones");
+        System.out.println("3. Menu Locaciones");
+        System.out.println("4. Menu Empleados");
+        System.out.println("5. Volver al Menú Principal");
+    }
+
+    public void displayAirplanesMenu() {
+        System.out.println("Administrar Aviones:");
+        System.out.println("1. Agregar Avion");
+        System.out.println("2. Quitar Avion");
+        System.out.println("3. Modificar Avion");
+        System.out.println("4. buscar Avion");
+        System.out.println("5. Volver al Menú Principal");
+    }
+
+    public void displayEmployeeMenu() {
+        System.out.println("Administrar Empleados:");
+        System.out.println("1. Agregar Empleado");
+        System.out.println("2. Quitar Empleado");
+        System.out.println("3. Modificar Empleado");
+        System.out.println("4. Buscar Empleado");
+        System.out.println("5. Volver al Menú Principal");
     }
 
     public void displayLocationsMenu() {
         System.out.println("Administrar Locaciones:");
         System.out.println("1. Agregar Nueva Locación");
         System.out.println("2. Quitar Locación");
-        System.out.println("3. Volver al Menú Principal");
+        System.out.println("3. Modificar Locación");
+        System.out.println("4. Buscar Locación");
+        System.out.println("5. Volver al Menú Principal");
     }
 
     public void displayTicketsSellsMenu() {

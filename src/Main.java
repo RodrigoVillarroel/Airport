@@ -1,5 +1,6 @@
 import Controller.AirportController;
 import Exceptions.NotAvailableForSaleException;
+import Model.Airline;
 import Model.Airplane;
 import Model.AirplaneCapabilities;
 import Model.Airport;
@@ -9,12 +10,13 @@ public class Main {
     public static void main(String[] args) throws NotAvailableForSaleException {
         /** Models **/
         Airport airport = new Airport();
+        Airline airline = new Airline();
 
         /** Views **/
         AirportMenuView airportMenuView = new AirportMenuView();
 
         /** Controllers **/
-        AirportController airportController = new AirportController(airport, airportMenuView);
+        AirportController airportController = new AirportController(airport, airportMenuView,airline);
 
         /** Display main menu **/
         int opcion;
