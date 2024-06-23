@@ -81,22 +81,6 @@ public class AirportMenuView {
         System.out.println("5. Volver al Menú Principal");
     }
 
-    public int displayRequestPassangerInfo(){
-        System.out.println("Ingresar Informacion del Pasagero:");
-        System.out.println("Numero de Identificacion:");
-        return scanner.nextInt();
-    }
-
-    public int displayRequesAirlineIndex(){
-        System.out.println("Selecciones el indice de la Aerolinea:");
-        return handleUserInput()-1;
-    }
-
-    public int displayRequestFlight(){
-        System.out.println("Seleccione el indice del Vuelo:");
-        return scanner.nextInt() - 1;
-    }
-
     public String displayRequestSeat(){
         System.out.println("Seleccione el numero de asiento que desee");
         return scanner.nextLine();

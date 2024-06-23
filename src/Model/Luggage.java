@@ -53,4 +53,11 @@ public class Luggage<T>{
         luggage.getLuggage().add(backpack);
         return luggage;
     }
+
+    @Override
+    public String toString() {
+        return "Luggage{" +
+                "luggages=" + luggages +
+                '}';
+    }
 }

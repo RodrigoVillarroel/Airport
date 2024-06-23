@@ -1,11 +1,16 @@
 package Model;
 
+import Exceptions.InvalidIndexException;
+import Exceptions.NotAvailableForSaleException;
+import Exceptions.NotFoundException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.swing.*;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Airport {
     @JsonProperty("airlines")
@@ -59,13 +64,19 @@ public class Airport {
     public String toString() {
         return MessageFormat.format("Airport'{'airlines={0}, passangers={1}'}'", getAirlines(), getPassangers());
     }
-    public Passanger searchPersonByDNI(Integer dni){
+    public Passanger searchPersonByDNI() throws NotFoundException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese DNI del Pasajero:");
+        int dni = scanner.nextInt();
+
         if(!passangers.isEmpty()){
             for (Passanger p : passangers){
                 if(p.getNumberIdentify().equals(dni)){
                     return p;
                 }
             }
+        }else {
+            throw new NotFoundException("Lista de Pasajeros vacia");
         }
         return null;
     }
@@ -90,4 +101,49 @@ public class Airport {
         Airplane airplane = flight.getAirplane();
         return airportTicketOffice.hasStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), airplane.getCapabilities().getSeatForLetter(), airplane.getCapabilities().getTotalCapacity(), flight.getDoor());
     }
+
+    public void sellAirportTicket() throws InvalidIndexException, NotFoundException, NotAvailableForSaleException {
+        showAndSelectAirline();
+    }
+
+
+    public void showAndSelectAirline() throws NotFoundException, InvalidIndexException, NotAvailableForSaleException {
+        Passanger p = searchPersonByDNI();
+        Scanner scanner = new Scanner(System.in);
+        showAirlines();
+        System.out.println("Seleccione el indice de la Aerolinea que desee:");
+        int index = scanner.nextInt();
+        if (index>getAirlines().size())
+        {
+            throw new  InvalidIndexException("Indice no valido");
+        }
+        Airline airline = searchAirlineByIndex(index-1);
+        Flight flight = showAndSelectFlights(airline);
+        buyAirportTicket(flight, p);
+    }
+
+    public Flight showAndSelectFlights(Airline airline) throws InvalidIndexException {
+        Scanner scanner = new Scanner(System.in);
+        airline.showFlights();
+        System.out.println("Seleccione el indice del Vuelo que desee");
+        int index = scanner.nextInt();
+
+        if (index>airline.getFlights().size())
+        {
+            throw new InvalidIndexException("Indice no valido");
+        }else {
+            return airline.searchFlightByIndex(index);
+        }
+    }
+
+    public void buyAirportTicket(Flight flight, Passanger passanger) throws NotAvailableForSaleException {
+        if (hasStock(flight)){
+            System.out.println(getAirportTicketOffice().listSeats(flight.getOrigin(), flight.getDestiny(), flight.getTime(), flight.getAirplane().getCapabilities().getSeatForLetter(), flight.getAirplane().getCapabilities().getTotalCapacity(), flight.getDoor()));
+            String seat = flight.selectSeat();
+            Luggage<Equipaje> luggage = Luggage.addRandomLuggage();
+            System.out.println("Su ticket de vuelo: ");
+            System.out.println(getAirportTicketOffice().sellTicket(flight, seat, passanger, luggage));
+        }
+    }
+
 }

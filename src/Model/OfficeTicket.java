@@ -12,7 +12,7 @@ public abstract class OfficeTicket {
     }
 
     public Double getAdditionalCost() {
-        return additionalCost;
+        return 150D;
     }
 
     public void setPrice(Double price) {

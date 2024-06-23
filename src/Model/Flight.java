@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Flight {
     @JsonProperty("code")
@@ -99,6 +100,16 @@ public class Flight {
     @Override
     public String toString() {
         return MessageFormat.format("Flight'{'code=''{0}'', airplane={1}, door=''{2}'', origin=''{3}'', destiny=''{4}'', time={5}, stateFlight=''{6}'''}'", getCode(), getAirplane(), getDoor(), getOrigin(), getDestiny(), getTime(), getStateFlight());
+    }
+
+    public String selectSeat(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese LETRA y NUMERO del asieto que desee comprar:");
+
+        System.out.println("FORMATO REQUERIDO (LETRA MAYUSCULA/NUMERO)");
+        String seat = scanner.nextLine();
+
+        return seat;
     }
 
 }

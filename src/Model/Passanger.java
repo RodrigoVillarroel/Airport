@@ -41,4 +41,11 @@ public class Passanger extends Person {
     public String toString() {
         return super.toString().concat(MessageFormat.format("Passanger'{'nroPassport=''{0}'', luggage={1}'}'", getNroPassport()));
     }
+
+    public Passanger searchPassangerByDni(){
+
+
+        return null;
+    }
+
 }

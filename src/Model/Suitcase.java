@@ -16,10 +16,10 @@ public class  Suitcase extends Equipaje{
         if (reference<6){
             setSuitcaseCharacteristics(SuitcaseCharacteristics.NORMAL);
         }
-        if (reference<11 && reference>6){
+        if (reference<11 && reference>=6){
             setSuitcaseCharacteristics(SuitcaseCharacteristics.SOBREDIMENSIONES);
         }
-        if (reference<16 && reference>11){
+        if (reference<=15 && reference>=11){
             setSuitcaseCharacteristics(SuitcaseCharacteristics.SOBREPESO);
         }
     }
@@ -31,5 +31,10 @@ public class  Suitcase extends Equipaje{
         return suitcaseCharacteristics.isOverweight();
     }
 
-
+    @Override
+    public String toString() {
+        return "Suitcase{" +
+                "suitcaseCharacteristics=" + suitcaseCharacteristics +
+                '}';
+    }
 }
