@@ -272,5 +272,18 @@ public class AirportController {
         }
     }
 
+    public void saveToJson() {
+        try {
+            File file = new File(airportJsonPath);
+            if (!file.exists()) return;
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            mapper.writeValue(file, airport);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
 
 }

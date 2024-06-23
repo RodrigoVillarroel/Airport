@@ -24,5 +24,8 @@ public class Main {
             airportController.displayMenu();
             opcion = airportController.handleUserInput();
         } while (opcion != 4);
+
+        /** Persist data **/
+        airportController.saveToJson();
     }
 }

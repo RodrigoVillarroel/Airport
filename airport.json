@@ -1,28 +1,35 @@
 {
+  "airportTicketOffice": {
+    "price": null,
+    "additionalCost": null,
+    "reservedTickets": {},
+    "ticketStock": {}
+  },
+  "onlineTicketOffice": {
+    "price": null,
+    "additionalCost": null
+  },
   "airlines": [
     {
+      "iatacode": "AA",
       "airline_name": "American Airlines",
       "iata_code": "AA",
       "airplanes": [
         {
           "registration_number": "YR-BAC",
           "plane_status": "active",
-          "first_class_capacity": 15,
-          "executive_class_capacity": 20,
-          "premium_economic_class_capacity": 30,
-          "economic_class_capacity": 30,
-          "total_capacity": 30
+          "capabilities": null
         }
       ],
       "employees": [
         {
+          "name": "Claudio Fabian",
+          "surname": null,
+          "age": 56,
+          "numberIdentify": 33016244,
           "file": "123",
           "workstation": "Agente de trafico",
-          "status": "vacaciones",
-          "name": "Claudio Fabian",
-          "surname:": "Tapia",
-          "age": 56,
-          "numberIdentify": 33016244
+          "status": "vacaciones"
         }
       ],
       "flights": [
@@ -31,18 +38,12 @@
           "airplane": {
             "registration_number": "YR-BAC",
             "plane_status": "active",
-            "capabilities": {
-              "name": "MEDIUM",
-              "first_class_capacity": 15,
-              "executive_class_capacity": 20,
-              "premium_economic_class_capacity": 30,
-              "economic_class_capacity": 30,
-              "total_capacity": 30
-            }
+            "capabilities": null
           },
           "door": "1",
           "origin": "Buenos Aires",
           "destiny": "Madrid",
+          "time": null,
           "state": "Espera"
         }
       ],
@@ -60,35 +61,35 @@
       ]
     },
     {
+      "iatacode": "AA-2",
       "airline_name": "American Airlines 2",
       "iata_code": "AA-2",
       "airplanes": [
         {
           "registration_number": "YR-BAC-2",
           "plane_status": "inactive",
-          "first_class_capacity": 15,
-          "executive_class_capacity": 20,
-          "premium_economic_class_capacity": 30,
-          "economic_class_capacity": 30,
-          "total_capacity": 30
+          "capabilities": null
         }
-      ]
+      ],
+      "employees": null,
+      "flights": null,
+      "locations": null
     }
   ],
   "passengers": [
     {
-      "passport_number": "1",
-      "name": "Lionel Andres",
-      "surname:": "Messi Cuccittini",
-      "age": 36,
-      "numberIdentify": 33016244
+      "name": "Paulo",
+      "surname": null,
+      "age": 29,
+      "numberIdentify": 5,
+      "passport_number": "2"
     },
     {
-      "passport_number": "2",
-      "name": "Paulo",
-      "surname:": "Diaz",
-      "age": 29,
-      "numberIdentify": 5
+      "name": "Lionel Andres",
+      "surname": null,
+      "age": 36,
+      "numberIdentify": 33016244,
+      "passport_number": "1"
     }
   ]
 }

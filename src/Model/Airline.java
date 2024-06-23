@@ -128,7 +128,7 @@ public class Airline {
         do {
             System.out.println("\nCarga de avion...");
             System.out.println("\nCodigo de identificacion: ");
-            airplane.setRegistrationNumber(scanner.next());
+            airplane.setRegistrationNumber(scanner.nextLine());
             // System.out.println(STR."\nseleccione las capacidades:\n1) \{AirplaneCapabilities.SMALL}\n2) \{AirplaneCapabilities.MEDIUM}\n3) \{AirplaneCapabilities.BIG}");
             selection = scanner.nextInt();
             switch (selection){
