@@ -13,7 +13,7 @@ public class AirportMenuView {
 
     // region Menu
     public void displayMainMenu() {
-        System.out.println("Menu Principal:");
+        System.out.println("\n----Menu Principal----");
         System.out.println("1. Menu Aerolíneas");
         System.out.println("2. Menu Aeropuerto");
         System.out.println("3. Menu de Venta");
@@ -21,14 +21,14 @@ public class AirportMenuView {
     }
 
     public void displayAirportMenu() {
-        System.out.println("Administrar Aeropuerto:");
+        System.out.println("\n----Administrar Aeropuerto----");
         System.out.println("1. Administrar Aerolínea");
         System.out.println("2. Administrar Pasajeros");
         System.out.println("3. Volver al Menú Principal");
     }
 
     public void displayFlightsMenu() {
-        System.out.println("Menu Vuelos:");
+        System.out.println("\n----Menu Vuelos----");
         System.out.println("1. Crear Vuelo");
         System.out.println("2. Borrar Vuelo");
         System.out.println("3. Modificar Vuelo");
@@ -37,7 +37,7 @@ public class AirportMenuView {
     }
 
     public void displayAirlinesMenu() {
-        System.out.println("Menu Aerolíneas:");
+        System.out.println("\n----Menu Aerolíneas----");
         System.out.println("1. Menu Vuelos");
         System.out.println("2. Menu Aviones");
         System.out.println("3. Menu Locaciones");
@@ -46,7 +46,7 @@ public class AirportMenuView {
     }
 
     public void displayAirplanesMenu() {
-        System.out.println("Administrar Aviones:");
+        System.out.println("\n----Administrar Aviones----");
         System.out.println("1. Agregar Avion");
         System.out.println("2. Quitar Avion");
         System.out.println("3. Modificar Avion");
@@ -55,7 +55,7 @@ public class AirportMenuView {
     }
 
     public void displayEmployeeMenu() {
-        System.out.println("Administrar Empleados:");
+        System.out.println("\n----Administrar Empleados----");
         System.out.println("1. Agregar Empleado");
         System.out.println("2. Quitar Empleado");
         System.out.println("3. Modificar Empleado");
@@ -64,7 +64,7 @@ public class AirportMenuView {
     }
 
     public void displayLocationsMenu() {
-        System.out.println("Administrar Locaciones:");
+        System.out.println("\n----Administrar Locaciones----");
         System.out.println("1. Agregar Nueva Locación");
         System.out.println("2. Quitar Locación");
         System.out.println("3. Modificar Locación");
@@ -73,7 +73,7 @@ public class AirportMenuView {
     }
 
     public void displayTicketsSellsMenu() {
-        System.out.println("Menu de Venta:");
+        System.out.println("\n----Menu de Venta----");
         System.out.println("1. Compra Online");
         System.out.println("2. Elegir Aerolíneas");
         System.out.println("3. Elegir Destino");
