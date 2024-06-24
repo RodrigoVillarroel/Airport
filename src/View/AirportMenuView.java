@@ -1,6 +1,4 @@
 package View;
-
-import Exceptions.InvalidIndexException;
 import Model.Airline;
 import Utils.Input;
 
@@ -32,7 +30,7 @@ public class AirportMenuView {
     }
 
     public void displayAirlineMenu() {
-        System.out.println("\n----Administrar Aerolinea----");
+        System.out.println("\n----Administrar Aerolínea----");
         System.out.println("1. Dar de alta");
         System.out.println("2. Dar de baja");
         System.out.println("3. Modificar nombre");
@@ -59,10 +57,10 @@ public class AirportMenuView {
 
     public void displayAirplanesMenu() {
         System.out.println("\n----Administrar Aviones----");
-        System.out.println("1. Agregar Avion");
-        System.out.println("2. Quitar Avion");
-        System.out.println("3. Modificar Avion");
-        System.out.println("4. buscar Avion");
+        System.out.println("1. Agregar Avión");
+        System.out.println("2. Quitar Avión");
+        System.out.println("3. Modificar Avión");
+        System.out.println("4. buscar Avión");
         System.out.println("5. Volver al Menú Principal");
     }
 
@@ -86,11 +84,13 @@ public class AirportMenuView {
 
     public void displayTicketsSellsMenu() {
         System.out.println("\n----Menu de Venta----");
-        System.out.println("1. Compra Online");
-        System.out.println("2. Elegir Aerolíneas");
-        System.out.println("3. Elegir Destino");
-        System.out.println("4. Simular Vuelo");
-        System.out.println("5. Volver al Menú Principal");
+        System.out.println("1. Compra un Ticket de Vuelo");
+        System.out.println("2. Comprar un Ticket Online");
+        System.out.println("3. Canjear Código de Ticket");
+        System.out.println("4. Comprar por Vuelo");
+        System.out.println("5. Comprar por Destino");
+        System.out.println("6. Simular Vuelo");
+        System.out.println("7. Volver al Menú Principal");
     }
     // endregion
 
@@ -103,7 +103,7 @@ public class AirportMenuView {
 
     public String handleModifyAirlineInput() {
         scanner.nextLine();
-        System.out.println("Ingrese el codigo iata de la aerolínea a modificar:");
+        System.out.println("Ingrese el código IATA de la aerolínea a modificar:");
         return scanner.nextLine();
     }
 
@@ -124,7 +124,7 @@ public class AirportMenuView {
 
     public String handleDeleteAirlineInput() {
         scanner.nextLine();
-        System.out.println("Ingrese el codigo iata de la aerolínea a quitar:");
+        System.out.println("Ingrese el código IATA de la aerolínea a quitar:");
         return scanner.nextLine();
     }
 
@@ -159,5 +159,4 @@ public class AirportMenuView {
         return list == null ? 0 : list.size();
     }
     // endregion
-
 }

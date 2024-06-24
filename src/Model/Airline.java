@@ -327,6 +327,24 @@ public class Airline {
             getLocations().forEach(System.out::println);
         }
     }
+    public boolean containThisDestiny(String destiny){
+        if (!flights.isEmpty()){
+            for (Flight f : flights) {
+                if (f.thisFlightExist(destiny)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-
+    public HashMap<String, Flight> getThisFlight(String destiny){
+        HashMap<String, Flight> myDestiny = new HashMap<>();
+        for (Flight a : flights){
+            if (a.getDestiny().equalsIgnoreCase(destiny)){
+                myDestiny.put(getAirlineName(), a);
+            }
+        }
+        return myDestiny;
+    }
 }

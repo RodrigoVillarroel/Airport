@@ -7,8 +7,10 @@ import Exceptions.NotFoundException;
 import Interfaces.ITicketManagement;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.net.ServerSocket;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class AirportTicketOffice extends OfficeTicket implements ITicketManagement <AirportTicket, Luggage> {
     @JsonProperty("reserved_tickets")
@@ -32,14 +34,15 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
 
     public AirportTicket sellTicket(Flight flight, String seat, Passanger passanger, Luggage luggage) throws NotAvailableForSaleException {
         if (isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
-            double price = getPrice();
+            double price = 15;
            /* if (seat) {
                 price = additionalCost(); //Verificar el tipo de asiento para definir costos adicionales
             }*/
             int count = luggage.isOverweight();
-            price = price + (getAdditionalCost() * count);
+            //price = price + (getAdditionalCost() * count);
             AirportTicket ticket = removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor());
             ticket.setPrice(price);
+            ticket.setPassanger(passanger);
             return ticket;
         } else {
             throw new NotAvailableForSaleException("This seat is not available");
@@ -151,13 +154,13 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         }
         return ans;
     }
-
+        //REMUEVE TODOS LOS TICKETS DE UN VUELO DEL STOCK
     public void removeTicketStock(String from, String to, LocalDateTime time, Flight flight) {
         char seatRow = 'A';  // Letra inicial para la fila de asientos
         int maxSeatsPerRow = flight.getAirplane().getCapabilities().getSeatForLetter();
 
         for (int i = 1; i <= flight.getAirplane().getCapabilities().getTotalCapacity(); i++) {
-            int seatNumber = i % maxSeatsPerRow;  // Número de asiento (1-10)
+            int seatNumber = i % maxSeatsPerRow;
 
             // Si hemos alcanzado el asiento número 10, incrementamos la letra de la fila
             if (seatNumber == 0) {
@@ -183,9 +186,12 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         }
     }
 
-    public AirportTicket exchangeTicket(String code) throws NotFoundException {
+    public void exchangeTicket() throws NotFoundException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el Código de Ticket: ");
+        String code = scanner.nextLine();
         if (getReservedTickets().containsKey(code)) {
-            return getReservedTickets().remove(code);
+            System.out.println(getReservedTickets().remove(code));
         } else {
             throw new NotFoundException("This ticket code doesn't exist: " + code);
         }

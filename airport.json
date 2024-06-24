@@ -35,6 +35,19 @@
           "destiny": "Madrid",
           "time": null,
           "state": "Espera"
+        },
+        {
+          "code": "YR-BAC",
+          "airplane": {
+            "registration_number": "YR-BAC",
+            "plane_status": "active",
+            "capabilities": "SMALL"
+          },
+          "door": "1",
+          "origin": "Buenos Aires",
+          "destiny": "Londres",
+          "time": null,
+          "state": "Espera"
         }
       ],
       "locations": [
@@ -62,7 +75,34 @@
         }
       ],
       "employees": null,
-      "flights": null,
+      "flights": [
+        {
+          "code": "YR-BAC",
+          "airplane": {
+            "registration_number": "YR-BAC",
+            "plane_status": "active",
+            "capabilities": "SMALL"
+          },
+          "door": "1",
+          "origin": "Buenos Aires",
+          "destiny": "Londres",
+          "time": null,
+          "state": "Espera"
+        },
+        {
+          "code": "YR-BAC",
+          "airplane": {
+            "registration_number": "YR-BAC",
+            "plane_status": "active",
+            "capabilities": "SMALL"
+          },
+          "door": "1",
+          "origin": "Buenos Aires",
+          "destiny": "Honk Kong",
+          "time": null,
+          "state": "Espera"
+        }
+      ],
       "locations": null
     }
   ],
