@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
+import java.util.Scanner;
 
 public class AirportController {
     private static final String airportJsonPath = "airport.json";
@@ -38,7 +39,7 @@ public class AirportController {
         try {
             switch (opcion) {
                 case 1:
-                    handleAirlinesMenu();
+                    handleSelectionAirlinesMenu();
                     break;
                 case 2:
                     handleAirportMenu();
@@ -62,16 +63,34 @@ public class AirportController {
         return opcion;
     }
 
+    private void handleSelectionAirlinesMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("seleccione una aerolinea: ");
+        int opcion = 0;
+        airport.showAirlines();
+        opcion = scanner.nextInt();
+        Airline airline = airport.searchAirlineByIndex(opcion-1);
 
-    private void handleAirlinesMenu() {
-        airportMenuView.displayAirlinesMenu();
+        if(airline!=null){
+            System.out.println(airline);
+            handleAirlinesMenu(airline);
+
+        }else {
+            System.out.println("no se encuentra la aerolinea..");
+            handleSelectionAirlinesMenu();
+        }
+    }
+
+
+    private void handleAirlinesMenu(Airline airline) {
+        airportMenuView.displayAirlinesMenu(airline.getAirlineName(),airline.getIATAcode());
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
                 handleFlightsMenu();
                 break;
             case 2:
-                handleAirplanesMenu();
+                handleAirplanesMenu(airline);
                 break;
             case 3:
                 handleLocationMenu();
@@ -130,8 +149,10 @@ public class AirportController {
         }
     }
 
-    private void handleAirplanesMenu() {
+    private void handleAirplanesMenu(Airline airline) {
         airportMenuView.displayAirplanesMenu();
+        airline.listAirplanesWithOptions();
+        Scanner scanner = new Scanner(System.in);
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
@@ -140,14 +161,27 @@ public class AirportController {
                 break;
             case 2:
                 // borrar avion
+                airline.listAirplanesWithOptions();
+                System.out.println("Escriba el cod del avion a eliminar: ");
+                System.out.println(airline.removeAirplaneByRegistrationNumber(scanner.nextLine()));
                 break;
             case 3:
-                // modificar avion
+                // modificar status avion
+                airline.listAirplanesWithOptions();
+                System.out.println("Escriba el cod del avion a modificar: ");
+                airline.modifyStatusAirplane(scanner.nextLine());
+                airline.listAirplanesWithOptions();
                 break;
             case 4:
                 // buscar avion
+                System.out.println("Escriba el cod del avion a buscar: ");
+                System.out.println(airline.searchAirplane(scanner.nextLine()));
                 break;
             case 5:
+                // listar aviones
+                airline.listAirplanes();
+                break;
+            case 6:
                 airportMenuView.displayBackMessage();
                 break;
             default:
@@ -157,20 +191,28 @@ public class AirportController {
 
     private void handleEmployeeMenu() {
         airportMenuView.displayEmployeeMenu();
+        Scanner scanner = new Scanner(System.in);
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
                 // agregar empleado
+                System.out.println(airLine.addEmployeeByKeyboard());
                 break;
             case 2:
                 // borrar empleado
+                System.out.println("Ingrese dni del empleado a eliminar:");
+                System.out.println(airLine.removeEmployee(airLine.searchEmployee(scanner.nextInt())));
                 break;
             case 3:
                 // modificar empleado
                 break;
             case 4:
                 // buscar empleado
+                System.out.println("Ingrese dni:");
+                System.out.println(airLine.searchEmployee(scanner.nextInt()));
             case 5:
+                airLine.listEmployee();
+            case 6:
                 airportMenuView.displayBackMessage();
                 break;
             default:
@@ -180,21 +222,28 @@ public class AirportController {
 
     private void handleLocationMenu() {
         airportMenuView.displayLocationsMenu();
+        Scanner scanner = new Scanner(System.in);
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
                 // agregar locacion
+                System.out.println(airLine.addLocationByKeyboard());
                 break;
             case 2:
-                // borrar locacion
+                System.out.println("Ingrese nombre del aeropuerto:");
+                System.out.println(airLine.removeLocation(airLine.searchLocationForAirportName(scanner.nextLine())));
                 break;
             case 3:
                 // modificar locacion
                 break;
             case 4:
-                // buscar locacion
+                System.out.println("Ingrese nombre del aeropuerto:");
+                System.out.println(airLine.searchLocationForAirportName(scanner.nextLine()));
                 break;
             case 5:
+                airLine.listLocation();
+                break;
+            case 6:
                 airportMenuView.displayBackMessage();
                 break;
             default:

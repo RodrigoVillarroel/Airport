@@ -36,8 +36,9 @@ public class AirportMenuView {
         System.out.println("5. Volver al Menú Principal");
     }
 
-    public void displayAirlinesMenu() {
-        System.out.println("\n----Menu Aerolíneas----");
+    public void displayAirlinesMenu(String name, String iataCode) {
+        System.out.println("\n----Menu Aerolínea----");
+        System.out.println("\n----- "+ name + " ------\n------IATA CODE: " + iataCode + " ----");
         System.out.println("1. Menu Vuelos");
         System.out.println("2. Menu Aviones");
         System.out.println("3. Menu Locaciones");
@@ -49,9 +50,10 @@ public class AirportMenuView {
         System.out.println("\n----Administrar Aviones----");
         System.out.println("1. Agregar Avion");
         System.out.println("2. Quitar Avion");
-        System.out.println("3. Modificar Avion");
+        System.out.println("3. Modificar Estado de Avion");
         System.out.println("4. buscar Avion");
-        System.out.println("5. Volver al Menú Principal");
+        System.out.println("5. listar Aviones");
+        System.out.println("6. Volver al Menú Principal");
     }
 
     public void displayEmployeeMenu() {
@@ -60,7 +62,8 @@ public class AirportMenuView {
         System.out.println("2. Quitar Empleado");
         System.out.println("3. Modificar Empleado");
         System.out.println("4. Buscar Empleado");
-        System.out.println("5. Volver al Menú Principal");
+        System.out.println("5. Listar Empleados");
+        System.out.println("6. Volver al Menú Principal");
     }
 
     public void displayLocationsMenu() {
@@ -69,7 +72,8 @@ public class AirportMenuView {
         System.out.println("2. Quitar Locación");
         System.out.println("3. Modificar Locación");
         System.out.println("4. Buscar Locación");
-        System.out.println("5. Volver al Menú Principal");
+        System.out.println("5. Listar Locaciónes");
+        System.out.println("6. Volver al Menú Principal");
     }
 
     public void displayTicketsSellsMenu() {
