@@ -166,28 +166,115 @@ public class Airline {
         }
         return false;
     }
-    public Airplane searchAirplane(String cod){
+    public boolean removeAirplaneByRegistrationNumber(String numberRegistration){
+        this.listAirplanes();
+        System.out.println("numberRegistration = " + numberRegistration);
+        if(getAirplanes()!=null){
+            System.out.println("trae:");
+            System.out.println(this.searchAirplane(numberRegistration));
+            return this.removeAirplane(this.searchAirplane(numberRegistration));
+        }
+        return false;
+    }
+    public Airplane searchAirplane(String numberRegistration){
         if (getAirplanes()!=null){
             for(Airplane airplane: getAirplanes()){
-                if(airplane.getRegistrationNumber().equals(cod)){
+                if(airplane.getRegistrationNumber().equals(numberRegistration)){
                     return airplane;
                 }
             }
         }
         return null;
     }
+    /*public Airplane searchAirplaneByIterator(){
+        if(getAirplanes()!=null){
+            for (Airplane a : getAirplanes()){
+                if()
+                getAirplanes().iterator()
+            }
+        }
+    }*/
+    public void modifyStatusAirplane(String numberRegistration){
+        Airplane airplane = searchAirplane(numberRegistration);
+            if (airplane!=null){
+                System.out.println(airplane);
+                int option = 0;
+                Scanner scanner = new Scanner(System.in);
+                option = scanner.nextInt();
+                if(airplane.getStatus().equals("active")){
+                    airplane.setStatus("inactive");
+                }else{
+                    airplane.setStatus("active");
+                }
+            }
+    }
     public void listAirplanes(){
         if(getAirplanes()!=null){
             getAirplanes().forEach(System.out::println);
+        }else if(getAirplanes().isEmpty()){
+            System.out.println("vacio");
         }
     }
+    public void listAirplanesWithOptions(){
+        if(getAirplanes()!=null){
+            int i = 1;
+            for (Airplane a : getAirplanes()) {
+                System.out.println(i + ") " + a.getRegistrationNumber());
+            }
+        }
 
+    }
+
+    public void listAirplanesWithIterator(){
+
+        Iterator<Airplane> iterator = getAirplanes().iterator();
+        System.out.println("listando iterator");
+        while (iterator.hasNext()) {
+            Airplane a = iterator.next();
+            System.out.println(iterator);
+        }
+    }
     /** METHODS CONTROL EMPLOYEES */
     public boolean addEmployee(Employee employee){
         if (getEmployees() == null) {
             setEmployees(new HashSet<>());
         }
         return getEmployees().add(employee);
+    }
+    public boolean addEmployeeByKeyboard(){
+
+        if(getEmployees()==null) {
+            setEmployees(new HashSet<>());
+        }
+        int option;
+        Scanner scanner = new Scanner(System.in);
+        Employee employee = new Employee();
+        System.out.println("\nCarga de Empleado...");
+        System.out.println("\nLegajo de identificacion: ");
+        employee.setFile(scanner.nextLine());
+        System.out.println("\nNombre: ");
+        employee.setName(scanner.nextLine());
+        System.out.println("\nApellido: ");
+        employee.setSurname(scanner.nextLine());
+        System.out.println("\nDNI: ");
+        employee.setNumberIdentify(scanner.nextInt());
+        String s;
+        System.out.println("\nPuesto de trabajo: ");
+        s = scanner.next();
+        employee.setWorkstation(s);
+        System.out.println("\nEdad: ");
+        employee.setAge(scanner.nextInt());
+
+        employee.setStatus("active");
+
+        System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
+        option = scanner.nextInt();
+        if(option ==2){
+            return false;
+        }
+
+        System.out.println(employee);
+        return this.addEmployee(employee);
     }
     public boolean removeEmployee(Employee employee){
         if(getEmployees()!=null) {
@@ -230,7 +317,35 @@ public class Airline {
         }
         return getLocations().add(location);
     }
+    public boolean addLocationByKeyboard(){
+        if(getLocations()==null) {
+            setLocations(new HashSet<>());
+        }
+        int option;
+        Scanner scanner = new Scanner(System.in);
+        Location location = new Location();
+        System.out.println("\nCarga de Locacion...");
+        System.out.println("\nNombre del Aeropuerto: ");
+        location.setNameAirport(scanner.nextLine());
+        System.out.println("\nCiudad,Pais: ");
+        location.setLocation(scanner.nextLine());
+        System.out.println("\nCantidad de puertas: ");
+        int quantity = scanner.nextInt();
+        if(quantity>=0){
+            location.setDoors(new ArrayList<>());
+            for (int i = 0; i < quantity; i++) {
+                location.getDoors().add(new BoardingDoor((new Random().nextInt(1,9999)),true));
+            }
+        }
+        System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
+        option = scanner.nextInt();
+        if(option ==2){
+            return false;
+        }
 
+        System.out.println(location);
+        return this.addLocation(location);
+    }
     public boolean removeLocation(Location location){
         if(getLocations()!=null){
             return getLocations().remove(location);
@@ -263,7 +378,6 @@ public class Airline {
             }
         }
     }
-
     public Location searchLocationForAirportName(String name){
         if(getLocations()!=null){
             for (Location location : getLocations()){
@@ -274,7 +388,6 @@ public class Airline {
         }
         return null;
     }
-
     public void menuSearchLocation(){
         int optionLocation = 1;
         if(getLocations()!=null){
@@ -284,8 +397,6 @@ public class Airline {
             }
         }
     }
-
-
     /*public void menuSearchLocation(){
         int optionDoor = 1;
         int optionLocation = 1;
@@ -321,12 +432,9 @@ public class Airline {
     }*/
 
     //public String searchLocation()
-
     public void listLocation(){
         if(getLocations()!=null){
             getLocations().forEach(System.out::println);
         }
     }
-
-
 }
