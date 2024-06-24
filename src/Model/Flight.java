@@ -104,12 +104,12 @@ public class Flight {
 
     public String selectSeat(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese LETRA y NUMERO del asieto que desee comprar:");
-
-        System.out.println("FORMATO REQUERIDO (LETRA MAYUSCULA/NUMERO)");
-        String seat = scanner.nextLine();
-
-        return seat;
+        System.out.println("Ingrese LETRA y NUMERO del asiento que desee comprar:");
+        System.out.println("FORMATO REQUERIDO (LETRA MAYÚSCULA/NUMERO)");
+        return scanner.nextLine();
     }
 
+    public boolean thisFlightExist(String destiny){
+        return  (getDestiny().equalsIgnoreCase(destiny));
+    }
 }

@@ -301,26 +301,39 @@ public class AirportController {
     private void handleTicketsSellsMenu() throws NotAvailableForSaleException, InvalidIndexException, NotFoundException {
         airportMenuView.displayTicketsSellsMenu();
         int opcion = airportMenuView.handleUserInput();
-        switch (opcion) {
-            case 1:
-                // TODO
-                airport.sellAirportTicket();
-                break;
-            case 2:
-                // administrarAerolineas.mostrarAerolineas();
-                break;
-            case 3:
-                // administrarLocaciones.mostrarLocaciones();
-                break;
-            case 4:
-                // TODO
-                // System.out.println("Funcionalidad de Simular Vuelo aún no implementada.");
-                break;
-            case 5:
-                airportMenuView.displayBackMessage();
-                break;
-            default:
-                airportMenuView.displayInvalidOptionMessage();
+        try {
+            switch (opcion) {
+                case 1:
+                    // TODO
+                    airport.sellAirportTicket();
+                    break;
+                case 2:
+                    airport.sellAirportTicketOnline();
+                    break;
+                case 3:
+                    airport.getAirportTicketOffice().exchangeTicket();
+                    break;
+                case 4:
+                    airport.buyTicketByFlight();
+                    break;
+                case 5:
+                    airport.buyTicketByDestiny();
+                    break;
+                case 6:
+                    //Simular vuelo
+                    break;
+                case 7:
+                    airportMenuView.displayBackMessage();
+                    break;
+                case 8:
+                    break;
+                default:
+                    airportMenuView.displayInvalidOptionMessage();
+            }
+        }catch (InvalidIndexException e){
+            System.out.println(e.getMessage());
+        }catch (NotFoundException e){
+            System.out.println(e.getMessage());
         }
     }
     // endregion
