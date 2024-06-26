@@ -5,6 +5,8 @@ import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Model.*;
 import View.AirportMenuView;
+
+import java.util.Optional;
 import java.util.Scanner;
 
 public class AirportController {
@@ -65,13 +67,13 @@ public class AirportController {
         int opcion = 0;
         airport.showAirlines();
         opcion = scanner.nextInt();
-        Airline airline = airport.searchAirlineByIndex(opcion-1);
+        Airline airline = airport.searchAirlineByIndex(opcion - 1);
 
-        if(airline!=null){
+        if (airline != null) {
             System.out.println(airline);
             handleAirlinesMenu(airline);
 
-        }else {
+        } else {
             System.out.println("no se encuentra la aerolinea..");
             handleSelectionAirlinesMenu();
         }
@@ -283,7 +285,7 @@ public class AirportController {
     private void handleAddAirlineOption() {
         airportMenuView.displayLineBreak();
         airportMenuView.displayAirlinesSummaryOption(airport.getAirlines());
-        String [] inputs = airportMenuView.handleAddAirlineInput();
+        String[] inputs = airportMenuView.handleAddAirlineInput();
         String airlineName = inputs[0];
         String airlineIotaCode = inputs[1];
         airport.addAirline(new Airline(airlineName, airlineIotaCode));
@@ -301,8 +303,8 @@ public class AirportController {
         airportMenuView.displayLineBreak();
         airportMenuView.displayAirlinesSummaryOption(airport.getAirlines());
         String iataAirlineCode = airportMenuView.handleModifyAirlineInput();
-        for(Airline airline : airport.getAirlines()) {
-            if(airline.getIATAcode().equals(iataAirlineCode)) {
+        for (Airline airline : airport.getAirlines()) {
+            if (airline.getIATAcode().equals(iataAirlineCode)) {
                 String airlineName = airportMenuView.handleModifyAirlineNameInput();
                 airline.setAirlineName(airlineName);
             }
@@ -312,7 +314,69 @@ public class AirportController {
 
     // region Airport Menu: Passenger Menu
     private void handlePassengersMenu() {
+        airportMenuView.displayPassengersMenu();
+        int opcion = airportMenuView.handleUserInput();
+        switch (opcion) {
+            case 1:
+                handleListPassengerOption();
+                break;
+            case 2:
+                handleAddPassengerOption();
+                break;
+            case 3:
+                handleModifyPassengerOption();
+                break;
+            case 4:
+                handleDeletePassengerOption();
+                break;
+            case 5:
+                airportMenuView.displayBackMessage();
+                break;
+            default:
+                airportMenuView.displayInvalidOptionMessage();
+        }
+    }
 
+    private void handleListPassengerOption() {
+        for (Passenger passenger : airport.getPassengers()) {
+            System.out.println(passenger);
+        }
+    }
+
+    private void handleAddPassengerOption() {
+        Passenger passenger = airportMenuView.displayAddPassengerOption();
+        Boolean added = airport.addPassenger(passenger);
+        if (added) {
+            System.out.println("Pasajero agregado al sistema");
+        } else {
+            System.out.println("El pasajero ya existe");
+        }
+    }
+
+    private void handleModifyPassengerOption() {
+        String passportNumber = airportMenuView.displayFindPassengerOption();
+        Optional<Passenger> passengerFound = airport.findPassengerById(passportNumber);
+        if(passengerFound.isPresent()) {
+            try {
+                System.out.println(passengerFound);
+                Passenger passengerModified = airportMenuView.displayModifyPassengerOption(passengerFound.get());
+                airport.addPassenger(passengerModified);
+            } catch(InvalidIndexException e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("El pasajero no existe");
+        }
+    }
+
+    private void handleDeletePassengerOption() {
+        String passportNumber = airportMenuView.displayFindPassengerOption();
+        Boolean deleted = airport.removePassengerById(passportNumber);
+        if(deleted) {
+            System.out.println("Pasajero borrado");
+        } else {
+            System.out.println("Lo sentimos, el pasajero no pudo ser borrado");
+        }
     }
     // endregion
 
@@ -349,9 +413,9 @@ public class AirportController {
                 default:
                     airportMenuView.displayInvalidOptionMessage();
             }
-        }catch (InvalidIndexException e){
+        } catch (InvalidIndexException e) {
             System.out.println(e.getMessage());
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             System.out.println(e.getMessage());
         }
     }

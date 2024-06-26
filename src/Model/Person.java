@@ -2,6 +2,7 @@ package Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.text.MessageFormat;
+import java.util.Objects;
 
 public class Person {
     @JsonProperty("name")
@@ -61,5 +62,18 @@ public class Person {
     @Override
     public String toString() {
         return MessageFormat.format("Person'{'name=''{0}'', surname=''{1}'', age={2}, numberIdentify={3}'}'", getName(), getSurname(), getAge(), getNumberIdentify());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(numberIdentify);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(!(obj instanceof Person)) return false;
+        Person person = (Person) obj;
+        return Objects.equals(person.getNumberIdentify(), this.getNumberIdentify());
     }
 }

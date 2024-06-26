@@ -7,17 +7,17 @@ public class AirportTicket {
     private String from;
     private String to;
     private LocalDateTime bordingTime;
-    private Passanger passanger;
+    private Passenger passenger;
     private Double price;
     private String seat;
     private String gate;
 
-    public AirportTicket(String from, String to, LocalDateTime bordingTime, String seat, Passanger passanger, Double price, String gate) {
+    public AirportTicket(String from, String to, LocalDateTime bordingTime, String seat, Passenger passenger, Double price, String gate) {
         this.from = from;
         this.to = to;
         this.bordingTime = bordingTime;
         this.seat = seat;
-        this.passanger = passanger;
+        this.passenger = passenger;
         this.price = price;
         this.gate = gate;
     }
@@ -47,16 +47,16 @@ public class AirportTicket {
         this.bordingTime = abordingTime;
     }
 
-    public Passanger getPassanger() {
-        return passanger;
+    public Passenger getPassenger() {
+        return passenger;
     }
 
     public LocalDateTime getBordingTime() {
         return bordingTime;
     }
 
-    public void setPassanger(Passanger passanger) {
-        this.passanger = passanger;
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
 
     public Double getPrice() {
@@ -85,7 +85,7 @@ public class AirportTicket {
                 "from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", bordingTime=" + bordingTime +
-                ", passanger=" + passanger +
+                ", passenger=" + passenger +
                 ", price=" + price +
                 ", seat='" + seat + '\'' +
                 ", gate='" + gate + '\'' +

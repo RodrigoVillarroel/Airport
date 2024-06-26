@@ -108,11 +108,11 @@
   ],
   "passengers": [
     {
-      "name": "Lionel Andres",
-      "surname": null,
-      "age": 36,
-      "numberIdentify": 33016244,
-      "passport_number": "1"
+      "name": "test",
+      "surname": "test apellido",
+      "age": 22,
+      "numberIdentify": 6,
+      "passport_number": "56.22"
     },
     {
       "name": "Paulo",
@@ -120,6 +120,13 @@
       "age": 29,
       "numberIdentify": 5,
       "passport_number": "2"
+    },
+    {
+      "name": "Lionel Andres",
+      "surname": null,
+      "age": 36,
+      "numberIdentify": 33016244,
+      "passport_number": "1"
     }
   ]
 }

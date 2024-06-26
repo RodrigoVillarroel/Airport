@@ -7,7 +7,6 @@ import Exceptions.NotFoundException;
 import Interfaces.ITicketManagement;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.ServerSocket;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -32,7 +31,7 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         return ticketStock;
     }
 
-    public AirportTicket sellTicket(Flight flight, String seat, Passanger passanger, Luggage luggage) throws NotAvailableForSaleException {
+    public AirportTicket sellTicket(Flight flight, String seat, Passenger passenger, Luggage luggage) throws NotAvailableForSaleException {
         if (isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
             double price = 15;
            /* if (seat) {
@@ -42,7 +41,7 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
             //price = price + (getAdditionalCost() * count);
             AirportTicket ticket = removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor());
             ticket.setPrice(price);
-            ticket.setPassanger(passanger);
+            ticket.setPassenger(passenger);
             return ticket;
         } else {
             throw new NotAvailableForSaleException("This seat is not available");

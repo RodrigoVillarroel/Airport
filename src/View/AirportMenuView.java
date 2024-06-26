@@ -1,5 +1,9 @@
 package View;
+
+import Exceptions.InvalidIndexException;
 import Model.Airline;
+import Model.Passenger;
+import Model.Person;
 import Utils.Input;
 
 import java.util.Collection;
@@ -10,7 +14,7 @@ public class AirportMenuView {
     private final Scanner scanner;
 
     public AirportMenuView() {
-        this.scanner =  new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     // region Menu
@@ -37,6 +41,15 @@ public class AirportMenuView {
         System.out.println("4. Volver al Menú Principal");
     }
 
+    public void displayPassengersMenu() {
+        System.out.println("\n----Administrar Clientes/Pasajeros dados de alta en el sistema----");
+        System.out.println("1. Listar pasajeros");
+        System.out.println("2. Agregar Pasajero");
+        System.out.println("3. Modificar Pasajero");
+        System.out.println("4. Quitar Pasajero");
+        System.out.println("5. Volver al Menú Principal");
+    }
+
     public void displayFlightsMenu() {
         System.out.println("\n----Menu Vuelos----");
         System.out.println("1. Crear Vuelo");
@@ -48,7 +61,7 @@ public class AirportMenuView {
 
     public void displayAirlinesMenu(String name, String iataCode) {
         System.out.println("\n----Menu Aerolínea----");
-        System.out.println("\n----- "+ name + " ------\n------IATA CODE: " + iataCode + " ----");
+        System.out.println("\n----- " + name + " ------\n------IATA CODE: " + iataCode + " ----");
         System.out.println("1. Menu Vuelos");
         System.out.println("2. Menu Aviones");
         System.out.println("3. Menu Locaciones");
@@ -101,7 +114,7 @@ public class AirportMenuView {
     public void displayAirlinesSummaryOption(LinkedList<Airline> airlines) {
         System.out.println("Aerolíneas disponibles:");
         for (Airline airline : airlines) {
-            System.out.printf("(%s) Name: %s, Aita: %s, Airplanes: %d, Employees: %d, Flights: %d, Locations: %d  \n", airline.getClass().getSimpleName(), airline.getAirlineName(), airline.getIATAcode(), getSize(airline.getAirplanes()), getSize(airline.getEmployees()), getSize(airline.getFlights()), getSize(airline.getLocations()) );
+            System.out.printf("(%s) Name: %s, Aita: %s, Airplanes: %d, Employees: %d, Flights: %d, Locations: %d  \n", airline.getClass().getSimpleName(), airline.getAirlineName(), airline.getIATAcode(), getSize(airline.getAirplanes()), getSize(airline.getEmployees()), getSize(airline.getFlights()), getSize(airline.getLocations()));
         }
     }
 
@@ -123,7 +136,7 @@ public class AirportMenuView {
         String airlineName = scanner.nextLine();
         System.out.println("Ingrese el IATA Code de la nueva aerolínea:");
         String iataCode = scanner.nextLine();
-        return new String[] { airlineName, iataCode };
+        return new String[]{airlineName, iataCode};
     }
 
     public String handleDeleteAirlineInput() {
@@ -132,7 +145,52 @@ public class AirportMenuView {
         return scanner.nextLine();
     }
 
-    public String displayRequestSeat(){
+    public Person displayAddPersonOption() {
+        System.out.println("DNI: ");
+        Integer nationalId = Input.requestUserInputInt();
+        System.out.println("Nombre: ");
+        String name = scanner.nextLine();
+        System.out.println("Apellido: ");
+        String surname = scanner.nextLine();
+        System.out.println("Edad: ");
+        Integer age = Input.requestUserInputInt();
+        return new Person(name, surname, age, nationalId);
+    }
+
+    public Passenger displayAddPassengerOption() {
+        Person person = this.displayAddPersonOption();
+        System.out.println("Numero de pasaporte: ");
+        String passportNumber = scanner.nextLine();
+        return new Passenger(person.getName(), person.getSurname(), person.getAge(), person.getNumberIdentify(), passportNumber);
+    }
+
+    public String displayFindPassengerOption() {
+        System.out.println("Ingrese el numero de pasaporte: ");
+        return scanner.nextLine();
+    }
+
+    public Passenger displayModifyPassengerOption(Passenger passengerFound) throws InvalidIndexException {
+        System.out.println("Ingrese que campo desea modificar : ");
+        System.out.println("1- Nombre");
+        System.out.println("2- Apellido");
+        System.out.println("3- Edad");
+        int option = Input.requestUserInputInt();
+        if(option == 1) {
+           String name = scanner.nextLine();
+           passengerFound.setName(name);
+        } else if(option == 2) {
+            String surname = scanner.nextLine();
+            passengerFound.setSurname(surname);
+        } else if(option == 3) {
+            Integer age = Input.requestUserInputInt();
+            passengerFound.setAge(age);
+        } else {
+            throw new InvalidIndexException("Indice no valido");
+        }
+        return passengerFound;
+    }
+
+    public String displayRequestSeat() {
         System.out.println("Seleccione el numero de asiento que desee");
         return scanner.nextLine();
     }

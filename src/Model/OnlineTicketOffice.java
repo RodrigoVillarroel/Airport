@@ -9,7 +9,7 @@ public class OnlineTicketOffice extends OfficeTicket implements ITicketManagemen
         super();
     }
 
-    public String sellTicket(Flight flight, String seat, Passanger passanger, AirportTicketOffice airportTicketOffice) throws NotAvailableForSaleException {
+    public String sellTicket(Flight flight, String seat, Passenger passenger, AirportTicketOffice airportTicketOffice) throws NotAvailableForSaleException {
         if (airportTicketOffice.isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
             double price = 15;
             AirportTicket ticket = airportTicketOffice.removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor());
@@ -21,7 +21,7 @@ public class OnlineTicketOffice extends OfficeTicket implements ITicketManagemen
             } catch (AlreadyExistsException exception) {
                 ticket.setPrice(0D);
                 airportTicketOffice.addTicketToStock(ticket);
-                sellTicket(flight, seat, passanger, airportTicketOffice);
+                sellTicket(flight, seat, passenger, airportTicketOffice);
             }
             return code;
         }

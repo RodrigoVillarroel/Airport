@@ -4,6 +4,7 @@ import Exceptions.InvalidIndexException;
 import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Utils.Input;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.MessageFormat;
@@ -13,19 +14,20 @@ public class Airport {
     @JsonProperty("airlines")
     private LinkedList<Airline> airlines;
     @JsonProperty("passengers")
-    private HashSet<Passanger> passangers;
+    private HashSet<Passenger> passengers;
+    @JsonIgnore
     AirportTicketOffice airportTicketOffice;
+    @JsonIgnore
     OnlineTicketOffice onlineTicketOffice;
 
-
-    public Airport(LinkedList<Airline> airlines, HashSet<Passanger> passangers) {
+    public Airport(LinkedList<Airline> airlines, HashSet<Passenger> passengers) {
         setAirlines(airlines);
-        setPassangers(passangers);
+        setPassengers(passengers);
     }
 
     public Airport() {
         setAirlines(new LinkedList<>());
-        setPassangers(new HashSet<>());
+        setPassengers(new HashSet<>());
         airportTicketOffice = new AirportTicketOffice();
         onlineTicketOffice = new OnlineTicketOffice();
     }
@@ -39,12 +41,12 @@ public class Airport {
         this.airlines = airlines;
     }
 
-    public HashSet<Passanger> getPassangers() {
-        return passangers;
+    public HashSet<Passenger> getPassengers() {
+        return passengers;
     }
 
-    public void setPassangers(HashSet<Passanger> passangers) {
-        this.passangers = passangers;
+    public void setPassengers(HashSet<Passenger> passengers) {
+        this.passengers = passengers;
     }
 
     public AirportTicketOffice getAirportTicketOffice() {
@@ -58,15 +60,15 @@ public class Airport {
 
     @Override
     public String toString() {
-        return MessageFormat.format("Airport'{'airlines={0}, passangers={1}'}'", getAirlines(), getPassangers());
+        return MessageFormat.format("Airport'{'airlines={0}, passengers={1}'}'", getAirlines(), getPassengers());
     }
 
-    public Passanger searchPersonByDNI() throws NotFoundException {
+    public Passenger searchPersonByDNI() throws NotFoundException {
         System.out.println("Ingrese DNI del Pasajero:");
         int dni = Input.requestUserInputInt();
 
-        if (!passangers.isEmpty()) {
-            for (Passanger p : passangers) {
+        if (!passengers.isEmpty()) {
+            for (Passenger p : passengers) {
                 if (p.getNumberIdentify().equals(dni)) {
                     return p;
                 }
@@ -98,6 +100,18 @@ public class Airport {
         this.airlines.add(airline);
     }
 
+    public Boolean addPassenger(Passenger passenger) {
+        return this.passengers.add(passenger);
+    };
+
+    public Boolean removePassengerById(String passportNumber) {
+        return this.passengers.removeIf(passenger -> passenger.getNroPassport().equals(passportNumber));
+    }
+
+    public Optional<Passenger> findPassengerById(String passportNumber) {
+        return this.passengers.stream().filter(passenger -> passenger.getNroPassport().equals(passportNumber)).findFirst();
+    }
+
     public void removeAirline(String iataAirlineCode) {
         this.airlines.removeIf(airline -> airline.getIATAcode().equals(iataAirlineCode));
     }
@@ -108,7 +122,7 @@ public class Airport {
     }
 
     public void sellAirportTicket() throws InvalidIndexException, NotFoundException {
-        Passanger p = searchPersonByDNI();
+        Passenger p = searchPersonByDNI();
         Airline airline = showAndSelectAirline();
         Flight flight = showAndSelectFlights(airline);
         buyAirportTicket(flight, p);
@@ -137,14 +151,14 @@ public class Airport {
         }
     }
 
-    public void buyAirportTicket(Flight flight, Passanger passanger) {
+    public void buyAirportTicket(Flight flight, Passenger passengers) {
         if (hasStock(flight)) {
             System.out.println(getAirportTicketOffice().listSeats(flight.getOrigin(), flight.getDestiny(), flight.getTime(), flight.getAirplane().getCapabilities().getSeatForLetter(), flight.getAirplane().getCapabilities().getTotalCapacity(), flight.getDoor()));
             try {
                 String seat = flight.selectSeat();
                 Luggage<Equipaje> luggage = Luggage.addRandomLuggage();
                 System.out.println("Su ticket de vuelo: ");
-                System.out.println(getAirportTicketOffice().sellTicket(flight, seat, passanger, luggage));
+                System.out.println(getAirportTicketOffice().sellTicket(flight, seat, passengers, luggage));
             } catch (NotAvailableForSaleException e) {
                 System.out.println(e.getMessage());
             }
@@ -152,13 +166,13 @@ public class Airport {
     }
 
     public void sellAirportTicketOnline() throws InvalidIndexException, NotFoundException {
-        Passanger p = searchPersonByDNI();
+        Passenger p = searchPersonByDNI();
         Airline airline = showAndSelectAirline();
         Flight flight = showAndSelectFlights(airline);
         buyOnlineAirportTicket(flight, p);
     }
 
-    public void buyOnlineAirportTicket(Flight flight, Passanger p) {
+    public void buyOnlineAirportTicket(Flight flight, Passenger p) {
         if (hasStock(flight)) {
             System.out.println(getAirportTicketOffice().listSeats(flight.getOrigin(), flight.getDestiny(), flight.getTime(), flight.getAirplane().getCapabilities().getSeatForLetter(), flight.getAirplane().getCapabilities().getTotalCapacity(), flight.getDoor()));
             try {
@@ -186,7 +200,7 @@ public class Airport {
 
     public void buyTicketByFlight() throws NotFoundException {
         try {
-            Passanger p = searchPersonByDNI();
+            Passenger p = searchPersonByDNI();
             Flight flight = showAllFlightsAndSelect();
             buyAirportTicket(flight, p);
         } catch (NotFoundException e) {
@@ -204,9 +218,9 @@ public class Airport {
                 flights.putAll(a.getThisFlight(destiny));
             }
         }
-        if (!flights.isEmpty()){
+        if (!flights.isEmpty()) {
             selectFlight(flights);
-        }else {
+        } else {
             throw new NotFoundException("No se encontraron vuelos disponibles con el Destino a " + destiny);
         }
     }
@@ -234,8 +248,8 @@ public class Airport {
             i++;
         }
         int choice = scanner.nextInt();
-        Flight f = flights.get(keys.get(choice-1));
-        Passanger p = searchPersonByDNI();
+        Flight f = flights.get(keys.get(choice - 1));
+        Passenger p = searchPersonByDNI();
         buyAirportTicket(f, p);
     }
 }
