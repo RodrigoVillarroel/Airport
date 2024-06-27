@@ -20,4 +20,23 @@ public class RandomCodeGenerator implements Serializable {
 
         return codeBuilder.toString();
     }
+    public static String generateRandomPassportNumber() {
+        int PASSAPORT_NUMBER_LENGTH = 11;
+        Random random = new Random();
+        StringBuilder codeBuilder = new StringBuilder();
+        String letterCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Only letters
+
+        for (int i = 0; i < 3; i++) {
+            int randomIndex = random.nextInt(letterCharacters.length());
+            char randomChar = letterCharacters.charAt(randomIndex);
+            codeBuilder.append(randomChar);
+        }
+
+        for (int i = 3; i < PASSAPORT_NUMBER_LENGTH; i++) {
+            int randomIndex = random.nextInt(letterCharacters.length());
+            char randomChar = letterCharacters.charAt(randomIndex);
+            codeBuilder.append(randomChar);
+        }
+        return codeBuilder.toString();
+    }
 }

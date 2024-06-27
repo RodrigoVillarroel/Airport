@@ -102,7 +102,7 @@ public class Airport {
 
     public Boolean addPassenger(Passenger passenger) {
         return this.passengers.add(passenger);
-    };
+    }
 
     public Boolean removePassengerById(String passportNumber) {
         return this.passengers.removeIf(passenger -> passenger.getNroPassport().equals(passportNumber));
@@ -129,7 +129,9 @@ public class Airport {
     }
 
 
-    public Airline showAndSelectAirline() throws NotFoundException, InvalidIndexException {
+
+
+    public Airline showAndSelectAirline() throws InvalidIndexException {
         showAirlines();
         System.out.println("Seleccione el indice de la Aerolinea que desee:");
         int index = Input.requestUserInputInt();
@@ -151,14 +153,16 @@ public class Airport {
         }
     }
 
-    public void buyAirportTicket(Flight flight, Passenger passengers) {
+    public void buyAirportTicket(Flight flight, Passenger passanger) throws InvalidIndexException {
         if (hasStock(flight)) {
-            System.out.println(getAirportTicketOffice().listSeats(flight.getOrigin(), flight.getDestiny(), flight.getTime(), flight.getAirplane().getCapabilities().getSeatForLetter(), flight.getAirplane().getCapabilities().getTotalCapacity(), flight.getDoor()));
+            System.out.println(getAirportTicketOffice().listSeats(flight));
             try {
                 String seat = flight.selectSeat();
                 Luggage<Equipaje> luggage = Luggage.addRandomLuggage();
+                System.out.println(luggage.getLuggage().size());
                 System.out.println("Su ticket de vuelo: ");
-                System.out.println(getAirportTicketOffice().sellTicket(flight, seat, passengers, luggage));
+                AirportTicket ticket = getAirportTicketOffice().sellTicket(flight, seat, passanger, luggage);
+                ticket.printTicket();
             } catch (NotAvailableForSaleException e) {
                 System.out.println(e.getMessage());
             }
@@ -174,7 +178,7 @@ public class Airport {
 
     public void buyOnlineAirportTicket(Flight flight, Passenger p) {
         if (hasStock(flight)) {
-            System.out.println(getAirportTicketOffice().listSeats(flight.getOrigin(), flight.getDestiny(), flight.getTime(), flight.getAirplane().getCapabilities().getSeatForLetter(), flight.getAirplane().getCapabilities().getTotalCapacity(), flight.getDoor()));
+            System.out.println(getAirportTicketOffice().listSeats(flight));
             try {
                 String seat = flight.selectSeat();
                 System.out.println("Su Codigo de Canje: " + getOnlineTicketOffice().sellTicket(flight, seat, p, getAirportTicketOffice()));
@@ -203,12 +207,12 @@ public class Airport {
             Passenger p = searchPersonByDNI();
             Flight flight = showAllFlightsAndSelect();
             buyAirportTicket(flight, p);
-        } catch (NotFoundException e) {
+        } catch (NotFoundException | InvalidIndexException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void buyTicketByDestiny() throws NotFoundException {
+    public void buyTicketByDestiny() throws NotFoundException, InvalidIndexException {
         Scanner scanner = new Scanner(System.in);
         HashMap<String, Flight> flights = new HashMap<>();
         System.out.println("Escriba el destino al que desea viajar: ");
@@ -232,7 +236,7 @@ public class Airport {
         return false;
     }
 
-    public void selectFlight(HashMap<String, Flight> flights) throws NotFoundException {
+    public void selectFlight(HashMap<String, Flight> flights) throws NotFoundException, InvalidIndexException {
         Scanner scanner = new Scanner(System.in);
         ArrayList<String> keys = new ArrayList<>();
         int i = 1;
@@ -251,5 +255,62 @@ public class Airport {
         Flight f = flights.get(keys.get(choice - 1));
         Passenger p = searchPersonByDNI();
         buyAirportTicket(f, p);
+    }
+
+    public void simuleFlightCost() throws InvalidIndexException {
+        Airline a = showAndSelectAirline();
+        showAndSelectFlights(a);
+        airportTicketOffice.getAllCosts();
+    }
+
+    public void addFlight() throws NotFoundException {
+        Scanner scanner = new Scanner(System.in);
+        showAirlines();
+        int index = Input.requestUserInputInt();
+        System.out.println("Ingrese el Indice de la Aerolínea");
+        Airline airline = searchAirlineByIndex(index);
+        System.out.println("Ingrese Código de Vuelo:");
+        String code = scanner.nextLine();
+        if(!thisCodeIsInUse(code)){
+            airline.addFlight(code);
+        }
+    }
+
+    public boolean thisCodeIsInUse (String code){
+        if (!airlines.isEmpty()){
+            for (int i=0;i<airlines.size();i++){
+                return airlines.get(i).searchFlightCode(code);
+            }
+        }
+        return false;
+    }
+
+    public void deleteFlight() throws InvalidIndexException {
+        Airline airline = showAndSelectAirline();
+        airline.showFlights();
+        System.out.println("Seleccione indice del Vuelo que desee borrar: ");
+        int index = Input.requestUserInputInt();
+        System.out.println("Se borro el vuelo: " + airline.getFlights().remove(index-1).getCode());
+    }
+
+    public void modifyFlight() throws InvalidIndexException, NotFoundException {
+        showAirlines();
+        int index = Input.requestUserInputInt();
+        System.out.println("Ingrese el Indice de la Aerolínea");
+        Airline airline = searchAirlineByIndex(index-1);
+        airline.showFlights();
+        System.out.println("Seleccione indice del Vuelo que desee Modificar: ");
+        index = Input.requestUserInputInt();
+        Flight flight = airline.getFlights().get(index-1);
+        airline.menuFlightModification(flight);
+    }
+
+    public void searchFlight() throws InvalidIndexException {
+        Airline airline= showAndSelectAirline();
+        airline.showFlights();
+        System.out.println("Seleccione indice del Vuelo que desee Modificar: ");
+        int index = Input.requestUserInputInt();
+        Flight flight = airline.getFlights().get(index-1);
+        System.out.println(flight);
     }
 }

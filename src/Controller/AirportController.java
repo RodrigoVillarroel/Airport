@@ -59,7 +59,7 @@ public class AirportController {
     // endregion
 
     // region Select Airline Menu
-    private void handleSelectionAirlinesMenu() {
+    private void handleSelectionAirlinesMenu() throws InvalidIndexException, NotFoundException {
         System.out.println("seleccione una aerolinea: ");
         int opcion = 0;
         airport.showAirlines();
@@ -78,7 +78,7 @@ public class AirportController {
     // endregion
 
     // region Airlines Menu
-    private void handleAirlinesMenu(Airline airline) {
+    private void handleAirlinesMenu(Airline airline) throws InvalidIndexException, NotFoundException {
         airportMenuView.displayAirlinesMenu(airline.getAirlineName(), airline.getIATAcode());
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
@@ -104,21 +104,21 @@ public class AirportController {
     // endregion
 
     // region Airline Menu: Flights Menu
-    private void handleFlightsMenu() {
+    private void handleFlightsMenu() throws InvalidIndexException, NotFoundException {
         airportMenuView.displayFlightsMenu();
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
-                // crear vuelo
+                airport.addFlight();
                 break;
             case 2:
-                // borrar vuelo
+                airport.deleteFlight();
                 break;
             case 3:
-                // modificar vuelo
+                airport.modifyFlight();
                 break;
             case 4:
-                // buscar vuelo
+                airport.searchFlight();
                 break;
             case 5:
                 airportMenuView.displayBackMessage();
@@ -482,12 +482,15 @@ public class AirportController {
                     airport.buyTicketByDestiny();
                     break;
                 case 6:
-                    //Simular vuelo
+                    airport.simuleFlightCost();
                     break;
                 case 7:
-                    airportMenuView.displayBackMessage();
+                    airport.getAirportTicketOffice().setPricesForSale();
                     break;
                 case 8:
+                    airportMenuView.displayBackMessage();
+                    break;
+                case 9:
                     break;
                 default:
                     airportMenuView.displayInvalidOptionMessage();

@@ -112,4 +112,12 @@ public class Flight {
     public boolean thisFlightExist(String destiny){
         return  (getDestiny().equalsIgnoreCase(destiny));
     }
+
+    public void newFlight(String code) {
+        Scanner scanner = new Scanner(System.in);
+        setCode(code);
+        System.out.println("Ingrese Numero de Registro del Avión");
+        setCode(scanner.nextLine());
+        setStateFlight("Disponible");
+    }
 }

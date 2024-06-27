@@ -11,8 +11,8 @@ public class AirportTicket {
     private Double price;
     private String seat;
     private String gate;
-
-    public AirportTicket(String from, String to, LocalDateTime bordingTime, String seat, Passenger passenger, Double price, String gate) {
+    private String codeFligth;
+    public AirportTicket(String from, String to, LocalDateTime bordingTime, String seat, Passenger passenger, Double price, String gate, String codeFligth) {
         this.from = from;
         this.to = to;
         this.bordingTime = bordingTime;
@@ -20,6 +20,7 @@ public class AirportTicket {
         this.passenger = passenger;
         this.price = price;
         this.gate = gate;
+        this.codeFligth = codeFligth;
     }
 
     // region Getters & Setters
@@ -46,7 +47,9 @@ public class AirportTicket {
     public void setBordingTime(LocalDateTime abordingTime) {
         this.bordingTime = abordingTime;
     }
-
+    public String getCodeFligth() {
+        return codeFligth;
+    }
     public Passenger getPassenger() {
         return passenger;
     }
@@ -74,22 +77,29 @@ public class AirportTicket {
     public void setSeat(String seat) {
         seat = seat;
     }
+    public void setPassanger(Passenger passenger) {
+        this.passenger = passenger;
+    }
 
     public String getGate() {
         return gate;
     }
+    public Passenger getPassanger() {
+        return passenger;
+    }
 
-    @Override
-    public String toString() {
-        return "AirportTicket{" +
-                "from='" + from + '\'' +
-                ", to='" + to + '\'' +
-                ", bordingTime=" + bordingTime +
-                ", passenger=" + passenger +
-                ", price=" + price +
-                ", seat='" + seat + '\'' +
-                ", gate='" + gate + '\'' +
-                '}';
+    public void printTicket(){
+        System.out.println("--------------------------------------------------");
+        System.out.println("           BOARDING PASS - FLIGHT " + getCodeFligth());
+        System.out.println("--------------------------------------------------");
+        System.out.println("From: " + getFrom());
+        System.out.println("To: " + getTo());
+        System.out.println("Boarding Time: " + geBordingTime());
+        System.out.println("Passenger: " + getPassanger() + " (Passport: " + getPassanger().getNroPassport() + ")");
+        System.out.println("Price: $" + getPrice());
+        System.out.println("Seat: " + getSeat());
+        System.out.println("Gate: " + getGate());
+        System.out.println("--------------------------------------------------");
     }
     // endregion
 }

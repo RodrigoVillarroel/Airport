@@ -14,7 +14,7 @@ public class Luggage<T>{
         return luggages;
     }
 
-    public int isOverweight(){
+    public int countFines(){
         int count = 0;
         for (int i=0; i<luggages.size();i++) {
             boolean response=false;

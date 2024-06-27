@@ -1,10 +1,9 @@
 package Model;
 import Exceptions.AlreadyExistsException;
 import Exceptions.NotAvailableForSaleException;
-import Interfaces.IAdditionalCost;
 import Interfaces.ITicketManagement;
 
-public class OnlineTicketOffice extends OfficeTicket implements ITicketManagement<String, AirportTicketOffice>, IAdditionalCost {
+public class OnlineTicketOffice extends TicketOffice implements ITicketManagement<String, AirportTicketOffice>{
     public OnlineTicketOffice() {
         super();
     }
@@ -24,16 +23,8 @@ public class OnlineTicketOffice extends OfficeTicket implements ITicketManagemen
                 sellTicket(flight, seat, passenger, airportTicketOffice);
             }
             return code;
-        }
-        else {
+        } else {
             throw new NotAvailableForSaleException("This seat is not available.");
         }
-    }
-
-
-    @Override
-    public Double addAdditionalCost() {
-
-        return getAdditionalCost();
     }
 }

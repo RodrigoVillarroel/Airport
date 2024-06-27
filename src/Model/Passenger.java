@@ -52,4 +52,9 @@ public class Passenger extends Person {
         Passenger passenger = (Passenger) obj;
         return Objects.equals(passenger.getNumberIdentify(), this.getNumberIdentify()) && Objects.equals(passenger.getNroPassport(), this.getNroPassport());
     }
+
+    public void printPassanger(){
+        super.printPerson();
+        System.out.println("Numero de Pasaporte:" + getNroPassport());
+    }
 }

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class AirportTicketOffice extends OfficeTicket implements ITicketManagement <AirportTicket, Luggage> {
+public class AirportTicketOffice extends TicketOffice implements ITicketManagement <AirportTicket, Luggage> {
     @JsonProperty("reserved_tickets")
     private HashMap <String, AirportTicket> reservedTickets;
     @JsonProperty("ticket_stock")
@@ -31,17 +31,16 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         return ticketStock;
     }
 
-    public AirportTicket sellTicket(Flight flight, String seat, Passenger passenger, Luggage luggage) throws NotAvailableForSaleException {
+    public AirportTicket sellTicket(Flight flight, String seat, Passenger passanger, Luggage luggage) throws NotAvailableForSaleException {
         if (isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
-            double price = 15;
-           /* if (seat) {
-                price = additionalCost(); //Verificar el tipo de asiento para definir costos adicionales
-            }*/
-            int count = luggage.isOverweight();
-            //price = price + (getAdditionalCost() * count);
+            Double price = getPrice();
+            int count = luggage.countFines(); // Cuento las infraccion de sobrepeso o de dimensiones en el equipaje
+            if(count != 0) {//Si hay al menos una infraccion aplico los impuestos segun las infracciones detectadas
+                price = price * (getTaxes()+count);//Sumamos el % de los impuestos sumados a la cantidad de multas
+            }
             AirportTicket ticket = removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor());
             ticket.setPrice(price);
-            ticket.setPassenger(passenger);
+            ticket.setPassanger(passanger);
             return ticket;
         } else {
             throw new NotAvailableForSaleException("This seat is not available");
@@ -76,7 +75,7 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
 
             String seat = seatRow + String.valueOf(seatNumber);
             if (!isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
-                AirportTicket ticket = new AirportTicket(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, null,0D, flight.getDoor());
+                AirportTicket ticket = new AirportTicket(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, null,0D, flight.getDoor(), flight.getCode());
                 addTicketToStock(ticket);
             }
             if (seatNumber == maxSeatsPerRow) {
@@ -99,27 +98,24 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         }
     }
 
-    public String listSeats(String from, String to, LocalDateTime time, int maxSeatsPerRow, int totalCapacity, String door){
+    public String listSeats(Flight flight){
         StringBuilder builder = new StringBuilder();
         char seatRow = 'A';  // Letra inicial para la fila de asientos
         int sideRows = 2;
+        int maxSeatsPerRow = flight.getAirplane().getCapabilities().getSeatForLetter();
+        int totalCapacity = flight.getAirplane().getCapabilities().getTotalCapacity();
         if (maxSeatsPerRow <= 6) {
             sideRows = 1;
         }
         int middleRow = maxSeatsPerRow - sideRows * 2;
-
-        for (int i = 1; i <= totalCapacity; i++) {
+        for (int i=1; i <= totalCapacity; i++) {
             int seatNumber = i % maxSeatsPerRow;  // Número de asiento
-
             if (seatNumber == 0) {
                 seatNumber = maxSeatsPerRow;
             }
+
             String seat = seatRow + String.valueOf(seatNumber);
-            if (!isTicketAvailable(from, to, time, seat, door)) {
-                builder.append("\u001B[31m"); // Color rojo para los asientos no disponibles
-            } else {
-                builder.append("\u001B[32m"); // Color verde para los asientos disponibles
-            }
+            checkStockAndPrintBySeat(flight, i, builder, seat);
             builder.append(seat).append("\u001B[0m").append(" "); // Restablecer el color
             if ((seatNumber == sideRows) || (seatNumber == (middleRow + sideRows))){
                 builder.append("  ");
@@ -130,6 +126,37 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
             }
         }
         return builder.toString();
+    }
+
+    public void checkStockAndPrintBySeat(Flight flight, int i, StringBuilder builder, String seat) {
+        if(i<=flight.getAirplane().getCapabilities().getCapacityFirstClass()) {
+            if (!isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
+                builder.append("\u001B[31m"); // Color rojo para los asientos no disponibles
+            } else {
+                builder.append("\u001B[33m"); // Color Amarillo para los asientos Primera Clase disponibles
+            }
+        }
+        if (i>flight.getAirplane().getCapabilities().getCapacityFirstClass() && i<=flight.getAirplane().getCapabilities().getCapacityEjecutive()+flight.getAirplane().getCapabilities().getCapacityFirstClass()){
+            if (!isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
+                builder.append("\u001B[31m"); // Color rojo para los asientos no disponibles
+            } else {
+                builder.append("\u001B[35m"); // Color violeta para los asientos Ejecutivos disponibles
+            }
+        }
+        if (i>flight.getAirplane().getCapabilities().getCapacityFirstClass()+flight.getAirplane().getCapabilities().getCapacityEjecutive() && i<=flight.getAirplane().getCapabilities().getCapacityPremiumEconomic()+flight.getAirplane().getCapabilities().getCapacityFirstClass()+flight.getAirplane().getCapabilities().getCapacityEjecutive()){
+            if (!isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
+                builder.append("\u001B[31m"); // Color rojo para los asientos no disponibles
+            } else {
+                builder.append("\u001B[34m"); // Color azul para los asientos Economica Premium disponibles
+            }
+        }
+        if (i>flight.getAirplane().getCapabilities().getCapacityPremiumEconomic()+flight.getAirplane().getCapabilities().getCapacityFirstClass()+flight.getAirplane().getCapabilities().getCapacityEjecutive() && i<=flight.getAirplane().getCapabilities().getCapacityEconomic()+flight.getAirplane().getCapabilities().getCapacityPremiumEconomic()+flight.getAirplane().getCapabilities().getCapacityFirstClass()+flight.getAirplane().getCapabilities().getCapacityEjecutive()){
+            if (!isTicketAvailable(flight.getOrigin(),  flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
+                builder.append("\u001B[31m"); // Color rojo para los asientos no disponibles
+            } else {
+                builder.append("\u001B[32m"); // Color verde para los asientos  disponibles
+            }
+        }
     }
 
     public boolean hasStock(String from, String to, LocalDateTime time, int maxSeatsPerRow, int totalCapacity, String door) {
@@ -196,5 +223,30 @@ public class AirportTicketOffice extends OfficeTicket implements ITicketManageme
         }
     }
 
+    public boolean isPricesSet(){
+        if (getPrice() != null || getTaxes() != null){
+            return true;
+        }
+        System.out.println("Los valores de venta no están configurados. Sera redirigido para configurarlos");
+        return false;
+    }
 
+    public void setPricesForSale(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el precio de los Boletos de Vuelo");
+        setPrice(scanner.nextDouble());
+        System.out.println("Ingrese el % de impuesto por Excesos en el Equipaje");
+        setTaxes(scanner.nextFloat());
+    }
+
+    public void getAllCosts(){
+        System.out.println("Costo de pasaje sin Multas:");
+        System.out.println(getPrice());
+        System.out.println("Costo de pasaje con 1 Multa:");
+        System.out.println(getPrice()+getTaxes());
+        System.out.println("Costo de pasaje con 2 Multas:");
+        System.out.println(getPrice() + (getTaxes()*2));
+        System.out.println("Costo de pasaje con 3 Multas");
+        System.out.println(getPrice() + (getTaxes()*3));
+    }
 }

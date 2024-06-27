@@ -1,8 +1,13 @@
 package Model;
 
+import Exceptions.NotFoundException;
+import Utils.Input;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.MessageFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Airline {
@@ -128,7 +133,7 @@ public class Airline {
         System.out.println("\nCarga de avion...");
         System.out.println("\nCodigo de identificacion: ");
         airplane.setRegistrationNumber(scanner.nextLine());
-        System.out.println(STR."\nseleccione las capacidades:\n1) \{AirplaneCapabilities.SMALL}\n2) \{AirplaneCapabilities.MEDIUM}\n3) \{AirplaneCapabilities.BIG}");
+        System.out.println("\nseleccione las capacidades:\n1) AirplaneCapabilities.SMALL}\n2) AirplaneCapabilities.MEDIUM}\n3) AirplaneCapabilities.BIG}");
         selection = scanner.nextInt();
         switch (selection){
             case 1:
@@ -236,7 +241,7 @@ public class Airline {
         employee.setNumberIdentify(scanner.nextInt());
         System.out.println("\nPuesto de trabajo: ");
         for (int i = 0; i < workstations.length; i++) {
-            System.out.println(STR."\{i}) \{workstations[i]}");
+            System.out.println("i}) workstations[i]}");
         }
         employee.setWorkstation(workstations[scanner.nextInt()]);
         System.out.println("\nEdad: ");
@@ -300,7 +305,7 @@ public class Airline {
         String[] workstations = {"PILOTO","TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
                 "TECNICO DE OPERACIONES","TECNICO ADMINISTRATIVO","AGENTE DE SERVICIO","DESPACHADOR DE VUELOS"};
         for (int i = 0; i < workstations.length; i++) {
-            System.out.println(STR."\{i+1}) \{workstations[i]}");
+            System.out.println("i+1) workstations[i]");
         }
         x.setWorkstation(workstations[scanner.nextInt()-1]);
     }
@@ -451,5 +456,167 @@ public class Airline {
             }
         }
         return myDestiny;
+    }
+
+    public boolean searchFlightCode(String code){
+        if(!flights.isEmpty()){
+            for (int i=0;i<flights.size();i++){
+                if(flights.get(i).getCode().equalsIgnoreCase(code)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public void addFlight(String code) throws NotFoundException {
+        Flight flight=new Flight();
+        flight.newFlight(code);
+        flight.setAirplane(listAndReturnAirplanesAvailable());
+        setOriginAndDestiny(flight);
+        flight.setTime(setFlightTime());
+        flights.add(flight);
+    }
+
+    public Airplane listAndReturnAirplanesAvailable(){
+        ArrayList<Airplane> availables = new ArrayList<>();
+        System.out.println("Seleccione el Indice del Avión a usar:");
+        for (Airplane airplane : airplanes){
+            int i=1;
+            if(airplane.getStatus().equalsIgnoreCase("Available")){
+                System.out.println(i +")" + airplane.getRegistrationNumber());
+                availables.add(airplane);
+                i++;
+            }
+        }
+        int index = Input.requestUserInputInt();
+        availables.get(index-1).setStatus("Not Available");
+        return availables.get(index-1);
+    }
+
+    public void setOriginAndDestiny(Flight flight) throws NotFoundException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese nombre de la Locación de Origen");
+        String location = scanner.nextLine();
+        if (!thisLocationExists(location)){
+            throw new NotFoundException("La locación de Origen no se pudo encontrar, verifique la información o agréguela");
+        }
+        flight.setOrigin(location);
+        flight.setDoor(String.valueOf(autoSelectOriginDoor(location)));
+        System.out.println("Ingrese nombre de la Locación de Destino");
+        location = scanner.nextLine();
+        if (!thisLocationExists(location))
+        {
+            throw new NotFoundException("La locacion de Destino no se pudo encontrar, verifique la información o agréguela");
+        }
+        flight.setDestiny(location);
+    }
+
+    public Integer autoSelectOriginDoor(String location){
+        for (Location value : locations){
+            if ((value.getLocation().equalsIgnoreCase(location))){
+                return searchAvailableDoor(value);
+            }
+        }
+        return null;
+    }
+
+    public boolean thisLocationExists(String location){
+        if (!location.isEmpty()) {
+            for (Location value : locations) {
+                if (value.getLocation().equalsIgnoreCase(location)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Integer searchAvailableDoor(Location location){
+        if (!location.getDoors().isEmpty()){
+            for (int i=0; i<location.getDoors().size();i++){
+                if (location.getDoors().get(i).getStatus()){
+                    location.getDoors().get(i).setStatus(false);
+                    return location.getDoors().get(i).getCode();
+                }
+            }
+        }
+        return null;
+    }
+
+    public LocalDateTime setFlightTime(){
+        Scanner scanner = new Scanner(System.in);
+        LocalDate date = null;
+        LocalTime time = null;
+        System.out.println("Ingrese dia del Vuelo");
+        int day = Input.requestUserInputInt();
+        System.out.println("Ingrese Mes del Vuelo");
+        int month = Input.requestUserInputInt();
+        System.out.println("Ingrese Año del Vuelo");
+        int year = Input.requestUserInputInt();
+        System.out.println("Ingrese la Hora de salida del Vuelo (hh:mm)");
+        if(day>31){
+            System.out.println("Error: Dia no puede ser superior 31");
+        } else if (month>12){
+            System.out.println("Error: Mes no puede ser superior a 12");
+        } else if (year<2024){
+            System.out.println("Error: Año no puede ser inferior a 2024");
+        }else {
+            date = LocalDate.of(year,month,day);
+
+            System.out.println("Ingrese Horario del Vuelo: (hh:mm)");
+            String fligthTime = scanner.nextLine();
+            if (formatIsCorrect(fligthTime)) {
+                String[] parts = fligthTime.split(":");
+                int hour = Integer.parseInt(parts[0]);
+                int minute = Integer.parseInt(parts[1]);
+
+                if ((hour < 0) || (hour > 23)) {
+                    System.out.println("Error: Hora no puede ser " + hour);
+                } else if ((minute < 0) || (minute > 59)) {
+                    System.out.println("Error: Minutos no puede ser: " + minute);
+                }else {
+                    time = LocalTime.of(hour, minute);
+                }
+            } else {
+                System.out.println("Error: El formato que debe usar es (hh:mm)");
+            }
+        }
+        LocalDateTime schedule = LocalDateTime.of(date, time);
+        return schedule;
+    }
+
+    private boolean formatIsCorrect(String flightTime) {
+        // Verificar que el formato sea "hh:mm" y no contenga otros caracteres
+        return flightTime.matches("\\d{2}:\\d{2}");
+    }
+
+    public void selectFlight() throws NotFoundException {
+        System.out.println("Seleccione el Vuelo a Modificar:");
+        showFlights();
+        int index = Input.requestUserInputInt()-1;
+        Flight flight = flights.get(index);
+        menuFlightModification(flight);
+    }
+
+    public void menuFlightModification(Flight flight) throws NotFoundException {
+        System.out.println("Menu de Modificación de Vuelo:");
+        System.out.println("1. Cambiar Avión");
+        System.out.println("2. Cambiar Origen y Destino");
+        System.out.println("3. Cambiar Fecha y Hora de Despegue");
+        int option = Input.requestUserInputInt();
+        switch (option){
+            case 1:
+                flight.setAirplane(listAndReturnAirplanesAvailable());
+                break;
+            case 2:
+                setOriginAndDestiny(flight);
+                break;
+            case 3:
+                flight.setTime(setFlightTime());
+                break;
+            default:
+                System.out.println("Opción Invalida");
+                break;
+        }
     }
 }

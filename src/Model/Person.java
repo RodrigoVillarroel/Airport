@@ -76,4 +76,8 @@ public class Person {
         Person person = (Person) obj;
         return Objects.equals(person.getNumberIdentify(), this.getNumberIdentify());
     }
+
+    public void printPerson(){
+        System.out.println("Nombre: " + getName() + "Apellido: " + getSurname());
+    }
 }
