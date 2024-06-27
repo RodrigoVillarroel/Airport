@@ -4,6 +4,7 @@ import Exceptions.InvalidIndexException;
 import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Model.*;
+import Utils.Input;
 import View.AirportMenuView;
 
 import java.util.Optional;
@@ -11,18 +12,15 @@ import java.util.Scanner;
 
 public class AirportController {
     Airport airport;
-    Airline airLine;
     AirportMenuView airportMenuView;
+    Airline airLine;
 
     public AirportController() {
-
     }
 
-    public AirportController(Airport airport, AirportMenuView airportMenuView, Airline airline) {
+    public AirportController(Airport airport, AirportMenuView airportMenuView) {
         this.airport = airport;
         this.airportMenuView = airportMenuView;
-        this.airLine = airline;
-
     }
 
     // region Main Menu
@@ -62,17 +60,16 @@ public class AirportController {
 
     // region Select Airline Menu
     private void handleSelectionAirlinesMenu() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("seleccione una aerolinea: ");
         int opcion = 0;
         airport.showAirlines();
-        opcion = scanner.nextInt();
+        opcion = Input.requestUserInputInt();
         Airline airline = airport.searchAirlineByIndex(opcion - 1);
 
         if (airline != null) {
             System.out.println(airline);
+            this.airLine = airline;
             handleAirlinesMenu(airline);
-
         } else {
             System.out.println("no se encuentra la aerolinea..");
             handleSelectionAirlinesMenu();
@@ -136,34 +133,22 @@ public class AirportController {
     private void handleAirplanesMenu(Airline airline) {
         airportMenuView.displayAirplanesMenu();
         airline.listAirplanesWithOptions();
-        Scanner scanner = new Scanner(System.in);
-        int opcion = airportMenuView.handleUserInput();
-        switch (opcion) {
+        int option = airportMenuView.handleUserInput();
+        switch (option) {
             case 1:
-                // agregar avion
-                System.out.println(airLine.addAirplaneByKeyboard());
+                handleAddAirplaneOption();
                 break;
             case 2:
-                // borrar avion
-                airline.listAirplanesWithOptions();
-                System.out.println("Escriba el cod del avion a eliminar: ");
-                System.out.println(airline.removeAirplaneByRegistrationNumber(scanner.nextLine()));
+                handleDeleteAirplaneOption();
                 break;
             case 3:
-                // modificar status avion
-                airline.listAirplanesWithOptions();
-                System.out.println("Escriba el cod del avion a modificar: ");
-                airline.modifyStatusAirplane(scanner.nextLine());
-                airline.listAirplanesWithOptions();
+                handleModifyAirplaneOption();
                 break;
             case 4:
-                // buscar avion
-                System.out.println("Escriba el cod del avion a buscar: ");
-                System.out.println(airline.searchAirplane(scanner.nextLine()));
+                handleFindAirplaneOption();
                 break;
             case 5:
-                // listar aviones
-                airline.listAirplanes();
+                handleListAirplaneOption();
                 break;
             case 6:
                 airportMenuView.displayBackMessage();
@@ -172,37 +157,97 @@ public class AirportController {
                 airportMenuView.displayInvalidOptionMessage();
         }
     }
+
+    private void handleAddAirplaneOption() {
+        System.out.println(airLine.addAirplaneByKeyboard());
+    }
+
+    private void handleDeleteAirplaneOption() {
+        Scanner scanner = new Scanner(System.in);
+        airLine.listAirplanesWithOptions();
+        System.out.println("Escriba el cod del avion a eliminar: ");
+        String airplaneCode = scanner.nextLine();
+        System.out.println(airLine.removeAirplaneByRegistrationNumber(airplaneCode));
+    }
+
+    private void handleModifyAirplaneOption() {
+        Scanner scanner = new Scanner(System.in);
+        airLine.listAirplanesWithOptions();
+        System.out.println("Escriba el cod del avion a modificar: ");
+        airLine.modifyStatusAirplane(scanner.nextLine());
+        airLine.listAirplanesWithOptions();
+    }
+
+    private void handleFindAirplaneOption() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Escriba el cod del avion a buscar: ");
+        System.out.println(airLine.searchAirplane(scanner.nextLine()));
+    }
+
+    private void handleListAirplaneOption() {
+        airLine.listAirplanes();
+    }
     // endregion
 
     // region Airline Menu: Employees Menu
     private void handleEmployeeMenu() {
         airportMenuView.displayEmployeeMenu();
-        Scanner scanner = new Scanner(System.in);
-        int opcion = airportMenuView.handleUserInput();
-        switch (opcion) {
+        int option = airportMenuView.handleUserInput();
+        switch (option) {
             case 1:
-                // agregar empleado
-                System.out.println(airLine.addEmployeeByKeyboard());
+                handleAddEmployeeOption();
                 break;
             case 2:
-                // borrar empleado
-                System.out.println("Ingrese dni del empleado a eliminar:");
-                System.out.println(airLine.removeEmployee(airLine.searchEmployee(scanner.nextInt())));
+                handleDeleteEmployeeOption();
                 break;
             case 3:
-                // modificar empleado
+                handleModifyEmployeeOption();
                 break;
             case 4:
-                // buscar empleado
-                System.out.println("Ingrese dni:");
-                System.out.println(airLine.searchEmployee(scanner.nextInt()));
+                handleSearchEmployeeOption();
             case 5:
-                airLine.listEmployee();
+                handleListEmployeesOption();
             case 6:
                 airportMenuView.displayBackMessage();
                 break;
             default:
                 airportMenuView.displayInvalidOptionMessage();
+        }
+    }
+
+    private void handleAddEmployeeOption() {
+        Employee employee = airportMenuView.displayAddEmployeeOption();
+        airLine.addEmployee(employee);
+    }
+
+    private void handleDeleteEmployeeOption() {
+        Integer nationalId = airportMenuView.displayFindEmployeeOption();
+        Employee employeeFound = airLine.searchEmployee(nationalId);
+        if (employeeFound == null) {
+            System.out.println("Empleado no encontrado");
+        } else {
+            airLine.removeEmployee(employeeFound);
+            System.out.println(employeeFound.getName() + " borrado con exito");
+        }
+    }
+
+    private void handleModifyEmployeeOption() {
+        // TODO
+    }
+
+    private void handleSearchEmployeeOption() {
+        Integer nationalId = airportMenuView.displayFindEmployeeOption();
+        Employee employeeFound = airLine.searchEmployee(nationalId);
+        if (employeeFound == null) {
+            System.out.println("Empleado no encontrado");
+            return;
+        }
+        System.out.println(employeeFound);
+    }
+
+    private void handleListEmployeesOption() {
+        for (Employee employee : airLine.getEmployees()) {
+            System.out.println(employee);
         }
     }
     // endregion
@@ -210,26 +255,22 @@ public class AirportController {
     // region Airline Menu: Location Menu
     private void handleLocationMenu() {
         airportMenuView.displayLocationsMenu();
-        Scanner scanner = new Scanner(System.in);
-        int opcion = airportMenuView.handleUserInput();
-        switch (opcion) {
+        int option = airportMenuView.handleUserInput();
+        switch (option) {
             case 1:
-                // agregar locacion
-                System.out.println(airLine.addLocationByKeyboard());
+                handleAddLocationOption();
                 break;
             case 2:
-                System.out.println("Ingrese nombre del aeropuerto:");
-                System.out.println(airLine.removeLocation(airLine.searchLocationForAirportName(scanner.nextLine())));
+                handleDeleteLocationOption();
                 break;
             case 3:
-                // modificar locacion
+                handleModifyLocationOption();
                 break;
             case 4:
-                System.out.println("Ingrese nombre del aeropuerto:");
-                System.out.println(airLine.searchLocationForAirportName(scanner.nextLine()));
+                handleFindLocationOption();
                 break;
             case 5:
-                airLine.listLocation();
+                handleListLocationOption();
                 break;
             case 6:
                 airportMenuView.displayBackMessage();
@@ -237,6 +278,30 @@ public class AirportController {
             default:
                 airportMenuView.displayInvalidOptionMessage();
         }
+    }
+
+    private void handleAddLocationOption() {
+        System.out.println(airLine.addLocationByKeyboard());
+    }
+
+    private void handleDeleteLocationOption() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese nombre del aeropuerto:");
+        System.out.println(airLine.removeLocation(airLine.searchLocationForAirportName(scanner.nextLine())));
+    }
+
+    private void handleModifyLocationOption() {
+        // TODO
+    }
+
+    private void handleFindLocationOption() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese nombre del aeropuerto:");
+        System.out.println(airLine.searchLocationForAirportName(scanner.nextLine()));
+    }
+
+    private void handleListLocationOption() {
+        airLine.listLocation();
     }
     // endregion
 
@@ -356,12 +421,12 @@ public class AirportController {
     private void handleModifyPassengerOption() {
         String passportNumber = airportMenuView.displayFindPassengerOption();
         Optional<Passenger> passengerFound = airport.findPassengerById(passportNumber);
-        if(passengerFound.isPresent()) {
+        if (passengerFound.isPresent()) {
             try {
                 System.out.println(passengerFound);
                 Passenger passengerModified = airportMenuView.displayModifyPassengerOption(passengerFound.get());
                 airport.addPassenger(passengerModified);
-            } catch(InvalidIndexException e) {
+            } catch (InvalidIndexException e) {
                 System.out.println(e.getMessage());
             }
         } else {
@@ -372,7 +437,7 @@ public class AirportController {
     private void handleDeletePassengerOption() {
         String passportNumber = airportMenuView.displayFindPassengerOption();
         Boolean deleted = airport.removePassengerById(passportNumber);
-        if(deleted) {
+        if (deleted) {
             System.out.println("Pasajero borrado");
         } else {
             System.out.println("Lo sentimos, el pasajero no pudo ser borrado");

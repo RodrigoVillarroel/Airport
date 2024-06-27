@@ -12,7 +12,7 @@ public class Main {
 
         /** Models **/
         Airport airport = Json.loadFromJson(airportJsonPath);
-        Airline airline = new Airline();
+       // Airline airline = new Airline();
 
         // Obtener una lista plana de todos los vuelos
         for (Airline a: airport.getAirlines()){
@@ -22,7 +22,7 @@ public class Main {
         AirportMenuView airportMenuView = new AirportMenuView();
 
         /** Controllers **/
-        AirportController airportController = new AirportController(airport, airportMenuView, airline);
+        AirportController airportController = new AirportController(airport, airportMenuView);
 
         /** Display main menu **/
         int opcion;

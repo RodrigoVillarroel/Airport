@@ -2,6 +2,7 @@ package View;
 
 import Exceptions.InvalidIndexException;
 import Model.Airline;
+import Model.Employee;
 import Model.Passenger;
 import Model.Person;
 import Utils.Input;
@@ -155,6 +156,23 @@ public class AirportMenuView {
         System.out.println("Edad: ");
         Integer age = Input.requestUserInputInt();
         return new Person(name, surname, age, nationalId);
+    }
+
+    public Employee displayAddEmployeeOption() {
+        System.out.println("\nCarga de Empleado...");
+        Person person = this.displayAddPersonOption();
+        System.out.println("\nLegajo de identificacion: ");
+        String file = scanner.nextLine();
+        System.out.println("\nPuesto de trabajo: ");
+        String workStation = scanner.next();
+        // TODO deberia cargar el status o esta bien que este harcodeado en active ??
+        String status = "active";
+        return new Employee(person.getName(), person.getSurname(), person.getAge(), person.getNumberIdentify(), file, workStation, status);
+    }
+
+    public Integer displayFindEmployeeOption() {
+        System.out.println("Ingrese el dni del empleado: ");
+        return Input.requestUserInputInt();
     }
 
     public Passenger displayAddPassengerOption() {

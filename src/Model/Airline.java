@@ -226,7 +226,6 @@ public class Airline {
     }
 
     public void listAirplanesWithIterator(){
-
         Iterator<Airplane> iterator = getAirplanes().iterator();
         System.out.println("listando iterator");
         while (iterator.hasNext()) {
@@ -241,41 +240,7 @@ public class Airline {
         }
         return getEmployees().add(employee);
     }
-    public boolean addEmployeeByKeyboard(){
 
-        if(getEmployees()==null) {
-            setEmployees(new HashSet<>());
-        }
-        int option;
-        Scanner scanner = new Scanner(System.in);
-        Employee employee = new Employee();
-        System.out.println("\nCarga de Empleado...");
-        System.out.println("\nLegajo de identificacion: ");
-        employee.setFile(scanner.nextLine());
-        System.out.println("\nNombre: ");
-        employee.setName(scanner.nextLine());
-        System.out.println("\nApellido: ");
-        employee.setSurname(scanner.nextLine());
-        System.out.println("\nDNI: ");
-        employee.setNumberIdentify(scanner.nextInt());
-        String s;
-        System.out.println("\nPuesto de trabajo: ");
-        s = scanner.next();
-        employee.setWorkstation(s);
-        System.out.println("\nEdad: ");
-        employee.setAge(scanner.nextInt());
-
-        employee.setStatus("active");
-
-        System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
-        option = scanner.nextInt();
-        if(option ==2){
-            return false;
-        }
-
-        System.out.println(employee);
-        return this.addEmployee(employee);
-    }
     public boolean removeEmployee(Employee employee){
         if(getEmployees()!=null) {
             return getEmployees().remove(employee);
