@@ -125,34 +125,32 @@ public class Airline {
         int selection;
         Scanner scanner = new Scanner(System.in);
         Airplane airplane = new Airplane();
-        do {
-            System.out.println("\nCarga de avion...");
-            System.out.println("\nCodigo de identificacion: ");
-            airplane.setRegistrationNumber(scanner.nextLine());
-            // System.out.println(STR."\nseleccione las capacidades:\n1) \{AirplaneCapabilities.SMALL}\n2) \{AirplaneCapabilities.MEDIUM}\n3) \{AirplaneCapabilities.BIG}");
-            selection = scanner.nextInt();
-            switch (selection){
-                case 1:
-                    airplane.setCapabilities(AirplaneCapabilities.SMALL);
-                    break;
-                case 2:
-                    airplane.setCapabilities(AirplaneCapabilities.MEDIUM);
-                    break;
-                case 3:
-                    airplane.setCapabilities(AirplaneCapabilities.BIG);
-                    break;
-                default:
-            }
-            airplane.setStatus("DISPONIBLE");
-            System.out.println(airplane);
-            System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
-            option = scanner.nextInt();
-            if(option ==2){
-                return false;
-            }
-        }while (option != 1);
+        System.out.println("\nCarga de avion...");
+        System.out.println("\nCodigo de identificacion: ");
+        airplane.setRegistrationNumber(scanner.nextLine());
+        System.out.println(STR."\nseleccione las capacidades:\n1) \{AirplaneCapabilities.SMALL}\n2) \{AirplaneCapabilities.MEDIUM}\n3) \{AirplaneCapabilities.BIG}");
+        selection = scanner.nextInt();
+        switch (selection){
+            case 1:
+                airplane.setCapabilities(AirplaneCapabilities.SMALL);
+                break;
+            case 2:
+                airplane.setCapabilities(AirplaneCapabilities.MEDIUM);
+                break;
+            case 3:
+                airplane.setCapabilities(AirplaneCapabilities.BIG);
+                break;
+            default:
+        }
+        airplane.setStatus("available");
         System.out.println(airplane);
-        return this.addAirplane(airplane);
+        System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
+        option = scanner.nextInt();
+        if(option==1){
+            return this.addAirplane(airplane);
+        }else{
+            return false;
+        }
     }
     public boolean addAirplane(Airplane airplane){
         if (getAirplanes() == null) {
@@ -167,11 +165,7 @@ public class Airline {
         return false;
     }
     public boolean removeAirplaneByRegistrationNumber(String numberRegistration){
-        this.listAirplanes();
-        System.out.println("numberRegistration = " + numberRegistration);
         if(getAirplanes()!=null){
-            System.out.println("trae:");
-            System.out.println(this.searchAirplane(numberRegistration));
             return this.removeAirplane(this.searchAirplane(numberRegistration));
         }
         return false;
@@ -186,27 +180,16 @@ public class Airline {
         }
         return null;
     }
-    /*public Airplane searchAirplaneByIterator(){
-        if(getAirplanes()!=null){
-            for (Airplane a : getAirplanes()){
-                if()
-                getAirplanes().iterator()
-            }
-        }
-    }*/
     public void modifyStatusAirplane(String numberRegistration){
         Airplane airplane = searchAirplane(numberRegistration);
-            if (airplane!=null){
-                System.out.println(airplane);
-                int option = 0;
-                Scanner scanner = new Scanner(System.in);
-                option = scanner.nextInt();
-                if(airplane.getStatus().equals("active")){
-                    airplane.setStatus("inactive");
-                }else{
-                    airplane.setStatus("active");
-                }
+        if (airplane!=null){
+            System.out.println(airplane);
+            if(airplane.getStatus().equals("available")){
+                airplane.setStatus("not available");
+            }else{
+                airplane.setStatus("available");
             }
+        }
     }
     public void listAirplanes(){
         if(getAirplanes()!=null){
@@ -225,14 +208,6 @@ public class Airline {
 
     }
 
-    public void listAirplanesWithIterator(){
-        Iterator<Airplane> iterator = getAirplanes().iterator();
-        System.out.println("listando iterator");
-        while (iterator.hasNext()) {
-            Airplane a = iterator.next();
-            System.out.println(iterator);
-        }
-    }
     /** METHODS CONTROL EMPLOYEES */
     public boolean addEmployee(Employee employee){
         if (getEmployees() == null) {
@@ -240,7 +215,44 @@ public class Airline {
         }
         return getEmployees().add(employee);
     }
+    public boolean addEmployeeByKeyboard(){
 
+        if(getEmployees()==null) {
+            setEmployees(new HashSet<>());
+        }
+        String[] workstations = {"PILOTO","TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
+                "TECNICO DE OPERACIONES","TECNICO ADMINISTRATIVO","AGENTE DE SERVICIO","DESPACHADOR DE VUELOS"};
+        int option;
+        Scanner scanner = new Scanner(System.in);
+        Employee employee = new Employee();
+        System.out.println("\nCarga de Empleado...");
+        System.out.println("\nLegajo de identificacion: ");
+        employee.setFile(scanner.nextLine());
+        System.out.println("\nNombre: ");
+        employee.setName(scanner.nextLine());
+        System.out.println("\nApellido: ");
+        employee.setSurname(scanner.nextLine());
+        System.out.println("\nDNI: ");
+        employee.setNumberIdentify(scanner.nextInt());
+        System.out.println("\nPuesto de trabajo: ");
+        for (int i = 0; i < workstations.length; i++) {
+            System.out.println(STR."\{i}) \{workstations[i]}");
+        }
+        employee.setWorkstation(workstations[scanner.nextInt()]);
+        System.out.println("\nEdad: ");
+        employee.setAge(scanner.nextInt());
+
+        employee.setStatus("ACTIVE");
+
+        System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
+        option = scanner.nextInt();
+        if(option ==2){
+            return false;
+        }
+
+        System.out.println(employee);
+        return this.addEmployee(employee);
+    }
     public boolean removeEmployee(Employee employee){
         if(getEmployees()!=null) {
             return getEmployees().remove(employee);
@@ -268,11 +280,29 @@ public class Airline {
             getEmployees().forEach(System.out::println);
         }
     }
-    public void changeStatus(Integer nroIdentity){
+    public boolean changeStatus(Integer nroIdentity){
+        boolean respuesta = false;
         Employee x = this.searchEmployee(nroIdentity);
         if(x!=null){
-            x.setStatus("Inactive");
+            x.setStatus("INACTIVE");
+            respuesta = true;
+        }else{
+            x.setStatus("ACTIVE");
+            respuesta = true;
         }
+        return respuesta;
+    }
+
+    public void changeWorkstation(Integer nroIdentity){
+        Employee x = this.searchEmployee(nroIdentity);
+        System.out.printf("el empleado: %s es %s a que puesto desea modificarlo?%n", x.getName(), x.getWorkstation());
+        Scanner scanner = new Scanner(System.in);
+        String[] workstations = {"PILOTO","TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
+                "TECNICO DE OPERACIONES","TECNICO ADMINISTRATIVO","AGENTE DE SERVICIO","DESPACHADOR DE VUELOS"};
+        for (int i = 0; i < workstations.length; i++) {
+            System.out.println(STR."\{i+1}) \{workstations[i]}");
+        }
+        x.setWorkstation(workstations[scanner.nextInt()-1]);
     }
 
     /** METHODS CONTROL LOCATIONS */

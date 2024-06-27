@@ -59,11 +59,11 @@ public class Airplane {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Airplane airplane = (Airplane) o;
-        return Objects.equals(registrationNumber, airplane.registrationNumber) && Objects.equals(status, airplane.status) && capabilities == airplane.capabilities;
+        return Objects.equals(registrationNumber, airplane.registrationNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(registrationNumber, status, capabilities);
+        return Objects.hash(registrationNumber);
     }
 }

@@ -132,7 +132,6 @@ public class AirportController {
     // region Airline Menu: Airplanes Menu
     private void handleAirplanesMenu(Airline airline) {
         airportMenuView.displayAirplanesMenu();
-        airline.listAirplanesWithOptions();
         int option = airportMenuView.handleUserInput();
         switch (option) {
             case 1:
@@ -167,7 +166,7 @@ public class AirportController {
         airLine.listAirplanesWithOptions();
         System.out.println("Escriba el cod del avion a eliminar: ");
         String airplaneCode = scanner.nextLine();
-        System.out.println(airLine.removeAirplaneByRegistrationNumber(airplaneCode));
+        airLine.removeAirplaneByRegistrationNumber(airplaneCode);
     }
 
     private void handleModifyAirplaneOption() {
@@ -201,13 +200,18 @@ public class AirportController {
                 handleDeleteEmployeeOption();
                 break;
             case 3:
-                handleModifyEmployeeOption();
+                handleModifyStatusEmployeeOption();
                 break;
             case 4:
-                handleSearchEmployeeOption();
+                handleModifyWorkstationEmployeeOption();
+                break;
             case 5:
-                handleListEmployeesOption();
+                handleSearchEmployeeOption();
+                break;
             case 6:
+                handleListEmployeesOption();
+                break;
+            case 7:
                 airportMenuView.displayBackMessage();
                 break;
             default:
@@ -231,8 +235,18 @@ public class AirportController {
         }
     }
 
-    private void handleModifyEmployeeOption() {
-        // TODO
+    private void handleModifyStatusEmployeeOption() {
+        Integer nationalId = airportMenuView.displayFindEmployeeOption();
+        if(airLine.changeStatus(nationalId)){
+            System.out.println("Empleado cambiado correctamente..");
+        }else{
+            System.out.println("El Empleado no se pudo cambiar correctamente..");
+        }
+    }
+
+    private void handleModifyWorkstationEmployeeOption() {
+        Integer nationalId = airportMenuView.displayFindEmployeeOption();
+        airLine.changeWorkstation(nationalId);
     }
 
     private void handleSearchEmployeeOption() {

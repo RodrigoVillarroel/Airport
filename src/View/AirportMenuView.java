@@ -84,10 +84,11 @@ public class AirportMenuView {
         System.out.println("\n----Administrar Empleados----");
         System.out.println("1. Agregar Empleado");
         System.out.println("2. Quitar Empleado");
-        System.out.println("3. Modificar Empleado");
-        System.out.println("4. Buscar Empleado");
-        System.out.println("5. Listar Empleados");
-        System.out.println("6. Volver al Menú Principal");
+        System.out.println("3. Modificar Estado del empleado");
+        System.out.println("4. Modificar Puesto de Trabajo del Empleado");
+        System.out.println("5. Buscar Empleado");
+        System.out.println("6. Listar Empleados");
+        System.out.println("7. Volver al Menú Principal");
     }
 
     public void displayLocationsMenu() {
@@ -159,12 +160,17 @@ public class AirportMenuView {
     }
 
     public Employee displayAddEmployeeOption() {
+        String[] workstations = {"PILOTO","TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
+                "TECNICO DE OPERACIONES","TECNICO ADMINISTRATIVO","AGENTE DE SERVICIO","DESPACHADOR DE VUELOS"};
         System.out.println("\nCarga de Empleado...");
         Person person = this.displayAddPersonOption();
         System.out.println("\nLegajo de identificacion: ");
         String file = scanner.nextLine();
         System.out.println("\nPuesto de trabajo: ");
-        String workStation = scanner.next();
+        for (int i = 0; i < workstations.length; i++) {
+            System.out.println(STR."\{i+1}) \{workstations[i]}");
+        }
+        String workStation = workstations[scanner.nextInt()-1];
         // TODO deberia cargar el status o esta bien que este harcodeado en active ??
         String status = "active";
         return new Employee(person.getName(), person.getSurname(), person.getAge(), person.getNumberIdentify(), file, workStation, status);
