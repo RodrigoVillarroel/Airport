@@ -31,10 +31,6 @@ public class Passenger extends Person {
 
     // endregion
 
-    public Passenger searchPassengerByDni(){
-        return null;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(this.getNumberIdentify(), this.getNroPassport());

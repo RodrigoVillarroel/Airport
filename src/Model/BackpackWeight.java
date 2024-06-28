@@ -21,14 +21,6 @@ public enum BackpackWeight {
         if(getPeso()>3){
             return true;
         }
-
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return "BackpackWeight{" +
-                "peso=" + peso +
-                '}';
     }
 }

@@ -2,7 +2,7 @@ package Model;
 import Exceptions.AlreadyExistsException;
 import Exceptions.NotAvailableForSaleException;
 import Interfaces.ITicketManagement;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import Utils.RandomCodeGenerator;
 
 public class OnlineTicketOffice extends TicketOffice implements ITicketManagement<String, AirportTicketOffice>{
 

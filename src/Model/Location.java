@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-public class Location implements Comparable {
+public class Location{
     @JsonProperty("airport_name")
     private String nameAirport;
     @JsonProperty("location")
@@ -54,15 +54,4 @@ public class Location implements Comparable {
         this.doors = doors;
     }
     // endregion
-
-    @Override
-    public String toString() {
-        return MessageFormat.format("Location'{'nameAirport=''{0}'', location=''{1}'', doors={2}'}'", getNameAirport(), getLocation(), getDoors());
-    }
-
-    // TODO
-    @Override
-    public int compareTo(Object o) {
-        return 0;
-    }
 }

@@ -95,11 +95,6 @@ public class Flight {
     }
     // endregion
 
-    @Override
-    public String toString() {
-        return MessageFormat.format("Flight'{'code=''{0}'', airplane={1}, door=''{2}'', origin=''{3}'', destiny=''{4}'', time={5}, stateFlight=''{6}'''}'", getCode(), getAirplane(), getDoor(), getOrigin(), getDestiny(), getTime(), getStateFlight());
-    }
-
     public String printFlight(){
         System.out.println("\n-----------------------------------------------------------------\n");
         return "Código de Vuelo:\t" + getCode() + "\nCódigo de Avion:\t" + getAirplane().getRegistrationNumber() + "\nPuerta de Embarque:\t" + getDoor() + "\nCon salida desde:\t" + getOrigin() + "\nCon destino a:\t" + getDestiny() + "\nFecha y Horario de salida:\t" + getTime() + "\nEstado del Vuelo:\t" + getStateFlight();

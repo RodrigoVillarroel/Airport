@@ -20,10 +20,12 @@ public class Luggage<T>{
             boolean response=false;
             if (!luggages.isEmpty()) {
                 if (luggages.get(i) instanceof Suitcase suitcase) {
-                     response = suitcase.isOverweight();
+                     if (suitcase.isOverDimension() || suitcase.isOverweight()) {
+                         response = true;
+                     }
                 }
                 if (luggages.get(i) instanceof Backpack backpack) {
-                    //response = backpack.isOverweight();
+                    response = backpack.isOverweight();
                 }
             }
             if (response){
@@ -31,15 +33,6 @@ public class Luggage<T>{
             }
         }
         return count;
-    }
-
-    public boolean isOverDimension(int index){
-        if(!luggages.isEmpty()){
-            if(luggages.get(index) instanceof Suitcase suitcase){
-                return suitcase.isOverDimension();
-            }
-        }
-        return false;
     }
 
     public static Luggage addRandomLuggage(){
@@ -52,12 +45,5 @@ public class Luggage<T>{
         luggage.getLuggage().add(suitcase);
         luggage.getLuggage().add(backpack);
         return luggage;
-    }
-
-    @Override
-    public String toString() {
-        return "Luggage{" +
-                "luggages=" + luggages +
-                '}';
     }
 }

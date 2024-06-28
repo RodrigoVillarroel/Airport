@@ -8,10 +8,6 @@ public class  Suitcase extends Equipaje{
         this.suitcaseCharacteristics = suitcaseCharacteristics;
     }
 
-    public SuitcaseCharacteristics getSuitcaseCharacteristics() {
-        return suitcaseCharacteristics;
-    }
-
     public void setRandomCharacteristcs(int reference){
         if (reference<6){
             setSuitcaseCharacteristics(SuitcaseCharacteristics.NORMAL);
@@ -29,12 +25,5 @@ public class  Suitcase extends Equipaje{
     }
     public boolean isOverweight(){
         return suitcaseCharacteristics.isOverweight();
-    }
-
-    @Override
-    public String toString() {
-        return "Suitcase{" +
-                "suitcaseCharacteristics=" + suitcaseCharacteristics +
-                '}';
     }
 }

@@ -5,10 +5,10 @@ public enum SuitcaseCharacteristics {
     SOBREPESO(0.56F, 0.40F, 0.25F, 24.7F),
     SOBREDIMENSIONES(0.60F, 0.50F, 0.30F, 23F);
 
-    private Float alto;
-    private Float largo;
-    private Float ancho;
-    private Float peso;
+    private final Float alto;
+    private final Float largo;
+    private final Float ancho;
+    private final Float peso;
 
     SuitcaseCharacteristics(Float alto, Float largo, Float ancho, Float peso) {
         this.alto = alto;
@@ -34,25 +34,9 @@ public enum SuitcaseCharacteristics {
     }
 
     public boolean isOverDimension(){
-        if (getAlto()>0.56F || getAncho()>0.40F || getLargo()>0.40F){
-            return true;
-        }
-        return false;
+        return getAlto() > 0.56F || getAncho() > 0.40F || getLargo() > 0.40F;
     }
     public boolean isOverweight(){
-        if (getPeso()>23F){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return "SuitcaseCharacteristics{" +
-                "alto=" + alto +
-                ", largo=" + largo +
-                ", ancho=" + ancho +
-                ", peso=" + peso +
-                '}';
+        return getPeso() > 23F;
     }
 }

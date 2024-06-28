@@ -1,14 +1,13 @@
-package Model;
+package Utils;
 
 
 import java.io.Serializable;
 import java.util.Random;
 
-public class RandomCodeGenerator implements Serializable {
-
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    private static final int CODE_LENGTH = 8;
+public class RandomCodeGenerator{
     public static String generateRandomCode() {
+        int CODE_LENGTH = 8;
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random = new Random();
         StringBuilder codeBuilder = new StringBuilder();
 

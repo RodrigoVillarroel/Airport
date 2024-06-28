@@ -36,10 +36,6 @@ public class AirportTicket {
         return to;
     }
 
-    public void setTo(String to) {
-        this.to = to;
-    }
-
     public LocalDateTime geBordingTime() {
         return bordingTime;
     }
@@ -49,17 +45,6 @@ public class AirportTicket {
     }
     public String getCodeFligth() {
         return codeFligth;
-    }
-    public Passenger getPassenger() {
-        return passenger;
-    }
-
-    public LocalDateTime getBordingTime() {
-        return bordingTime;
-    }
-
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
     }
 
     public Double getPrice() {
@@ -74,18 +59,12 @@ public class AirportTicket {
         return seat;
     }
 
-    public void setSeat(String seat) {
-        seat = seat;
-    }
     public void setPassanger(Passenger passenger) {
         this.passenger = passenger;
     }
 
     public String getGate() {
         return gate;
-    }
-    public Passenger getPassanger() {
-        return passenger;
     }
 
     public void printTicket(){

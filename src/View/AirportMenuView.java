@@ -3,6 +3,7 @@ package View;
 import Exceptions.InvalidIndexException;
 import Model.*;
 import Utils.Input;
+import Utils.RandomCodeGenerator;
 
 import java.util.Collection;
 import java.util.LinkedList;

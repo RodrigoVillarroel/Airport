@@ -28,10 +28,6 @@ public class AirportTicketOffice extends TicketOffice implements ITicketManageme
         return reservedTickets;
     }
 
-    public HashMap<String, AirportTicket> getTicketStock() {
-        return ticketStock;
-    }
-
     public AirportTicket sellTicket(Flight flight, String seat, Passenger passenger, Luggage luggage) throws NotAvailableForSaleException {
         if (isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
             Double price = getPrice();

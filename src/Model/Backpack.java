@@ -11,18 +11,16 @@ public class Backpack extends Equipaje{
         this.backpackWeight = backpackWeight;
     }
 
-    public BackpackWeight getBackpackWeight() {
-        return backpackWeight;
-    }
     public void setRandomsCharacteristics(int reference){
-
+        if(reference<7){
+            setBackpackWeight(BackpackWeight.NORMAL);
+        }
+        else {
+            setBackpackWeight(BackpackWeight.SOBREPESO);
+        }
     }
-
-    @Override
-    public String toString() {
-        return "Backpack{" +
-                "backpackWeight=" + backpackWeight +
-                '}';
+    public boolean isOverweight() {
+        return backpackWeight.isOverweight();
     }
 }
 
