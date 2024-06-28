@@ -45,6 +45,6 @@ public class Passenger extends Person {
     }
 
     public String printPassanger(){
-        return super.toString() + " - " + ("Numero de Pasaporte: " + getNroPassport());
+        return super.toString() + " - " + (" - Numero de Pasaporte: " + getNroPassport());
     }
 }

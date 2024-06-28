@@ -320,4 +320,24 @@ public class Airport {
     public void showAllFlights(Airline airline){
         airline.showFlights();
     }
+
+    public void regenerateAllStock(){
+        for (Airline a : airlines){
+            for (Flight f : a.getFlights()){
+                airportTicketOffice.regenerateTicketStock(f);
+            }
+        }
+        System.out.println("Se regeneraron todos los Stocks de vuelos");
+    }
+
+    public void renerateStockByFlight(){
+        showAirlines();
+        System.out.println("Seleccione la Aerolínea del Vuelo que desee actualizar el Stock");
+        Airline a = getAirlines().get(Input.requestUserInputInt()-1);
+        a.showFlights();
+        System.out.println("Seleccione el Vuelo a Regenerar Stock");
+        airportTicketOffice.regenerateTicketStock(a.getFlights().get(Input.requestUserInputInt()-1));
+        System.out.println("Se regenero el Stock");
+    }
+
 }

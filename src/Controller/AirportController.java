@@ -425,7 +425,7 @@ public class AirportController {
 
     private void handleListPassengerOption() {
         for (Passenger passenger : airport.getPassengers()) {
-            System.out.println(passenger.toString().concat(" Nro. de Pasaporte:" + passenger.getNroPassport()));
+            System.out.println(passenger.toString().concat(" - " + "Nro. de Pasaporte:" + passenger.getNroPassport()));
         }
     }
 
@@ -500,6 +500,12 @@ public class AirportController {
                         airport.getAirportTicketOffice().setPricesForSale();
                         break;
                     case 8:
+                        airport.regenerateAllStock();
+                        break;
+                    case 9:
+                        airport.renerateStockByFlight();
+                        break;
+                    case 10:
                         airportMenuView.displayBackMessage();
                         break;
                     default:

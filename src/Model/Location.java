@@ -54,4 +54,8 @@ public class Location{
         this.doors = doors;
     }
     // endregion
+
+    public void printLocation(){
+        System.out.println("Nombre de Aeropuerto: " + getNameAirport() + " - " + "Ciudad de Ubicacion: " + getLocation());
+    }
 }

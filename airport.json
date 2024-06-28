@@ -9,15 +9,15 @@
       "capabilities" : "MEDIUM"
     }, {
       "registration_number" : "AA-S-1",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "SMALL"
     }, {
       "registration_number" : "AA-B-3",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "AA-B-4",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "BIG"
     } ],
     "employees" : [ {
@@ -79,7 +79,7 @@
       "door" : "1",
       "origin" : "Buenos Aires",
       "destiny" : "Madrid",
-      "time" : null,
+      "time" : [ 2024, 5, 14, 21, 20 ],
       "state" : "Espera"
     }, {
       "code" : "YR-BAC",
@@ -90,8 +90,8 @@
       },
       "door" : "1",
       "origin" : "Buenos Aires",
-      "destiny" : "Londres",
-      "time" : [ 2, 2, 2, 2, 2, 2 ],
+      "destiny" : "Andalucía",
+      "time" : [ 2024, 12, 24, 12, 45 ],
       "state" : "Espera"
     } ],
     "locations" : [ {
@@ -133,10 +133,25 @@
         "status" : true
       } ]
     }, {
-      "airport_name" : "aaa",
-      "location" : "bbb",
+      "airport_name" : "Adolfo Suárez Madrid-Barajas",
+      "location" : "Madrid",
       "doors" : [ {
-        "code" : 1,
+        "code" : 236,
+        "status" : true
+      }, {
+        "code" : 654,
+        "status" : true
+      }, {
+        "code" : 241,
+        "status" : true
+      }, {
+        "code" : 321,
+        "status" : true
+      }, {
+        "code" : 112,
+        "status" : true
+      }, {
+        "code" : 124,
         "status" : true
       } ]
     } ]
@@ -146,23 +161,23 @@
     "iata_code" : "QA",
     "airplanes" : [ {
       "registration_number" : "QA-M-1",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "MEDIUM"
     }, {
       "registration_number" : "QA-M-4",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "MEDIUM"
     }, {
       "registration_number" : "QA-B-2",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "QA-B-1",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "QA-S-1",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "SMALL"
     } ],
     "employees" : [ {
@@ -223,7 +238,7 @@
       },
       "door" : "1",
       "origin" : "Buenos Aires",
-      "destiny" : "Londres",
+      "destiny" : "Andalucía",
       "time" : [ 2023, 8, 15, 14, 30 ],
       "state" : "Espera"
     }, {
@@ -236,33 +251,93 @@
       "door" : "1",
       "origin" : "Buenos Aires",
       "destiny" : "Honk Kong",
-      "time" : null,
+      "time" : [ 2025, 8, 15, 14, 30 ],
       "state" : "Espera"
     } ],
-    "locations" : null
+    "locations" : [ {
+      "airport_name" : "Ezeiza",
+      "location" : "Buenos Aires",
+      "doors" : [ {
+        "code" : 437,
+        "status" : false
+      }, {
+        "code" : 880,
+        "status" : true
+      }, {
+        "code" : 137,
+        "status" : true
+      }, {
+        "code" : 431,
+        "status" : true
+      }, {
+        "code" : 650,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "London City Airport",
+      "location" : "London",
+      "doors" : [ {
+        "code" : 616,
+        "status" : true
+      }, {
+        "code" : 808,
+        "status" : true
+      }, {
+        "code" : 646,
+        "status" : true
+      }, {
+        "code" : 388,
+        "status" : true
+      }, {
+        "code" : 393,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "Adolfo Suárez Madrid-Barajas",
+      "location" : "Madrid",
+      "doors" : [ {
+        "code" : 236,
+        "status" : true
+      }, {
+        "code" : 654,
+        "status" : true
+      }, {
+        "code" : 241,
+        "status" : true
+      }, {
+        "code" : 321,
+        "status" : true
+      }, {
+        "code" : 112,
+        "status" : true
+      }, {
+        "code" : 124,
+        "status" : true
+      } ]
+    } ]
   }, {
     "iatacode" : "SA",
     "airline_name" : "Singapore Airlines",
     "iata_code" : "SA",
     "airplanes" : [ {
       "registration_number" : "SA-S-9",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "SMALL"
     }, {
       "registration_number" : "SA-S-10",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "SMALL"
     }, {
       "registration_number" : "SA-S-11",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "SMALL"
     }, {
       "registration_number" : "SA-S-12",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "SMALL"
     }, {
       "registration_number" : "SA-S-15",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "SMALL"
     } ],
     "employees" : [ {
@@ -323,8 +398,8 @@
       },
       "door" : "1",
       "origin" : "Buenos Aires",
-      "destiny" : "Londres",
-      "time" : null,
+      "destiny" : "Andalucía",
+      "time" : [ 2024, 8, 15, 14, 30 ],
       "state" : "Espera"
     }, {
       "code" : "YR-BAC",
@@ -336,33 +411,93 @@
       "door" : "1",
       "origin" : "Buenos Aires",
       "destiny" : "Honk Kong",
-      "time" : null,
+      "time" : [ 2024, 8, 15, 14, 30 ],
       "state" : "Espera"
     } ],
-    "locations" : null
+    "locations" : [ {
+      "airport_name" : "London City Airport",
+      "location" : "London",
+      "doors" : [ {
+        "code" : 616,
+        "status" : true
+      }, {
+        "code" : 808,
+        "status" : true
+      }, {
+        "code" : 646,
+        "status" : true
+      }, {
+        "code" : 388,
+        "status" : true
+      }, {
+        "code" : 393,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "Ezeiza",
+      "location" : "Buenos Aires",
+      "doors" : [ {
+        "code" : 437,
+        "status" : false
+      }, {
+        "code" : 880,
+        "status" : true
+      }, {
+        "code" : 137,
+        "status" : true
+      }, {
+        "code" : 431,
+        "status" : true
+      }, {
+        "code" : 650,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "Adolfo Suárez Madrid-Barajas",
+      "location" : "Madrid",
+      "doors" : [ {
+        "code" : 236,
+        "status" : true
+      }, {
+        "code" : 654,
+        "status" : true
+      }, {
+        "code" : 241,
+        "status" : true
+      }, {
+        "code" : 321,
+        "status" : true
+      }, {
+        "code" : 112,
+        "status" : true
+      }, {
+        "code" : 124,
+        "status" : true
+      } ]
+    } ]
   }, {
     "iatacode" : "TA",
     "airline_name" : "Turkish Airlines",
     "iata_code" : "TA",
     "airplanes" : [ {
       "registration_number" : "TA-M-1",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "MEDIUM"
     }, {
       "registration_number" : "TA-M-2",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "MEDIUM"
     }, {
       "registration_number" : "TA-M-3",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "MEDIUM"
     }, {
       "registration_number" : "TA-M-4",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "MEDIUM"
     }, {
       "registration_number" : "TA-M-5",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "MEDIUM"
     } ],
     "employees" : [ {
@@ -423,8 +558,8 @@
       },
       "door" : "1",
       "origin" : "Buenos Aires",
-      "destiny" : "Londres",
-      "time" : null,
+      "destiny" : "Andalucía",
+      "time" : [ 2024, 9, 25, 12, 40 ],
       "state" : "Espera"
     }, {
       "code" : "YR-BAC",
@@ -436,33 +571,93 @@
       "door" : "1",
       "origin" : "Buenos Aires",
       "destiny" : "Honk Kong",
-      "time" : null,
+      "time" : [ 2024, 8, 15, 14, 30 ],
       "state" : "Espera"
     } ],
-    "locations" : null
+    "locations" : [ {
+      "airport_name" : "Ezeiza",
+      "location" : "Buenos Aires",
+      "doors" : [ {
+        "code" : 437,
+        "status" : false
+      }, {
+        "code" : 880,
+        "status" : true
+      }, {
+        "code" : 137,
+        "status" : true
+      }, {
+        "code" : 431,
+        "status" : true
+      }, {
+        "code" : 650,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "London City Airport",
+      "location" : "London",
+      "doors" : [ {
+        "code" : 616,
+        "status" : true
+      }, {
+        "code" : 808,
+        "status" : true
+      }, {
+        "code" : 646,
+        "status" : true
+      }, {
+        "code" : 388,
+        "status" : true
+      }, {
+        "code" : 393,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "Adolfo Suárez Madrid-Barajas",
+      "location" : "Madrid",
+      "doors" : [ {
+        "code" : 236,
+        "status" : true
+      }, {
+        "code" : 654,
+        "status" : true
+      }, {
+        "code" : 241,
+        "status" : true
+      }, {
+        "code" : 321,
+        "status" : true
+      }, {
+        "code" : 112,
+        "status" : true
+      }, {
+        "code" : 124,
+        "status" : true
+      } ]
+    } ]
   }, {
     "iatacode" : "ANA",
     "airline_name" : "All Nippon Airways",
     "iata_code" : "ANA",
     "airplanes" : [ {
       "registration_number" : "ANA-B-1",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "ANA-B-2",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "ANA-B-5",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "ANA-B-6",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "ANA-B-7",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "BIG"
     } ],
     "employees" : [ {
@@ -523,7 +718,7 @@
       },
       "door" : "1",
       "origin" : "Buenos Aires",
-      "destiny" : "Londres",
+      "destiny" : "Andalucía",
       "time" : null,
       "state" : "Espera"
     }, {
@@ -539,30 +734,90 @@
       "time" : null,
       "state" : "Espera"
     } ],
-    "locations" : null
+    "locations" : [ {
+      "airport_name" : "Ezeiza",
+      "location" : "Buenos Aires",
+      "doors" : [ {
+        "code" : 437,
+        "status" : false
+      }, {
+        "code" : 880,
+        "status" : true
+      }, {
+        "code" : 137,
+        "status" : true
+      }, {
+        "code" : 431,
+        "status" : true
+      }, {
+        "code" : 650,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "London City Airport",
+      "location" : "London",
+      "doors" : [ {
+        "code" : 616,
+        "status" : true
+      }, {
+        "code" : 808,
+        "status" : true
+      }, {
+        "code" : 646,
+        "status" : true
+      }, {
+        "code" : 388,
+        "status" : true
+      }, {
+        "code" : 393,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "Adolfo Suárez Madrid-Barajas",
+      "location" : "Madrid",
+      "doors" : [ {
+        "code" : 236,
+        "status" : true
+      }, {
+        "code" : 654,
+        "status" : true
+      }, {
+        "code" : 241,
+        "status" : true
+      }, {
+        "code" : 321,
+        "status" : true
+      }, {
+        "code" : 112,
+        "status" : true
+      }, {
+        "code" : 124,
+        "status" : true
+      } ]
+    } ]
   }, {
     "iatacode" : "AEAR",
     "airline_name" : "Aerolineas Argentinas",
     "iata_code" : "AEAR",
     "airplanes" : [ {
       "registration_number" : "AEAR-S-1",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "SMALL"
     }, {
       "registration_number" : "AEAR-B-2",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "AEAR-M-2",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "BIG"
     }, {
       "registration_number" : "AEAR-S-7",
-      "plane_status" : "not available",
+      "plane_status" : "Not Available",
       "capabilities" : "SMALL"
     }, {
       "registration_number" : "AEAR-S-4",
-      "plane_status" : "available",
+      "plane_status" : "Available",
       "capabilities" : "SMALL"
     } ],
     "employees" : [ {
@@ -623,8 +878,8 @@
       },
       "door" : "1",
       "origin" : "Buenos Aires",
-      "destiny" : "Londres",
-      "time" : null,
+      "destiny" : "Andalucía",
+      "time" : [ 2024, 12, 15, 20, 45 ],
       "state" : "Espera"
     }, {
       "code" : "YR-BAC",
@@ -636,31 +891,103 @@
       "door" : "1",
       "origin" : "Buenos Aires",
       "destiny" : "Honk Kong",
-      "time" : null,
+      "time" : [ 2024, 3, 15, 18, 30 ],
       "state" : "Espera"
     } ],
-    "locations" : null
+    "locations" : [ {
+      "airport_name" : "Ezeiza",
+      "location" : "Buenos Aires",
+      "doors" : [ {
+        "code" : 437,
+        "status" : false
+      }, {
+        "code" : 880,
+        "status" : true
+      }, {
+        "code" : 137,
+        "status" : true
+      }, {
+        "code" : 431,
+        "status" : true
+      }, {
+        "code" : 650,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "Sevilla",
+      "location" : "Andalucía",
+      "doors" : [ {
+        "code" : 616,
+        "status" : true
+      }, {
+        "code" : 808,
+        "status" : true
+      }, {
+        "code" : 646,
+        "status" : true
+      }, {
+        "code" : 388,
+        "status" : true
+      }, {
+        "code" : 393,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "Adolfo Suárez Madrid-Barajas",
+      "location" : "Madrid",
+      "doors" : [ {
+        "code" : 236,
+        "status" : true
+      }, {
+        "code" : 654,
+        "status" : true
+      }, {
+        "code" : 241,
+        "status" : true
+      }, {
+        "code" : 321,
+        "status" : true
+      }, {
+        "code" : 112,
+        "status" : true
+      }, {
+        "code" : 124,
+        "status" : true
+      } ]
+    } ]
   } ],
   "passengers" : [ {
+    "name" : "Soy de Prueba",
+    "surname" : "Testeo",
+    "age" : 26,
+    "numberIdentify" : 1,
+    "passport_number" : "1"
+  }, {
+    "name" : "Daniel",
+    "surname" : "Herrero",
+    "age" : 35,
+    "numberIdentify" : 65930534,
+    "passport_number" : "SFE54972395"
+  }, {
     "name" : "Paulo",
-    "surname" : null,
+    "surname" : "Salvatorre",
     "age" : 29,
-    "numberIdentify" : 5,
-    "passport_number" : "2"
+    "numberIdentify" : 3423214,
+    "passport_number" : "GTD2423144"
   }, {
     "name" : "Lionel Andres",
-    "surname" : null,
+    "surname" : "Messi",
     "age" : 36,
     "numberIdentify" : 33016244,
-    "passport_number" : "1"
+    "passport_number" : "ASD12423452"
   } ],
   "airportTicketOffice" : {
     "pricesSet" : true,
     "price" : 150.0,
-    "taxes" : 0.1
+    "taxes" : 0.15
   },
   "onlineTicketOffice" : {
     "price" : 150.0,
-    "taxes" : 0.1
+    "taxes" : 0.15
   }
 }

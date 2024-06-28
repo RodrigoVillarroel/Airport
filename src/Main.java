@@ -1,12 +1,10 @@
 import Controller.AirportController;
-import Exceptions.InvalidIndexException;
-import Exceptions.NotFoundException;
 import Model.*;
 import Utils.Json;
 import View.AirportMenuView;
 
 public class Main {
-    public static void main(String[] args) throws InvalidIndexException, NotFoundException {
+    public static void main(String[] args){
         new Json();
         final String airportJsonPath = "airport.json";
 

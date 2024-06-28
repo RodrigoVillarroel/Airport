@@ -1,10 +1,12 @@
 package Model;
+
 import Exceptions.FormatIncorrectException;
 import Exceptions.InvalidIndexException;
 import Exceptions.NotFoundException;
 import Utils.Input;
 import Utils.RandomCodeGenerator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -106,9 +108,10 @@ public class Airline {
     public void showFlights() {
         int i = 1;
         for (Flight f : flights) {
-            System.out.println(i + ")" + "\n" + "\t");
+            System.out.println("-------------------------------------------");
+            System.out.println(i + ")");
             System.out.println("Desde: " + f.getOrigin() + " - ");
-            System.out.println("Hasta: " + f.getDestiny() + "\n");
+            System.out.println("Hasta: " + f.getDestiny());
             System.out.println("Horario: " + f.getTime());
             i++;
         }
@@ -237,56 +240,10 @@ public class Airline {
         return getEmployees().add(employee);
     }
 
-    public boolean addEmployeeByKeyboard() {
-
-        if (getEmployees() == null) {
-            setEmployees(new HashSet<>());
-        }
-        String[] workstations = {"PILOTO", "TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
-                "TECNICO DE OPERACIONES", "TECNICO ADMINISTRATIVO", "AGENTE DE SERVICIO", "DESPACHADOR DE VUELOS"};
-        int option;
-        Scanner scanner = new Scanner(System.in);
-        Employee employee = new Employee();
-        System.out.println("\nCarga de Empleado...");
-        System.out.println("\nLegajo de identificacion: ");
-        employee.setFile(scanner.nextLine());
-        System.out.println("\nNombre: ");
-        employee.setName(scanner.nextLine());
-        System.out.println("\nApellido: ");
-        employee.setSurname(scanner.nextLine());
-        System.out.println("\nDNI: ");
-        employee.setNumberIdentify(scanner.nextInt());
-        System.out.println("\nPuesto de trabajo: ");
-        for (int i = 0; i < workstations.length; i++) {
-            System.out.println("i}) workstations[i]}");
-        }
-        employee.setWorkstation(workstations[scanner.nextInt()]);
-        System.out.println("\nEdad: ");
-        employee.setAge(scanner.nextInt());
-
-        employee.setStatus("ACTIVE");
-
-        System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
-        option = scanner.nextInt();
-        if (option == 2) {
-            return false;
-        }
-
-        System.out.println(employee);
-        return this.addEmployee(employee);
-    }
-
     public void removeEmployee(Employee employee) {
         if (getEmployees() != null) {
             getEmployees().remove(employee);
         }
-    }
-
-    public boolean searchEmployee(Employee employee) {
-        if (getEmployees() != null) {
-            return getEmployees().contains(employee);
-        }
-        return false;
     }
 
     public Employee searchEmployee(Integer nroIdentify) throws NotFoundException {
@@ -307,11 +264,11 @@ public class Airline {
         }
     }
 
-    public boolean changeStatus(Integer nroIdentity){
+    public boolean changeStatus(Integer nroIdentity) {
         try {
             Employee x = this.searchEmployee(nroIdentity);
             if (x != null) {
-                if (x.getStatus().equalsIgnoreCase("ACTIVE")){
+                if (x.getStatus().equalsIgnoreCase("ACTIVE")) {
                     x.setStatus("INACTIVE");
                     return true;
                 } else if (x.getStatus().equalsIgnoreCase("INACTIVE")) {
@@ -319,7 +276,7 @@ public class Airline {
                     return true;
                 }
             }
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             System.out.println(e.getMessage());
         }
         return false;
@@ -446,7 +403,9 @@ public class Airline {
     //public String searchLocation()
     public void listLocation() {
         if (getLocations() != null) {
-            getLocations().forEach(System.out::println);
+            for (Location l : getLocations()){
+                l.printLocation();
+            }
         }
     }
 
@@ -471,7 +430,7 @@ public class Airline {
         return myDestiny;
     }
 
-    public boolean thisCodeIsInUse(String code){
+    public boolean thisCodeIsInUse(String code) {
         if (!flights.isEmpty()) {
             for (int i = 0; i < flights.size(); i++) {
                 if (flights.get(i).getCode().equalsIgnoreCase(code)) {
@@ -493,7 +452,7 @@ public class Airline {
         return null;
     }
 
-    public void addFlight(String code){
+    public void addFlight(String code) {
         Flight flight = new Flight();
         try {
             flight.setCode(code);
@@ -502,6 +461,7 @@ public class Airline {
             flight.setTime(setFlightTime());
             flights.add(flight);
         } catch (NotFoundException | FormatIncorrectException | InvalidIndexException e) {
+            flight.getAirplane().setStatus("Available");
             System.out.println(e.getMessage());
         }
     }
@@ -518,7 +478,7 @@ public class Airline {
             }
         }
         int index = Input.requestUserInputInt();
-        if (index>availables.size()){
+        if (index > availables.size()) {
             throw new InvalidIndexException("El indice que selecciono es invalido");
         }
         availables.get(index - 1).setStatus("Not Available");
@@ -577,43 +537,44 @@ public class Airline {
     public LocalDateTime setFlightTime() throws FormatIncorrectException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese dia del Vuelo");
+        System.out.println("Ingrese dia del Vuelo: [1 a 31]");
         int day = Input.requestUserInputInt();
-        System.out.println("Ingrese Mes del Vuelo");
+        if (day > 31 || day < 1) {
+            throw new FormatIncorrectException("Dia no puede ser:" + day);
+        }
+        System.out.println("Ingrese Mes del Vuelo: [1 a 12]");
         int month = Input.requestUserInputInt();
-        System.out.println("Ingrese Año del Vuelo");
+        if (month < 1 || month > 12) {
+            throw new FormatIncorrectException("Mes no puede ser:" + month);
+        }
+        System.out.println("Ingrese Año del Vuelo: [Desde 2024 en adelante]");
         int year = Input.requestUserInputInt();
-        if (day > 31) {
-            throw new FormatIncorrectException ("Error: Dia no puede ser superior 31");
-        } else if (month > 12) {
-            throw new FormatIncorrectException("Error: Mes no puede ser superior a 12");
-        } else if (year < 2024) {
-            throw new FormatIncorrectException("Error: Año no puede ser inferior a 2024");
-        } else {
-            LocalDate date = LocalDate.of(year, month, day);
+        if (year < 2024) {
+            throw new FormatIncorrectException("Año no puede ser menor a 2024");
+        }
+        LocalDate date = LocalDate.of(year, month, day);
+        System.out.println("Ingrese Horario del Vuelo: (hh:mm)");
+        String fligthTime = scanner.nextLine();
+        if (formatIsCorrect(fligthTime)) {
+            String[] parts = fligthTime.split(":");
+            int hour = Integer.parseInt(parts[0]);
+            int minute = Integer.parseInt(parts[1]);
 
-            System.out.println("Ingrese Horario del Vuelo: (hh:mm)");
-            String fligthTime = scanner.nextLine();
-            if (formatIsCorrect(fligthTime)) {
-                String[] parts = fligthTime.split(":");
-                int hour = Integer.parseInt(parts[0]);
-                int minute = Integer.parseInt(parts[1]);
-
-                if ((hour < 0) || (hour > 23)) {
-                    System.out.println("Error: Hora no puede ser " + hour);
-                } else if ((minute < 0) || (minute > 59)) {
-                    System.out.println("Error: Minutos no puede ser: " + minute);
-                } else {
-                    LocalTime time = LocalTime.of(hour, minute);
-                    LocalDateTime schedule = LocalDateTime.of(date, time);
-                    return schedule;
-                }
+            if ((hour < 0) || (hour > 23)) {
+                System.out.println("Error: Hora no puede ser " + hour);
+            } else if ((minute < 0) || (minute > 59)) {
+                System.out.println("Error: Minutos no puede ser: " + minute);
             } else {
-                System.out.println("Error: El formato que debe usar es (hh:mm)");
+                LocalTime time = LocalTime.of(hour, minute);
+                LocalDateTime schedule = LocalDateTime.of(date, time);
+                return schedule;
             }
+        } else {
+            System.out.println("Error: El formato que debe usar es (hh:mm)");
         }
         return null;
     }
+
 
     private boolean formatIsCorrect(String flightTime) {
         // Verificar que el formato sea "hh:mm" y no contenga otros caracteres

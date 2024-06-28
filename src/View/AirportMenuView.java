@@ -109,7 +109,9 @@ public class AirportMenuView {
         System.out.println("5. Comprar por Destino");
         System.out.println("6. Simular Vuelo");
         System.out.println("7. Cambiar Valores de Tickets e Impuestos");
-        System.out.println("8. Volver al Menú Principal");
+        System.out.println("8. Regenerar Todos los Stocks");
+        System.out.println("9. Regenerar Stock de un Vuelo");
+        System.out.println("10. Volver al Menú Principal");
     }
     // endregion
 
@@ -121,7 +123,6 @@ public class AirportMenuView {
     }
 
     public String handleModifyAirlineInput() {
-        scanner.nextLine();
         System.out.println("Ingrese el código IATA de la aerolínea a modificar:");
         return scanner.nextLine();
     }
