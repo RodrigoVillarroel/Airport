@@ -1,8 +1,5 @@
 package Model;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.text.MessageFormat;
 
 public class Employee extends Person{
     @JsonProperty("file")
@@ -53,6 +50,6 @@ public class Employee extends Person{
 
     @Override
     public String toString() {
-        return super.toString().concat(MessageFormat.format("Employer'{'file=''{0}'', workstation=''{1}'', status=''{2}'''}'", getFile(), getWorkstation(), getStatus()));
+        return super.toString() + "Empleado: "+ getFile() + "Sector de Trabajo: " + getWorkstation() + "Estatus: " + getStatus();
     }
 }

@@ -2,17 +2,20 @@ package Model;
 import Exceptions.AlreadyExistsException;
 import Exceptions.NotAvailableForSaleException;
 import Interfaces.ITicketManagement;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OnlineTicketOffice extends TicketOffice implements ITicketManagement<String, AirportTicketOffice>{
+
     public OnlineTicketOffice() {
         super();
     }
 
     public String sellTicket(Flight flight, String seat, Passenger passenger, AirportTicketOffice airportTicketOffice) throws NotAvailableForSaleException {
         if (airportTicketOffice.isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
-            double price = 15;
+            double price = getPrice();
             AirportTicket ticket = airportTicketOffice.removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor());
             ticket.setPrice(price);
+            ticket.setPassanger(passenger);
 
             String code = RandomCodeGenerator.generateRandomCode();
             try {

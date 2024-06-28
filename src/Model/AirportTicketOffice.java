@@ -5,6 +5,7 @@ import Exceptions.InvalidIndexException;
 import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Interfaces.ITicketManagement;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
@@ -12,9 +13,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class AirportTicketOffice extends TicketOffice implements ITicketManagement <AirportTicket, Luggage> {
-    @JsonProperty("reserved_tickets")
+    @JsonIgnore
     private HashMap <String, AirportTicket> reservedTickets;
-    @JsonProperty("ticket_stock")
+    @JsonIgnore
     private HashMap<String, AirportTicket> ticketStock;
 
     public AirportTicketOffice() {
@@ -31,16 +32,16 @@ public class AirportTicketOffice extends TicketOffice implements ITicketManageme
         return ticketStock;
     }
 
-    public AirportTicket sellTicket(Flight flight, String seat, Passenger passanger, Luggage luggage) throws NotAvailableForSaleException {
+    public AirportTicket sellTicket(Flight flight, String seat, Passenger passenger, Luggage luggage) throws NotAvailableForSaleException {
         if (isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
             Double price = getPrice();
-            int count = luggage.countFines(); // Cuento las infraccion de sobrepeso o de dimensiones en el equipaje
-            if(count != 0) {//Si hay al menos una infraccion aplico los impuestos segun las infracciones detectadas
+            int count = luggage.countFines(); // Cuento las infracción de sobrepeso o de dimensiones en el equipaje
+            if(count != 0) {//Si hay al menos una infracción aplico los impuestos según las infracciones detectadas
                 price = price * (getTaxes()+count);//Sumamos el % de los impuestos sumados a la cantidad de multas
             }
             AirportTicket ticket = removeTicketFromStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor());
             ticket.setPrice(price);
-            ticket.setPassanger(passanger);
+            ticket.setPassanger(passenger);
             return ticket;
         } else {
             throw new NotAvailableForSaleException("This seat is not available");
@@ -89,13 +90,8 @@ public class AirportTicketOffice extends TicketOffice implements ITicketManageme
         ticketStock.put(key, ticket);
     }
 
-    public void regenerateTicketStock(Airline airline) throws NotFoundException, InvalidIndexException {
-        if (!airline.getFlights().isEmpty()) {
-            for (int i = 0; i < airline.getFlights().size(); i++) {
-                Flight flight = airline.getFlights().get(i);
-                updateTicketStock(flight);
-            }
-        }
+    public void regenerateTicketStock(Flight flight){
+        updateTicketStock(flight);
     }
 
     public String listSeats(Flight flight){
@@ -147,14 +143,14 @@ public class AirportTicketOffice extends TicketOffice implements ITicketManageme
             if (!isTicketAvailable(flight.getOrigin(), flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
                 builder.append("\u001B[31m"); // Color rojo para los asientos no disponibles
             } else {
-                builder.append("\u001B[34m"); // Color azul para los asientos Economica Premium disponibles
+                builder.append("\u001B[34m"); // Color azul para los asientos Económica Premium disponibles
             }
         }
         if (i>flight.getAirplane().getCapabilities().getCapacityPremiumEconomic()+flight.getAirplane().getCapabilities().getCapacityFirstClass()+flight.getAirplane().getCapabilities().getCapacityEjecutive() && i<=flight.getAirplane().getCapabilities().getCapacityEconomic()+flight.getAirplane().getCapabilities().getCapacityPremiumEconomic()+flight.getAirplane().getCapabilities().getCapacityFirstClass()+flight.getAirplane().getCapabilities().getCapacityEjecutive()){
             if (!isTicketAvailable(flight.getOrigin(),  flight.getDestiny(), flight.getTime(), seat, flight.getDoor())) {
                 builder.append("\u001B[31m"); // Color rojo para los asientos no disponibles
             } else {
-                builder.append("\u001B[32m"); // Color verde para los asientos  disponibles
+                builder.append("\u001B[32m"); // Color verde para los asientos disponibles
             }
         }
     }
@@ -208,7 +204,7 @@ public class AirportTicketOffice extends TicketOffice implements ITicketManageme
         if(!getReservedTickets().containsKey(code)){
             getReservedTickets().put(code, airportTicket);
         }else {
-            throw new AlreadyExistsException("This ticket code already exists: " + code);
+            throw new AlreadyExistsException("Este Código de Ticket ya existe: " + code);
         }
     }
 
@@ -217,9 +213,9 @@ public class AirportTicketOffice extends TicketOffice implements ITicketManageme
         System.out.println("Ingrese el Código de Ticket: ");
         String code = scanner.nextLine();
         if (getReservedTickets().containsKey(code)) {
-            System.out.println(getReservedTickets().remove(code));
+            getReservedTickets().remove(code).printTicket();
         } else {
-            throw new NotFoundException("This ticket code doesn't exist: " + code);
+            throw new NotFoundException("Este Código de Ticket no existe: " + code);
         }
     }
 

@@ -1,6 +1,7 @@
 package Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.w3c.dom.ls.LSOutput;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
@@ -17,9 +18,6 @@ public class Flight {
     private String origin;
     @JsonProperty("destiny")
     private String destiny;
-
-    // TODO
-    // `java.time.LocalDateTime` not supported by default: add Module "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling
     @JsonProperty("time")
     private LocalDateTime time;
     @JsonProperty("state")
@@ -102,6 +100,11 @@ public class Flight {
         return MessageFormat.format("Flight'{'code=''{0}'', airplane={1}, door=''{2}'', origin=''{3}'', destiny=''{4}'', time={5}, stateFlight=''{6}'''}'", getCode(), getAirplane(), getDoor(), getOrigin(), getDestiny(), getTime(), getStateFlight());
     }
 
+    public String printFlight(){
+        System.out.println("\n-----------------------------------------------------------------\n");
+        return "Código de Vuelo:\t" + getCode() + "\nCódigo de Avion:\t" + getAirplane().getRegistrationNumber() + "\nPuerta de Embarque:\t" + getDoor() + "\nCon salida desde:\t" + getOrigin() + "\nCon destino a:\t" + getDestiny() + "\nFecha y Horario de salida:\t" + getTime() + "\nEstado del Vuelo:\t" + getStateFlight();
+    }
+
     public String selectSeat(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese LETRA y NUMERO del asiento que desee comprar:");
@@ -111,13 +114,5 @@ public class Flight {
 
     public boolean thisFlightExist(String destiny){
         return  (getDestiny().equalsIgnoreCase(destiny));
-    }
-
-    public void newFlight(String code) {
-        Scanner scanner = new Scanner(System.in);
-        setCode(code);
-        System.out.println("Ingrese Numero de Registro del Avión");
-        setCode(scanner.nextLine());
-        setStateFlight("Disponible");
     }
 }

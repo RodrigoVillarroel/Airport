@@ -11,7 +11,6 @@ public class BoardingDoor {
     private boolean status;
 
     public BoardingDoor() {
-
     }
 
     public BoardingDoor(int code, boolean status) {

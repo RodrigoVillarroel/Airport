@@ -10,5 +10,6 @@
     <orderEntry type="library" exported="" name="jackson-databind-2.17.1" level="application" />
     <orderEntry type="library" exported="" name="jackson-core-2.17.1" level="application" />
     <orderEntry type="library" exported="" name="fasterxml.jackson.core.databind" level="project" />
+    <orderEntry type="library" exported="" name="fasterxml.jackson.datatype.jsr310" level="project" />
   </component>
 </module>

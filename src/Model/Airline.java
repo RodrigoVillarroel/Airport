@@ -1,9 +1,9 @@
 package Model;
-
+import Exceptions.FormatIncorrectException;
+import Exceptions.InvalidIndexException;
 import Exceptions.NotFoundException;
 import Utils.Input;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -102,9 +102,9 @@ public class Airline {
         return MessageFormat.format("Airline'{'airlineName=''{0}'', IATAcode=''{1}'', airplanes={2}, employees={3}, flights={4}, locations={5}'}'", getAirlineName(), getIATAcode(), getAirplanes(), getEmployees(), getFlights(), getLocations());
     }
 
-    public void showFlights(){
-        int i=1;
-        for (Flight f : flights){
+    public void showFlights() {
+        int i = 1;
+        for (Flight f : flights) {
             System.out.println(i + ")" + "\n" + "\t");
             System.out.println("Desde: " + f.getOrigin() + " - ");
             System.out.println("Hasta: " + f.getDestiny() + "\n");
@@ -112,30 +112,38 @@ public class Airline {
             i++;
         }
     }
-    public Flight searchFlightByIndex(int index){
-        if (!flights.isEmpty()){
-            if(flights.size()>index){
+
+    public Flight searchFlightByIndex(int index) {
+        if (!flights.isEmpty()) {
+            if (flights.size() > index) {
                 return flights.get(index);
             }
         }
         return null;
     }
 
-    /** METHODS CONTROL AIRPLANES */
-    public boolean addAirplaneByKeyboard(){
-        if(getAirplanes()==null) {
+    /**
+     * METHODS CONTROL AIRPLANES
+     */
+    public boolean addAirplaneByKeyboard() {
+        if (getAirplanes() == null) {
             setAirplanes(new HashSet<>());
         }
         int option;
         int selection;
         Scanner scanner = new Scanner(System.in);
         Airplane airplane = new Airplane();
-        System.out.println("\nCarga de avion...");
-        System.out.println("\nCodigo de identificacion: ");
-        airplane.setRegistrationNumber(scanner.nextLine());
-        System.out.println("\nseleccione las capacidades:\n1) AirplaneCapabilities.SMALL}\n2) AirplaneCapabilities.MEDIUM}\n3) AirplaneCapabilities.BIG}");
-        selection = scanner.nextInt();
-        switch (selection){
+        System.out.println("\nCarga de avión: ");
+        airplane.setRegistrationNumber(RandomCodeGenerator.generateRandomRegistrationNumber(getIATAcode()));
+        System.out.println("\nCódigo de identificación del Avión: " + airplane.getRegistrationNumber());
+        System.out.println("\nseleccione las capacidades:\n");
+        System.out.println("1) CAPACIDAD BAJA: ASIENTOS DE PRIMERA CLASE: 18 / ASIENTOS CLASE EJECUTIVO: 24 / ASIENTOS CLASE ECONÓMICA PREMIUM: 48 / ASIENTOS CLASE ECONÓMICA: 60,8");
+        System.out.println("2) CAPACIDAD MEDIA: ASIENTOS DE PRIMERA CLASE: 21 / ASIENTOS CLASE EJECUTIVO: 35 / ASIENTOS CLASE ECONÓMICA PREMIUM: 63 / ASIENTOS CLASE ECONÓMICA:77");
+        System.out.println("3) CAPACIDAD ALTA: ASIENTOS DE PRIMERA CLASE: 24 / ASIENTOS CLASE EJECUTIVO: 32 / ASIENTOS CLASE ECONÓMICA PREMIUM: 64 / ASIENTOS CLASE ECONÓMICA:80");
+
+        selection = Input.requestUserInputInt();
+
+        switch (selection) {
             case 1:
                 airplane.setCapabilities(AirplaneCapabilities.SMALL);
                 break;
@@ -151,60 +159,65 @@ public class Airline {
         System.out.println(airplane);
         System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
         option = scanner.nextInt();
-        if(option==1){
+        if (option == 1) {
             return this.addAirplane(airplane);
-        }else{
+        } else {
             return false;
         }
     }
-    public boolean addAirplane(Airplane airplane){
+
+    public boolean addAirplane(Airplane airplane) {
         if (getAirplanes() == null) {
             setAirplanes(new HashSet<>());
         }
         return getAirplanes().add(airplane);
     }
-    public boolean removeAirplane(Airplane airplane){
-        if(getAirplanes()!=null){
-            return getAirplanes().remove(airplane);
+
+    public void removeAirplane(Airplane airplane) {
+        if (getAirplanes() != null) {
+            getAirplanes().remove(airplane);
         }
-        return false;
     }
-    public boolean removeAirplaneByRegistrationNumber(String numberRegistration){
-        if(getAirplanes()!=null){
-            return this.removeAirplane(this.searchAirplane(numberRegistration));
+
+    public void removeAirplaneByRegistrationNumber(String numberRegistration) {
+        if (getAirplanes() != null) {
+            this.removeAirplane(this.searchAirplane(numberRegistration));
         }
-        return false;
     }
-    public Airplane searchAirplane(String numberRegistration){
-        if (getAirplanes()!=null){
-            for(Airplane airplane: getAirplanes()){
-                if(airplane.getRegistrationNumber().equals(numberRegistration)){
+
+    public Airplane searchAirplane(String numberRegistration) {
+        if (getAirplanes() != null) {
+            for (Airplane airplane : getAirplanes()) {
+                if (airplane.getRegistrationNumber().equals(numberRegistration)) {
                     return airplane;
                 }
             }
         }
         return null;
     }
-    public void modifyStatusAirplane(String numberRegistration){
+
+    public void modifyStatusAirplane(String numberRegistration) {
         Airplane airplane = searchAirplane(numberRegistration);
-        if (airplane!=null){
+        if (airplane != null) {
             System.out.println(airplane);
-            if(airplane.getStatus().equals("available")){
+            if (airplane.getStatus().equals("available")) {
                 airplane.setStatus("not available");
-            }else{
+            } else {
                 airplane.setStatus("available");
             }
         }
     }
-    public void listAirplanes(){
-        if(getAirplanes()!=null){
+
+    public void listAirplanes() {
+        if (getAirplanes() != null) {
             getAirplanes().forEach(System.out::println);
-        }else if(getAirplanes().isEmpty()){
+        } else if (getAirplanes().isEmpty()) {
             System.out.println("vacio");
         }
     }
-    public void listAirplanesWithOptions(){
-        if(getAirplanes()!=null){
+
+    public void listAirplanesWithOptions() {
+        if (getAirplanes() != null) {
             int i = 1;
             for (Airplane a : getAirplanes()) {
                 System.out.println(i + ") " + a.getRegistrationNumber());
@@ -213,20 +226,23 @@ public class Airline {
 
     }
 
-    /** METHODS CONTROL EMPLOYEES */
-    public boolean addEmployee(Employee employee){
+    /**
+     * METHODS CONTROL EMPLOYEES
+     */
+    public boolean addEmployee(Employee employee) {
         if (getEmployees() == null) {
             setEmployees(new HashSet<>());
         }
         return getEmployees().add(employee);
     }
-    public boolean addEmployeeByKeyboard(){
 
-        if(getEmployees()==null) {
+    public boolean addEmployeeByKeyboard() {
+
+        if (getEmployees() == null) {
             setEmployees(new HashSet<>());
         }
-        String[] workstations = {"PILOTO","TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
-                "TECNICO DE OPERACIONES","TECNICO ADMINISTRATIVO","AGENTE DE SERVICIO","DESPACHADOR DE VUELOS"};
+        String[] workstations = {"PILOTO", "TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
+                "TECNICO DE OPERACIONES", "TECNICO ADMINISTRATIVO", "AGENTE DE SERVICIO", "DESPACHADOR DE VUELOS"};
         int option;
         Scanner scanner = new Scanner(System.in);
         Employee employee = new Employee();
@@ -251,74 +267,87 @@ public class Airline {
 
         System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
         option = scanner.nextInt();
-        if(option ==2){
+        if (option == 2) {
             return false;
         }
 
         System.out.println(employee);
         return this.addEmployee(employee);
     }
-    public boolean removeEmployee(Employee employee){
-        if(getEmployees()!=null) {
-            return getEmployees().remove(employee);
+
+    public void removeEmployee(Employee employee) {
+        if (getEmployees() != null) {
+            getEmployees().remove(employee);
         }
-        return false;
     }
-    public boolean searchEmployee(Employee employee){
-        if(getEmployees()!=null){
+
+    public boolean searchEmployee(Employee employee) {
+        if (getEmployees() != null) {
             return getEmployees().contains(employee);
         }
         return false;
     }
-    public Employee searchEmployee(Integer nroIdentify){
-        if (getEmployees()!=null){
-            for (Employee employee : getEmployees()){
-                if (employee.getNumberIdentify().equals(nroIdentify)){
+
+    public Employee searchEmployee(Integer nroIdentify) throws NotFoundException {
+        if (getEmployees() != null) {
+            for (Employee employee : getEmployees()) {
+                if (employee.getNumberIdentify().equals(nroIdentify)) {
                     return employee;
                 }
             }
+            throw new NotFoundException("No se encontro al empleado");
         }
         return null;
     }
-    public void listEmployee(){
-        if(getEmployees()!=null){
+
+    public void listEmployee() {
+        if (getEmployees() != null) {
             getEmployees().forEach(System.out::println);
         }
     }
+
     public boolean changeStatus(Integer nroIdentity){
-        boolean respuesta = false;
-        Employee x = this.searchEmployee(nroIdentity);
-        if(x!=null){
-            x.setStatus("INACTIVE");
-            respuesta = true;
-        }else{
-            x.setStatus("ACTIVE");
-            respuesta = true;
+        try {
+            Employee x = this.searchEmployee(nroIdentity);
+            if (x != null) {
+                if (x.getStatus().equalsIgnoreCase("ACTIVE")){
+                    x.setStatus("INACTIVE");
+                    return true;
+                } else if (x.getStatus().equalsIgnoreCase("INACTIVE")) {
+                    x.setStatus("ACTIVE");
+                    return true;
+                }
+            }
+        }catch (NotFoundException e){
+            System.out.println(e.getMessage());
         }
-        return respuesta;
+        return false;
     }
 
-    public void changeWorkstation(Integer nroIdentity){
+    public void changeWorkstation(Integer nroIdentity) throws NotFoundException {
         Employee x = this.searchEmployee(nroIdentity);
         System.out.printf("el empleado: %s es %s a que puesto desea modificarlo?%n", x.getName(), x.getWorkstation());
         Scanner scanner = new Scanner(System.in);
-        String[] workstations = {"PILOTO","TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
-                "TECNICO DE OPERACIONES","TECNICO ADMINISTRATIVO","AGENTE DE SERVICIO","DESPACHADOR DE VUELOS"};
+        String[] workstations = {"PILOTO", "TRIPULANTE DE CABINA", "AUXILIAR DE TIERRA",
+                "TECNICO DE OPERACIONES", "TECNICO ADMINISTRATIVO", "AGENTE DE SERVICIO", "DESPACHADOR DE VUELOS"};
         for (int i = 0; i < workstations.length; i++) {
             System.out.println("i+1) workstations[i]");
         }
-        x.setWorkstation(workstations[scanner.nextInt()-1]);
+        x.setWorkstation(workstations[scanner.nextInt() - 1]);
     }
 
-    /** METHODS CONTROL LOCATIONS */
-    public boolean addLocation(Location location){
+    /**
+     * METHODS CONTROL LOCATIONS
+     */
+    public boolean addLocation(Location location) {
         if (getLocations() == null) {
             setLocations(new HashSet<>());
         }
         return getLocations().add(location);
     }
-    public boolean addLocationByKeyboard(){
-        if(getLocations()==null) {
+
+    public boolean addLocationByKeyboard() {
+        if (getLocations() == null) {
             setLocations(new HashSet<>());
         }
         int option;
@@ -330,28 +359,30 @@ public class Airline {
         System.out.println("\nCiudad,Pais: ");
         location.setLocation(scanner.nextLine());
         System.out.println("\nCantidad de puertas: ");
-        int quantity = scanner.nextInt();
-        if(quantity>=0){
+        int quantity = Input.requestUserInputInt();
+        if (quantity >= 0) {
             location.setDoors(new ArrayList<>());
             for (int i = 0; i < quantity; i++) {
-                location.getDoors().add(new BoardingDoor((new Random().nextInt(1,9999)),true));
+                location.getDoors().add(new BoardingDoor((new Random().nextInt(100, 999)), true));
             }
         }
         System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
-        option = scanner.nextInt();
-        if(option ==2){
+        option = Input.requestUserInputInt();
+        if (option == 2) {
             return false;
         }
 
         System.out.println(location);
         return this.addLocation(location);
     }
-    public boolean removeLocation(Location location){
-        if(getLocations()!=null){
+
+    public boolean removeLocation(Location location) {
+        if (getLocations() != null) {
             return getLocations().remove(location);
         }
         return false;
     }
+
     /*public void SearchLocation(){
 
         int selection = 0;
@@ -365,38 +396,18 @@ public class Airline {
             BoardingDoor door = this.searchBoardingDoor(getLocations().);
         }
     }*/
-    public void searchLocation(){
-        if (getLocations()!=null){
-            int i = 0;
-            int selection = 0;
-            this.menuSearchLocation();
-            System.out.println("seleccione un aeropuerto...");
-            Iterator<Location> iterator = getLocations().iterator();
-            while (iterator.hasNext()) {
-                System.out.println();
-                System.out.println(iterator.next());
-            }
-        }
-    }
-    public Location searchLocationForAirportName(String name){
-        if(getLocations()!=null){
-            for (Location location : getLocations()){
-                if(location.getNameAirport().equals(name)){
+
+    public Location searchLocationForAirportName(String name) {
+        if (getLocations() != null) {
+            for (Location location : getLocations()) {
+                if (location.getNameAirport().equals(name)) {
                     return location;
                 }
             }
         }
         return null;
     }
-    public void menuSearchLocation(){
-        int optionLocation = 1;
-        if(getLocations()!=null){
-            for (Location location : getLocations()){
-                System.out.println(optionLocation+ ") Aeropuerto: " + location.getNameAirport() + " Pais: " + location.getLocation());
-                optionLocation++;
-            }
-        }
-    }
+
     /*public void menuSearchLocation(){
         int optionDoor = 1;
         int optionLocation = 1;
@@ -432,15 +443,16 @@ public class Airline {
     }*/
 
     //public String searchLocation()
-    public void listLocation(){
-        if(getLocations()!=null){
+    public void listLocation() {
+        if (getLocations() != null) {
             getLocations().forEach(System.out::println);
         }
     }
-    public boolean containThisDestiny(String destiny){
-        if (!flights.isEmpty()){
+
+    public boolean containThisDestiny(String destiny) {
+        if (!flights.isEmpty()) {
             for (Flight f : flights) {
-                if (f.thisFlightExist(destiny)){
+                if (f.thisFlightExist(destiny)) {
                     return true;
                 }
             }
@@ -448,80 +460,98 @@ public class Airline {
         return false;
     }
 
-    public HashMap<String, Flight> getThisFlight(String destiny){
+    public HashMap<String, Flight> getThisFlight(String destiny) {
         HashMap<String, Flight> myDestiny = new HashMap<>();
-        for (Flight a : flights){
-            if (a.getDestiny().equalsIgnoreCase(destiny)){
+        for (Flight a : flights) {
+            if (a.getDestiny().equalsIgnoreCase(destiny)) {
                 myDestiny.put(getAirlineName(), a);
             }
         }
         return myDestiny;
     }
 
-    public boolean searchFlightCode(String code){
-        if(!flights.isEmpty()){
-            for (int i=0;i<flights.size();i++){
-                if(flights.get(i).getCode().equalsIgnoreCase(code)){
+    public boolean thisCodeIsInUse(String code){
+        if (!flights.isEmpty()) {
+            for (int i = 0; i < flights.size(); i++) {
+                if (flights.get(i).getCode().equalsIgnoreCase(code)) {
                     return true;
                 }
             }
         }
         return false;
     }
-    public void addFlight(String code) throws NotFoundException {
-        Flight flight=new Flight();
-        flight.newFlight(code);
-        flight.setAirplane(listAndReturnAirplanesAvailable());
-        setOriginAndDestiny(flight);
-        flight.setTime(setFlightTime());
-        flights.add(flight);
+
+    public Flight searchFlightCode(String code) {
+        if (!flights.isEmpty()) {
+            for (int i = 0; i < flights.size(); i++) {
+                if (flights.get(i).getCode().equalsIgnoreCase(code)) {
+                    return flights.get(i);
+                }
+            }
+        }
+        return null;
     }
 
-    public Airplane listAndReturnAirplanesAvailable(){
+    public void addFlight(String code){
+        Flight flight = new Flight();
+        try {
+            flight.setCode(code);
+            flight.setAirplane(listAndReturnAirplanesAvailable());
+            setOriginAndDestiny(flight);
+            flight.setTime(setFlightTime());
+            flights.add(flight);
+        } catch (NotFoundException | FormatIncorrectException | InvalidIndexException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Airplane listAndReturnAirplanesAvailable() throws InvalidIndexException {
         ArrayList<Airplane> availables = new ArrayList<>();
+        int i = 1;
         System.out.println("Seleccione el Indice del Avión a usar:");
-        for (Airplane airplane : airplanes){
-            int i=1;
-            if(airplane.getStatus().equalsIgnoreCase("Available")){
-                System.out.println(i +")" + airplane.getRegistrationNumber());
+        for (Airplane airplane : airplanes) {
+            if (airplane.getStatus().equalsIgnoreCase("Available")) {
+                System.out.println(i + ")" + airplane.getRegistrationNumber());
                 availables.add(airplane);
                 i++;
             }
         }
         int index = Input.requestUserInputInt();
-        availables.get(index-1).setStatus("Not Available");
-        return availables.get(index-1);
+        if (index>availables.size()){
+            throw new InvalidIndexException("El indice que selecciono es invalido");
+        }
+        availables.get(index - 1).setStatus("Not Available");
+        return availables.get(index - 1);
     }
 
     public void setOriginAndDestiny(Flight flight) throws NotFoundException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese nombre de la Locación de Origen");
         String location = scanner.nextLine();
-        if (!thisLocationExists(location)){
+        if (!thisLocationExists(location)) {
             throw new NotFoundException("La locación de Origen no se pudo encontrar, verifique la información o agréguela");
         }
         flight.setOrigin(location);
         flight.setDoor(String.valueOf(autoSelectOriginDoor(location)));
         System.out.println("Ingrese nombre de la Locación de Destino");
         location = scanner.nextLine();
-        if (!thisLocationExists(location))
-        {
+        if (!thisLocationExists(location)) {
             throw new NotFoundException("La locacion de Destino no se pudo encontrar, verifique la información o agréguela");
         }
         flight.setDestiny(location);
     }
 
-    public Integer autoSelectOriginDoor(String location){
-        for (Location value : locations){
-            if ((value.getLocation().equalsIgnoreCase(location))){
+    public Integer autoSelectOriginDoor(String location) {
+        for (Location value : locations) {
+            if ((value.getLocation().equalsIgnoreCase(location))) {
                 return searchAvailableDoor(value);
             }
         }
         return null;
     }
 
-    public boolean thisLocationExists(String location){
-        if (!location.isEmpty()) {
+    public boolean thisLocationExists(String location) {
+        if (!locations.isEmpty()) {
             for (Location value : locations) {
                 if (value.getLocation().equalsIgnoreCase(location)) {
                     return true;
@@ -531,10 +561,10 @@ public class Airline {
         return false;
     }
 
-    public Integer searchAvailableDoor(Location location){
-        if (!location.getDoors().isEmpty()){
-            for (int i=0; i<location.getDoors().size();i++){
-                if (location.getDoors().get(i).getStatus()){
+    public Integer searchAvailableDoor(Location location) {
+        if (!location.getDoors().isEmpty()) {
+            for (int i = 0; i < location.getDoors().size(); i++) {
+                if (location.getDoors().get(i).getStatus()) {
                     location.getDoors().get(i).setStatus(false);
                     return location.getDoors().get(i).getCode();
                 }
@@ -543,25 +573,23 @@ public class Airline {
         return null;
     }
 
-    public LocalDateTime setFlightTime(){
+    public LocalDateTime setFlightTime() throws FormatIncorrectException {
         Scanner scanner = new Scanner(System.in);
-        LocalDate date = null;
-        LocalTime time = null;
+
         System.out.println("Ingrese dia del Vuelo");
         int day = Input.requestUserInputInt();
         System.out.println("Ingrese Mes del Vuelo");
         int month = Input.requestUserInputInt();
         System.out.println("Ingrese Año del Vuelo");
         int year = Input.requestUserInputInt();
-        System.out.println("Ingrese la Hora de salida del Vuelo (hh:mm)");
-        if(day>31){
-            System.out.println("Error: Dia no puede ser superior 31");
-        } else if (month>12){
-            System.out.println("Error: Mes no puede ser superior a 12");
-        } else if (year<2024){
-            System.out.println("Error: Año no puede ser inferior a 2024");
-        }else {
-            date = LocalDate.of(year,month,day);
+        if (day > 31) {
+            throw new FormatIncorrectException ("Error: Dia no puede ser superior 31");
+        } else if (month > 12) {
+            throw new FormatIncorrectException("Error: Mes no puede ser superior a 12");
+        } else if (year < 2024) {
+            throw new FormatIncorrectException("Error: Año no puede ser inferior a 2024");
+        } else {
+            LocalDate date = LocalDate.of(year, month, day);
 
             System.out.println("Ingrese Horario del Vuelo: (hh:mm)");
             String fligthTime = scanner.nextLine();
@@ -574,15 +602,16 @@ public class Airline {
                     System.out.println("Error: Hora no puede ser " + hour);
                 } else if ((minute < 0) || (minute > 59)) {
                     System.out.println("Error: Minutos no puede ser: " + minute);
-                }else {
-                    time = LocalTime.of(hour, minute);
+                } else {
+                    LocalTime time = LocalTime.of(hour, minute);
+                    LocalDateTime schedule = LocalDateTime.of(date, time);
+                    return schedule;
                 }
             } else {
                 System.out.println("Error: El formato que debe usar es (hh:mm)");
             }
         }
-        LocalDateTime schedule = LocalDateTime.of(date, time);
-        return schedule;
+        return null;
     }
 
     private boolean formatIsCorrect(String flightTime) {
@@ -590,21 +619,13 @@ public class Airline {
         return flightTime.matches("\\d{2}:\\d{2}");
     }
 
-    public void selectFlight() throws NotFoundException {
-        System.out.println("Seleccione el Vuelo a Modificar:");
-        showFlights();
-        int index = Input.requestUserInputInt()-1;
-        Flight flight = flights.get(index);
-        menuFlightModification(flight);
-    }
-
-    public void menuFlightModification(Flight flight) throws NotFoundException {
+    public void menuFlightModification(Flight flight) throws NotFoundException, FormatIncorrectException, InvalidIndexException {
         System.out.println("Menu de Modificación de Vuelo:");
         System.out.println("1. Cambiar Avión");
         System.out.println("2. Cambiar Origen y Destino");
         System.out.println("3. Cambiar Fecha y Hora de Despegue");
         int option = Input.requestUserInputInt();
-        switch (option){
+        switch (option) {
             case 1:
                 flight.setAirplane(listAndReturnAirplanesAvailable());
                 break;

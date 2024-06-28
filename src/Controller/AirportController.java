@@ -1,8 +1,6 @@
 package Controller;
 
-import Exceptions.InvalidIndexException;
-import Exceptions.NotAvailableForSaleException;
-import Exceptions.NotFoundException;
+import Exceptions.*;
 import Model.*;
 import Utils.Input;
 import View.AirportMenuView;
@@ -28,7 +26,7 @@ public class AirportController {
         airportMenuView.displayMainMenu();
     }
 
-    public int handleUserInput() throws NotAvailableForSaleException {
+    public int handleUserInput() {
         int opcion = airportMenuView.handleUserInput();
         try {
             switch (opcion) {
@@ -47,11 +45,7 @@ public class AirportController {
                 default:
                     airportMenuView.displayInvalidOptionMessage();
             }
-        } catch (NotAvailableForSaleException e) {
-            System.out.println(e.getMessage());
-        } catch (InvalidIndexException e) {
-            System.out.println(e.getMessage());
-        } catch (NotFoundException e) {
+        } catch (NotAvailableForSaleException | InvalidIndexException | NotFoundException | AlreadyExistsException e) {
             System.out.println(e.getMessage());
         }
         return opcion;
@@ -60,33 +54,30 @@ public class AirportController {
 
     // region Select Airline Menu
     private void handleSelectionAirlinesMenu() throws InvalidIndexException, NotFoundException {
-        System.out.println("seleccione una aerolinea: ");
-        int opcion = 0;
+        System.out.println("Seleccione una Aerolínea: \n");
         airport.showAirlines();
-        opcion = Input.requestUserInputInt();
-        Airline airline = airport.searchAirlineByIndex(opcion - 1);
 
+        int opcion = Input.requestUserInputInt();
+        Airline airline = airport.searchAirlineByIndex(opcion - 1);
         if (airline != null) {
-            System.out.println(airline);
             this.airLine = airline;
             handleAirlinesMenu(airline);
         } else {
-            System.out.println("no se encuentra la aerolinea..");
-            handleSelectionAirlinesMenu();
+            throw new NotFoundException("No se encuentra la Aerolínea");
         }
     }
     // endregion
 
     // region Airlines Menu
-    private void handleAirlinesMenu(Airline airline) throws InvalidIndexException, NotFoundException {
+    private void handleAirlinesMenu(Airline airline) throws NotFoundException {
         airportMenuView.displayAirlinesMenu(airline.getAirlineName(), airline.getIATAcode());
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
             case 1:
-                handleFlightsMenu();
+                handleFlightsMenu(airline);
                 break;
             case 2:
-                handleAirplanesMenu(airline);
+                handleAirplanesMenu();
                 break;
             case 3:
                 handleLocationMenu();
@@ -104,33 +95,40 @@ public class AirportController {
     // endregion
 
     // region Airline Menu: Flights Menu
-    private void handleFlightsMenu() throws InvalidIndexException, NotFoundException {
+    private void handleFlightsMenu(Airline airline) {
         airportMenuView.displayFlightsMenu();
         int opcion = airportMenuView.handleUserInput();
-        switch (opcion) {
-            case 1:
-                airport.addFlight();
-                break;
-            case 2:
-                airport.deleteFlight();
-                break;
-            case 3:
-                airport.modifyFlight();
-                break;
-            case 4:
-                airport.searchFlight();
-                break;
-            case 5:
-                airportMenuView.displayBackMessage();
-                break;
-            default:
-                airportMenuView.displayInvalidOptionMessage();
+        try {
+            switch (opcion) {
+                case 1:
+                    airport.addFlight(airline);
+                    break;
+                case 2:
+                    airport.deleteFlight(airline);
+                    break;
+                case 3:
+                    airport.modifyFlight(airline);
+                    break;
+                case 4:
+                    airport.searchFlight(airline);
+                    break;
+                case 5:
+                    airport.showAllFlights(airline);
+                    break;
+                case 6:
+                    airportMenuView.displayBackMessage();
+                    break;
+                default:
+                    airportMenuView.displayInvalidOptionMessage();
+            }
+        }catch (InvalidIndexException | NotFoundException | FormatIncorrectException e){
+            System.out.println(e.getMessage());
         }
     }
     // endregion
 
     // region Airline Menu: Airplanes Menu
-    private void handleAirplanesMenu(Airline airline) {
+    private void handleAirplanesMenu() {
         airportMenuView.displayAirplanesMenu();
         int option = airportMenuView.handleUserInput();
         switch (option) {
@@ -189,7 +187,7 @@ public class AirportController {
     // endregion
 
     // region Airline Menu: Employees Menu
-    private void handleEmployeeMenu() {
+    private void handleEmployeeMenu() throws NotFoundException {
         airportMenuView.displayEmployeeMenu();
         int option = airportMenuView.handleUserInput();
         switch (option) {
@@ -225,13 +223,17 @@ public class AirportController {
     }
 
     private void handleDeleteEmployeeOption() {
-        Integer nationalId = airportMenuView.displayFindEmployeeOption();
-        Employee employeeFound = airLine.searchEmployee(nationalId);
-        if (employeeFound == null) {
-            System.out.println("Empleado no encontrado");
-        } else {
-            airLine.removeEmployee(employeeFound);
-            System.out.println(employeeFound.getName() + " borrado con exito");
+        try {
+            Integer nationalId = airportMenuView.displayFindEmployeeOption();
+            Employee employeeFound = airLine.searchEmployee(nationalId);
+            if (employeeFound == null) {
+                System.out.println("Empleado no encontrado");
+            } else {
+                airLine.removeEmployee(employeeFound);
+                System.out.println(employeeFound.getName() + " borrado con exito");
+            }
+        }catch (NotFoundException e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -244,12 +246,12 @@ public class AirportController {
         }
     }
 
-    private void handleModifyWorkstationEmployeeOption() {
+    private void handleModifyWorkstationEmployeeOption() throws NotFoundException {
         Integer nationalId = airportMenuView.displayFindEmployeeOption();
         airLine.changeWorkstation(nationalId);
     }
 
-    private void handleSearchEmployeeOption() {
+    private void handleSearchEmployeeOption() throws NotFoundException {
         Integer nationalId = airportMenuView.displayFindEmployeeOption();
         Employee employeeFound = airLine.searchEmployee(nationalId);
         if (employeeFound == null) {
@@ -320,7 +322,7 @@ public class AirportController {
     // endregion
 
     // region Airport Menu
-    private void handleAirportMenu() {
+    private void handleAirportMenu() throws AlreadyExistsException {
         airportMenuView.displayAirportMenu();
         int opcion = airportMenuView.handleUserInput();
         switch (opcion) {
@@ -392,9 +394,10 @@ public class AirportController {
     // endregion
 
     // region Airport Menu: Passenger Menu
-    private void handlePassengersMenu() {
+    private void handlePassengersMenu(){
         airportMenuView.displayPassengersMenu();
         int opcion = airportMenuView.handleUserInput();
+        try {
         switch (opcion) {
             case 1:
                 handleListPassengerOption();
@@ -414,21 +417,25 @@ public class AirportController {
             default:
                 airportMenuView.displayInvalidOptionMessage();
         }
+        }catch (AlreadyExistsException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private void handleListPassengerOption() {
         for (Passenger passenger : airport.getPassengers()) {
-            System.out.println(passenger);
+            System.out.println(passenger.toString().concat(" Nro. de Pasaporte:" + passenger.getNroPassport()));
         }
     }
 
-    private void handleAddPassengerOption() {
+    private void handleAddPassengerOption() throws AlreadyExistsException {
         Passenger passenger = airportMenuView.displayAddPassengerOption();
         Boolean added = airport.addPassenger(passenger);
         if (added) {
             System.out.println("Pasajero agregado al sistema");
         } else {
-            System.out.println("El pasajero ya existe");
+            throw new AlreadyExistsException("El Pasajero ya existe");
         }
     }
 
@@ -461,45 +468,47 @@ public class AirportController {
 
     // region Tickets Sells Menu
     private void handleTicketsSellsMenu() throws NotAvailableForSaleException, InvalidIndexException, NotFoundException {
-        airportMenuView.displayTicketsSellsMenu();
-        int opcion = airportMenuView.handleUserInput();
-        try {
-            switch (opcion) {
-                case 1:
-                    // TODO
-                    airport.sellAirportTicket();
-                    break;
-                case 2:
-                    airport.sellAirportTicketOnline();
-                    break;
-                case 3:
-                    airport.getAirportTicketOffice().exchangeTicket();
-                    break;
-                case 4:
-                    airport.buyTicketByFlight();
-                    break;
-                case 5:
-                    airport.buyTicketByDestiny();
-                    break;
-                case 6:
-                    airport.simuleFlightCost();
-                    break;
-                case 7:
-                    airport.getAirportTicketOffice().setPricesForSale();
-                    break;
-                case 8:
-                    airportMenuView.displayBackMessage();
-                    break;
-                case 9:
-                    break;
-                default:
-                    airportMenuView.displayInvalidOptionMessage();
-            }
-        } catch (InvalidIndexException e) {
-            System.out.println(e.getMessage());
-        } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
+
+        int opcion = 0;
+        if(!airport.getAirportTicketOffice().isPricesSet()){
+            airport.getAirportTicketOffice().setPricesForSale();
         }
+        do{
+            airportMenuView.displayTicketsSellsMenu();
+            opcion = airportMenuView.handleUserInput();
+            try {
+                switch (opcion) {
+                    case 1:
+                        airport.sellAirportTicket();
+                        break;
+                    case 2:
+                        airport.sellAirportTicketOnline();
+                        break;
+                    case 3:
+                        airport.getAirportTicketOffice().exchangeTicket();
+                        break;
+                    case 4:
+                        airport.buyTicketByFlight();
+                        break;
+                    case 5:
+                        airport.buyTicketByDestiny();
+                        break;
+                    case 6:
+                        airport.simuleFlightCost();
+                        break;
+                    case 7:
+                        airport.getAirportTicketOffice().setPricesForSale();
+                        break;
+                    case 8:
+                        airportMenuView.displayBackMessage();
+                        break;
+                    default:
+                        airportMenuView.displayInvalidOptionMessage();
+                }
+            } catch (InvalidIndexException | NotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+        }while (opcion<8);
     }
     // endregion
 }

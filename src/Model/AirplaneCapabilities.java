@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum AirplaneCapabilities {
-    SMALL(18,24,48,60,6),
-    MEDIUM(21,35,63,77,7),
-    BIG(24,32,64,80,8);
+    SMALL(18,24,48,60,8),
+    MEDIUM(21,35,63,77,10),
+    BIG(24,32,64,80,12);
 
     @JsonProperty("first_class_capacity")
     private Integer capacityFirstClass;

@@ -25,6 +25,4 @@ public abstract class TicketOffice {
     public void setTaxes(Float taxes) {
         this.taxes = taxes;
     }
-
-
 }

@@ -1,10 +1,7 @@
 package View;
 
 import Exceptions.InvalidIndexException;
-import Model.Airline;
-import Model.Employee;
-import Model.Passenger;
-import Model.Person;
+import Model.*;
 import Utils.Input;
 
 import java.util.Collection;
@@ -57,12 +54,13 @@ public class AirportMenuView {
         System.out.println("2. Borrar Vuelo");
         System.out.println("3. Modificar Vuelo");
         System.out.println("4. Buscar Vuelo");
-        System.out.println("5. Volver al Menú Principal");
+        System.out.println("5. Enlistar Todos los Vuelos");
+        System.out.println("6. Volver al Menú Principal");
     }
 
     public void displayAirlinesMenu(String name, String iataCode) {
-        System.out.println("\n----Menu Aerolínea----");
-        System.out.println("\n----- " + name + " ------\n------IATA CODE: " + iataCode + " ----");
+        System.out.println("----Menu Aerolínea----");
+        System.out.println("\n------" + name + "------\n------IATA CODE: " + iataCode + "------");
         System.out.println("1. Menu Vuelos");
         System.out.println("2. Menu Aviones");
         System.out.println("3. Menu Locaciones");
@@ -72,10 +70,10 @@ public class AirportMenuView {
 
     public void displayAirplanesMenu() {
         System.out.println("\n----Administrar Aviones----");
-        System.out.println("1. Agregar Avion");
-        System.out.println("2. Quitar Avion");
-        System.out.println("3. Modificar Estado de Avion");
-        System.out.println("4. buscar Avion");
+        System.out.println("1. Agregar Avión");
+        System.out.println("2. Quitar Avión");
+        System.out.println("3. Modificar Estado de Avión");
+        System.out.println("4. buscar Avión");
         System.out.println("5. listar Aviones");
         System.out.println("6. Volver al Menú Principal");
     }
@@ -109,7 +107,8 @@ public class AirportMenuView {
         System.out.println("4. Comprar por Vuelo");
         System.out.println("5. Comprar por Destino");
         System.out.println("6. Simular Vuelo");
-        System.out.println("7. Volver al Menú Principal");
+        System.out.println("7. Cambiar Valores de Tickets e Impuestos");
+        System.out.println("8. Volver al Menú Principal");
     }
     // endregion
 
@@ -168,7 +167,7 @@ public class AirportMenuView {
         String file = scanner.nextLine();
         System.out.println("\nPuesto de trabajo: ");
         for (int i = 0; i < workstations.length; i++) {
-            System.out.println(STR."\{i+1}) \{workstations[i]}");
+            System.out.println(i+1 + ")" + workstations[i]);
         }
         String workStation = workstations[scanner.nextInt()-1];
         // TODO deberia cargar el status o esta bien que este harcodeado en active ??
@@ -183,8 +182,7 @@ public class AirportMenuView {
 
     public Passenger displayAddPassengerOption() {
         Person person = this.displayAddPersonOption();
-        System.out.println("Numero de pasaporte: ");
-        String passportNumber = scanner.nextLine();
+        String passportNumber = RandomCodeGenerator.generateRandomPassportNumber();
         return new Passenger(person.getName(), person.getSurname(), person.getAge(), person.getNumberIdentify(), passportNumber);
     }
 
@@ -214,11 +212,6 @@ public class AirportMenuView {
         return passengerFound;
     }
 
-    public String displayRequestSeat() {
-        System.out.println("Seleccione el numero de asiento que desee");
-        return scanner.nextLine();
-    }
-
     // region Commons
     public void displayInvalidOptionMessage() {
         System.out.println("Opción no válida, intente nuevamente.");
@@ -234,7 +227,7 @@ public class AirportMenuView {
 
     public void displayLineBreak() {
         System.out.println("\n");
-    };
+    }
 
     public int handleUserInput() {
         System.out.print("Seleccione una opción: ");

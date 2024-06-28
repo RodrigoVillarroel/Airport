@@ -1,13 +1,13 @@
 import Controller.AirportController;
 import Exceptions.InvalidIndexException;
-import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Model.*;
 import Utils.Json;
 import View.AirportMenuView;
 
 public class Main {
-    public static void main(String[] args) throws NotAvailableForSaleException, InvalidIndexException, NotFoundException {
+    public static void main(String[] args) throws InvalidIndexException, NotFoundException {
+        new Json();
         final String airportJsonPath = "airport.json";
 
         /** Models **/
@@ -15,9 +15,6 @@ public class Main {
        // Airline airline = new Airline();
 
         // Obtener una lista plana de todos los vuelos
-        for (Airline a: airport.getAirlines()){
-            airport.getAirportTicketOffice().regenerateTicketStock(a);
-        }
         /** Views **/
         AirportMenuView airportMenuView = new AirportMenuView();
 

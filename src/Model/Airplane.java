@@ -51,7 +51,7 @@ public class Airplane {
     // endregion
     @Override
     public String toString() {
-        return MessageFormat.format("Airplane'{'registrationNumber=''{0}'', status=''{1}'', capabilities={2}'}'", getRegistrationNumber(), getStatus(), getCapabilities());
+        return "Código de Identificacion: " + getRegistrationNumber() +" - " + "Capacidad Total: " +getCapabilities().getTotalCapacity() + "-" + "Estatus: " + getStatus();
     }
 
     @Override

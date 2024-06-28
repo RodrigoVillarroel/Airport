@@ -36,11 +36,6 @@ public class Passenger extends Person {
     }
 
     @Override
-    public String toString() {
-        return super.toString().concat(MessageFormat.format("Passenger'{'nroPassport=''{0}'', luggage={1}'}'", getNroPassport()));
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(this.getNumberIdentify(), this.getNroPassport());
     }
@@ -53,8 +48,7 @@ public class Passenger extends Person {
         return Objects.equals(passenger.getNumberIdentify(), this.getNumberIdentify()) && Objects.equals(passenger.getNroPassport(), this.getNroPassport());
     }
 
-    public void printPassanger(){
-        super.printPerson();
-        System.out.println("Numero de Pasaporte:" + getNroPassport());
+    public String printPassanger(){
+        return super.toString() + " - " + ("Numero de Pasaporte: " + getNroPassport());
     }
 }

@@ -1,728 +1,666 @@
 {
-  "airlines": [
-    {
-      "iatacode": "AA",
-      "airline_name": "American Airlines",
-      "iata_code": "AA",
-      "airplanes": [
-        {
-          "registration_number": "AA-B-4",
-          "plane_status": "not available",
-          "capabilities": "BIG"
-        },
-        {
-          "registration_number": "AA-B-3",
-          "plane_status": "available",
-          "capabilities": "BIG"
-        },
-        {
-          "registration_number": "AA-M-6",
-          "plane_status": "available",
-          "capabilities": "MEDIUM"
-        },
-        {
-          "registration_number": "AA-S-1",
-          "plane_status": "available",
-          "capabilities": "SMALL"
-        }
-      ],
-      "employees": [
-        {
-          "name": "John",
-          "surname": "Button",
-          "age": 48,
-          "numberIdentify": 20712044,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Steve",
-          "surname": "James",
-          "age": 44,
-          "numberIdentify": 22655599,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Susan",
-          "surname": "Jobs",
-          "age": 26,
-          "numberIdentify": 68691634,
-          "file": "123",
-          "workstation": "TECNICO DE OPERACIONES",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Daiana",
-          "surname": "Flick",
-          "age": 29,
-          "numberIdentify": 42380909,
-          "file": "123",
-          "workstation": "TECNICO ADMINISTRATIVO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Frank",
-          "surname": "Murphy",
-          "age": 39,
-          "numberIdentify": 70593289,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Patrick",
-          "surname": "Johnsson",
-          "age": 37,
-          "numberIdentify": 98324417,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        }
-      ],
-      "flights": [
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Madrid",
-          "time": null,
-          "state": "Espera"
-        },
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Londres",
-          "time": null,
-          "state": "Espera"
-        }
-      ],
-      "locations": [
-        {
-          "airport_name": "aaa",
-          "location": "bbb",
-          "doors": [
-            {
-              "code": 1,
-              "status": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "iatacode": "QA",
-      "airline_name": "Qatar Airways",
-      "iata_code": "QA",
-      "airplanes": [
-        {
-          "registration_number": "QA-M-1",
-          "plane_status": "not available",
-          "capabilities": "MEDIUM"
-        },
-        {
-          "registration_number": "QA-B-1",
-          "plane_status": "available",
-          "capabilities": "BIG"
-        },
-        {
-          "registration_number": "QA-S-1",
-          "plane_status": "available",
-          "capabilities": "SMALL"
-        },
-        {
-          "registration_number": "QA-M-4",
-          "plane_status": "available",
-          "capabilities": "MEDIUM"
-        },
-        {
-          "registration_number": "QA-B-2",
-          "plane_status": "not available",
-          "capabilities": "BIG"
-        }
-      ],
-      "employees": [
-        {
-          "name": "Oliver",
-          "surname": "Davies",
-          "age": 36,
-          "numberIdentify": 19488024,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Louis",
-          "surname": "Watts",
-          "age": 28,
-          "numberIdentify": 33016244,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "James",
-          "surname": "Burke",
-          "age": 33,
-          "numberIdentify": 92768371,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Isaac",
-          "surname": "Moss",
-          "age": 50,
-          "numberIdentify": 77289203,
-          "file": "123",
-          "workstation": "AGENTE DE SERVICIO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Gracie",
-          "surname": "Reynolds",
-          "age": 44,
-          "numberIdentify": 76417479,
-          "file": "123",
-          "workstation": "DESPACHADOR DE VUELOS",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Eliza",
-          "surname": "White",
-          "age": 37,
-          "numberIdentify": 69241407,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        }
-      ],
-      "flights": [
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Londres",
-          "time": null,
-          "state": "Espera"
-        },
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Honk Kong",
-          "time": null,
-          "state": "Espera"
-        }
-      ],
-      "locations": null
-    },
-    {
-      "iatacode": "SA",
-      "airline_name": "Singapore Airlines",
-      "iata_code": "SA",
-      "airplanes": [
-        {
-          "registration_number": "SA-S-11",
-          "plane_status": "not available",
-          "capabilities": "SMALL"
-        },
-        {
-          "registration_number": "SA-S-10",
-          "plane_status": "not available",
-          "capabilities": "SMALL"
-        },
-        {
-          "registration_number": "SA-S-15",
-          "plane_status": "not available",
-          "capabilities": "SMALL"
-        },
-        {
-          "registration_number": "SA-S-12",
-          "plane_status": "available",
-          "capabilities": "SMALL"
-        },
-        {
-          "registration_number": "SA-S-9",
-          "plane_status": "available",
-          "capabilities": "SMALL"
-        }
-      ],
-      "employees": [
-        {
-          "name": "Casey",
-          "surname": "Yuèqín",
-          "age": 24,
-          "numberIdentify": 50247594,
-          "file": "123",
-          "workstation": "DESPACHADOR DE VUELOS",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Yuen",
-          "surname": "Da-shin",
-          "age": 36,
-          "numberIdentify": 89898750,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Lao",
-          "surname": "Changying",
-          "age": 39,
-          "numberIdentify": 38379356,
-          "file": "123",
-          "workstation": "AUXILIAR DE TIERRA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Duan",
-          "surname": "Lee",
-          "age": 45,
-          "numberIdentify": 50231096,
-          "file": "123",
-          "workstation": "TECNICO ADMINISTRATIVO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Rene",
-          "surname": "Fu",
-          "age": 47,
-          "numberIdentify": 69383193,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Dong",
-          "surname": "Zhi",
-          "age": 51,
-          "numberIdentify": 87022352,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        }
-      ],
-      "flights": [
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Londres",
-          "time": null,
-          "state": "Espera"
-        },
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Honk Kong",
-          "time": null,
-          "state": "Espera"
-        }
-      ],
-      "locations": null
-    },
-    {
-      "iatacode": "TA",
-      "airline_name": "Turkish Airlines",
-      "iata_code": "TA",
-      "airplanes": [
-        {
-          "registration_number": "TA-M-3",
-          "plane_status": "available",
-          "capabilities": "MEDIUM"
-        },
-        {
-          "registration_number": "TA-M-2",
-          "plane_status": "available",
-          "capabilities": "MEDIUM"
-        },
-        {
-          "registration_number": "TA-M-5",
-          "plane_status": "available",
-          "capabilities": "MEDIUM"
-        },
-        {
-          "registration_number": "TA-M-4",
-          "plane_status": "available",
-          "capabilities": "MEDIUM"
-        },
-        {
-          "registration_number": "TA-M-1",
-          "plane_status": "available",
-          "capabilities": "MEDIUM"
-        }
-      ],
-      "employees": [
-        {
-          "name": "Ayşegül",
-          "surname": "Kara",
-          "age": 46,
-          "numberIdentify": 50286207,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Selma",
-          "surname": "Şahin",
-          "age": 33,
-          "numberIdentify": 52891142,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Gülsüm",
-          "surname": "Bozkurt",
-          "age": 40,
-          "numberIdentify": 57853115,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Zeynep",
-          "surname": "Özdemir",
-          "age": 42,
-          "numberIdentify": 28648777,
-          "file": "123",
-          "workstation": "TECNICO DE OPERACIONES",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Elif",
-          "surname": "Doğan",
-          "age": 29,
-          "numberIdentify": 18833010,
-          "file": "123",
-          "workstation": "Agente de trafico",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Havva",
-          "surname": "Korkmaz",
-          "age": 35,
-          "numberIdentify": 73151443,
-          "file": "123",
-          "workstation": "DESPACHADOR DE VUELOS",
-          "status": "ACTIVE"
-        }
-      ],
-      "flights": [
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Londres",
-          "time": null,
-          "state": "Espera"
-        },
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Honk Kong",
-          "time": null,
-          "state": "Espera"
-        }
-      ],
-      "locations": null
-    },
-    {
-      "iatacode": "ANA",
-      "airline_name": "All Nippon Airways",
-      "iata_code": "ANA",
-      "airplanes": [
-        {
-          "registration_number": "ANA-B-1",
-          "plane_status": "not available",
-          "capabilities": "BIG"
-        },
-        {
-          "registration_number": "ANA-B-6",
-          "plane_status": "not available",
-          "capabilities": "BIG"
-        },
-        {
-          "registration_number": "ANA-B-7",
-          "plane_status": "not available",
-          "capabilities": "BIG"
-        },
-        {
-          "registration_number": "ANA-B-2",
-          "plane_status": "available",
-          "capabilities": "BIG"
-        },
-        {
-          "registration_number": "ANA-B-5",
-          "plane_status": "not available",
-          "capabilities": "BIG"
-        }
-      ],
-      "employees": [
-        {
-          "name": "Yamato",
-          "surname": "Wata",
-          "age": 35,
-          "numberIdentify": 71439830,
-          "file": "123",
-          "workstation": "AUXILIAR DE TIERRA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Kuno",
-          "surname": "Naruki",
-          "age": 28,
-          "numberIdentify": 35216833,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Taku",
-          "surname": "Misaki",
-          "age": 19,
-          "numberIdentify": 83263071,
-          "file": "123",
-          "workstation": "DESPACHADOR DE VUELOS",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Oohashi",
-          "surname": "Sairi",
-          "age": 47,
-          "numberIdentify": 26091301,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Makino",
-          "surname": "Rifu",
-          "age": 34,
-          "numberIdentify": 75281200,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Yoshizawa",
-          "surname": "Mineki",
-          "age": 50,
-          "numberIdentify": 68110064,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        }
-      ],
-      "flights": [
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Londres",
-          "time": null,
-          "state": "Espera"
-        },
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Honk Kong",
-          "time": null,
-          "state": "Espera"
-        }
-      ],
-      "locations": null
-    },
-    {
-      "iatacode": "AEAR",
-      "airline_name": "Aerolineas Argentinas",
-      "iata_code": "AEAR",
-      "airplanes": [
-        {
-          "registration_number": "AEAR-S-7",
-          "plane_status": "not available",
-          "capabilities": "SMALL"
-        },
-        {
-          "registration_number": "AEAR-S-4",
-          "plane_status": "available",
-          "capabilities": "SMALL"
-        },
-        {
-          "registration_number": "AEAR-S-1",
-          "plane_status": "not available",
-          "capabilities": "SMALL"
-        },
-        {
-          "registration_number": "AEAR-B-2",
-          "plane_status": "not available",
-          "capabilities": "BIG"
-        },
-        {
-          "registration_number": "AEAR-M-2",
-          "plane_status": "available",
-          "capabilities": "BIG"
-        }
-      ],
-      "employees": [
-        {
-          "name": "Claudio",
-          "surname": "Fernandez",
-          "age": 45,
-          "numberIdentify": 53458703,
-          "file": "123",
-          "workstation": "DESPACHADOR DE VUELOS",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Lucia",
-          "surname": "Paez",
-          "age": 18,
-          "numberIdentify": 22963324,
-          "file": "123",
-          "workstation": "AGENTE DE SERVICIO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Fabian",
-          "surname": "Tavarez",
-          "age": 29,
-          "numberIdentify": 71266791,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Gabriela",
-          "surname": "Martinez",
-          "age": 37,
-          "numberIdentify": 96932543,
-          "file": "123",
-          "workstation": "TRIPULANTE DE CABINA",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Jimena",
-          "surname": "Gonzalez",
-          "age": 33,
-          "numberIdentify": 76018682,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        },
-        {
-          "name": "Marcelo",
-          "surname": "Ruiz",
-          "age": 36,
-          "numberIdentify": 14604544,
-          "file": "123",
-          "workstation": "PILOTO",
-          "status": "ACTIVE"
-        }
-      ],
-      "flights": [
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Londres",
-          "time": null,
-          "state": "Espera"
-        },
-        {
-          "code": "YR-BAC",
-          "airplane": {
-            "registration_number": "YR-BAC",
-            "plane_status": "active",
-            "capabilities": "SMALL"
-          },
-          "door": "1",
-          "origin": "Buenos Aires",
-          "destiny": "Honk Kong",
-          "time": null,
-          "state": "Espera"
-        }
-      ],
-      "locations": null
-    }
-  ],
-  "passengers": [
-    {
-      "name": "Paulo",
-      "surname": null,
-      "age": 29,
-      "numberIdentify": 5,
-      "passport_number": "2"
-    },
-    {
-      "name": "Lionel Andres",
-      "surname": null,
-      "age": 36,
-      "numberIdentify": 33016244,
-      "passport_number": "1"
-    }
-  ]
+  "airlines" : [ {
+    "iatacode" : "AA",
+    "airline_name" : "American Airlines",
+    "iata_code" : "AA",
+    "airplanes" : [ {
+      "registration_number" : "AA-M-6",
+      "plane_status" : "Not Available",
+      "capabilities" : "MEDIUM"
+    }, {
+      "registration_number" : "AA-S-1",
+      "plane_status" : "available",
+      "capabilities" : "SMALL"
+    }, {
+      "registration_number" : "AA-B-3",
+      "plane_status" : "available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "AA-B-4",
+      "plane_status" : "not available",
+      "capabilities" : "BIG"
+    } ],
+    "employees" : [ {
+      "name" : "John",
+      "surname" : "Button",
+      "age" : 48,
+      "numberIdentify" : 20712044,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Steve",
+      "surname" : "James",
+      "age" : 44,
+      "numberIdentify" : 22655599,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Susan",
+      "surname" : "Jobs",
+      "age" : 26,
+      "numberIdentify" : 68691634,
+      "file" : "123",
+      "workstation" : "TECNICO DE OPERACIONES",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Daiana",
+      "surname" : "Flick",
+      "age" : 29,
+      "numberIdentify" : 42380909,
+      "file" : "123",
+      "workstation" : "TECNICO ADMINISTRATIVO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Frank",
+      "surname" : "Murphy",
+      "age" : 39,
+      "numberIdentify" : 70593289,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Patrick",
+      "surname" : "Johnsson",
+      "age" : 37,
+      "numberIdentify" : 98324417,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    } ],
+    "flights" : [ {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Madrid",
+      "time" : null,
+      "state" : "Espera"
+    }, {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Londres",
+      "time" : [ 2, 2, 2, 2, 2, 2 ],
+      "state" : "Espera"
+    } ],
+    "locations" : [ {
+      "airport_name" : "Ezeiza",
+      "location" : "Buenos Aires",
+      "doors" : [ {
+        "code" : 437,
+        "status" : false
+      }, {
+        "code" : 880,
+        "status" : true
+      }, {
+        "code" : 137,
+        "status" : true
+      }, {
+        "code" : 431,
+        "status" : true
+      }, {
+        "code" : 650,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "London City Airport",
+      "location" : "London",
+      "doors" : [ {
+        "code" : 616,
+        "status" : true
+      }, {
+        "code" : 808,
+        "status" : true
+      }, {
+        "code" : 646,
+        "status" : true
+      }, {
+        "code" : 388,
+        "status" : true
+      }, {
+        "code" : 393,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "aaa",
+      "location" : "bbb",
+      "doors" : [ {
+        "code" : 1,
+        "status" : true
+      } ]
+    } ]
+  }, {
+    "iatacode" : "QA",
+    "airline_name" : "Qatar Airways",
+    "iata_code" : "QA",
+    "airplanes" : [ {
+      "registration_number" : "QA-M-1",
+      "plane_status" : "not available",
+      "capabilities" : "MEDIUM"
+    }, {
+      "registration_number" : "QA-M-4",
+      "plane_status" : "available",
+      "capabilities" : "MEDIUM"
+    }, {
+      "registration_number" : "QA-B-2",
+      "plane_status" : "not available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "QA-B-1",
+      "plane_status" : "available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "QA-S-1",
+      "plane_status" : "available",
+      "capabilities" : "SMALL"
+    } ],
+    "employees" : [ {
+      "name" : "Oliver",
+      "surname" : "Davies",
+      "age" : 36,
+      "numberIdentify" : 19488024,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Louis",
+      "surname" : "Watts",
+      "age" : 28,
+      "numberIdentify" : 33016244,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "James",
+      "surname" : "Burke",
+      "age" : 33,
+      "numberIdentify" : 92768371,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Isaac",
+      "surname" : "Moss",
+      "age" : 50,
+      "numberIdentify" : 77289203,
+      "file" : "123",
+      "workstation" : "AGENTE DE SERVICIO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Gracie",
+      "surname" : "Reynolds",
+      "age" : 44,
+      "numberIdentify" : 76417479,
+      "file" : "123",
+      "workstation" : "DESPACHADOR DE VUELOS",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Eliza",
+      "surname" : "White",
+      "age" : 37,
+      "numberIdentify" : 69241407,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    } ],
+    "flights" : [ {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Londres",
+      "time" : [ 2023, 8, 15, 14, 30 ],
+      "state" : "Espera"
+    }, {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Honk Kong",
+      "time" : null,
+      "state" : "Espera"
+    } ],
+    "locations" : null
+  }, {
+    "iatacode" : "SA",
+    "airline_name" : "Singapore Airlines",
+    "iata_code" : "SA",
+    "airplanes" : [ {
+      "registration_number" : "SA-S-9",
+      "plane_status" : "available",
+      "capabilities" : "SMALL"
+    }, {
+      "registration_number" : "SA-S-10",
+      "plane_status" : "not available",
+      "capabilities" : "SMALL"
+    }, {
+      "registration_number" : "SA-S-11",
+      "plane_status" : "not available",
+      "capabilities" : "SMALL"
+    }, {
+      "registration_number" : "SA-S-12",
+      "plane_status" : "available",
+      "capabilities" : "SMALL"
+    }, {
+      "registration_number" : "SA-S-15",
+      "plane_status" : "not available",
+      "capabilities" : "SMALL"
+    } ],
+    "employees" : [ {
+      "name" : "Casey",
+      "surname" : "Yuèqín",
+      "age" : 24,
+      "numberIdentify" : 50247594,
+      "file" : "123",
+      "workstation" : "DESPACHADOR DE VUELOS",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Yuen",
+      "surname" : "Da-shin",
+      "age" : 36,
+      "numberIdentify" : 89898750,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Lao",
+      "surname" : "Changying",
+      "age" : 39,
+      "numberIdentify" : 38379356,
+      "file" : "123",
+      "workstation" : "AUXILIAR DE TIERRA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Duan",
+      "surname" : "Lee",
+      "age" : 45,
+      "numberIdentify" : 50231096,
+      "file" : "123",
+      "workstation" : "TECNICO ADMINISTRATIVO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Rene",
+      "surname" : "Fu",
+      "age" : 47,
+      "numberIdentify" : 69383193,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Dong",
+      "surname" : "Zhi",
+      "age" : 51,
+      "numberIdentify" : 87022352,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    } ],
+    "flights" : [ {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Londres",
+      "time" : null,
+      "state" : "Espera"
+    }, {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Honk Kong",
+      "time" : null,
+      "state" : "Espera"
+    } ],
+    "locations" : null
+  }, {
+    "iatacode" : "TA",
+    "airline_name" : "Turkish Airlines",
+    "iata_code" : "TA",
+    "airplanes" : [ {
+      "registration_number" : "TA-M-1",
+      "plane_status" : "available",
+      "capabilities" : "MEDIUM"
+    }, {
+      "registration_number" : "TA-M-2",
+      "plane_status" : "available",
+      "capabilities" : "MEDIUM"
+    }, {
+      "registration_number" : "TA-M-3",
+      "plane_status" : "available",
+      "capabilities" : "MEDIUM"
+    }, {
+      "registration_number" : "TA-M-4",
+      "plane_status" : "available",
+      "capabilities" : "MEDIUM"
+    }, {
+      "registration_number" : "TA-M-5",
+      "plane_status" : "available",
+      "capabilities" : "MEDIUM"
+    } ],
+    "employees" : [ {
+      "name" : "Ayşegül",
+      "surname" : "Kara",
+      "age" : 46,
+      "numberIdentify" : 50286207,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Selma",
+      "surname" : "Şahin",
+      "age" : 33,
+      "numberIdentify" : 52891142,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Gülsüm",
+      "surname" : "Bozkurt",
+      "age" : 40,
+      "numberIdentify" : 57853115,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Zeynep",
+      "surname" : "Özdemir",
+      "age" : 42,
+      "numberIdentify" : 28648777,
+      "file" : "123",
+      "workstation" : "TECNICO DE OPERACIONES",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Elif",
+      "surname" : "Doğan",
+      "age" : 29,
+      "numberIdentify" : 18833010,
+      "file" : "123",
+      "workstation" : "Agente de trafico",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Havva",
+      "surname" : "Korkmaz",
+      "age" : 35,
+      "numberIdentify" : 73151443,
+      "file" : "123",
+      "workstation" : "DESPACHADOR DE VUELOS",
+      "status" : "ACTIVE"
+    } ],
+    "flights" : [ {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Londres",
+      "time" : null,
+      "state" : "Espera"
+    }, {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Honk Kong",
+      "time" : null,
+      "state" : "Espera"
+    } ],
+    "locations" : null
+  }, {
+    "iatacode" : "ANA",
+    "airline_name" : "All Nippon Airways",
+    "iata_code" : "ANA",
+    "airplanes" : [ {
+      "registration_number" : "ANA-B-1",
+      "plane_status" : "not available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "ANA-B-2",
+      "plane_status" : "available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "ANA-B-5",
+      "plane_status" : "not available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "ANA-B-6",
+      "plane_status" : "not available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "ANA-B-7",
+      "plane_status" : "not available",
+      "capabilities" : "BIG"
+    } ],
+    "employees" : [ {
+      "name" : "Yamato",
+      "surname" : "Wata",
+      "age" : 35,
+      "numberIdentify" : 71439830,
+      "file" : "123",
+      "workstation" : "AUXILIAR DE TIERRA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Kuno",
+      "surname" : "Naruki",
+      "age" : 28,
+      "numberIdentify" : 35216833,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Taku",
+      "surname" : "Misaki",
+      "age" : 19,
+      "numberIdentify" : 83263071,
+      "file" : "123",
+      "workstation" : "DESPACHADOR DE VUELOS",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Oohashi",
+      "surname" : "Sairi",
+      "age" : 47,
+      "numberIdentify" : 26091301,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Makino",
+      "surname" : "Rifu",
+      "age" : 34,
+      "numberIdentify" : 75281200,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Yoshizawa",
+      "surname" : "Mineki",
+      "age" : 50,
+      "numberIdentify" : 68110064,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    } ],
+    "flights" : [ {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Londres",
+      "time" : null,
+      "state" : "Espera"
+    }, {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Honk Kong",
+      "time" : null,
+      "state" : "Espera"
+    } ],
+    "locations" : null
+  }, {
+    "iatacode" : "AEAR",
+    "airline_name" : "Aerolineas Argentinas",
+    "iata_code" : "AEAR",
+    "airplanes" : [ {
+      "registration_number" : "AEAR-S-1",
+      "plane_status" : "not available",
+      "capabilities" : "SMALL"
+    }, {
+      "registration_number" : "AEAR-B-2",
+      "plane_status" : "not available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "AEAR-M-2",
+      "plane_status" : "available",
+      "capabilities" : "BIG"
+    }, {
+      "registration_number" : "AEAR-S-7",
+      "plane_status" : "not available",
+      "capabilities" : "SMALL"
+    }, {
+      "registration_number" : "AEAR-S-4",
+      "plane_status" : "available",
+      "capabilities" : "SMALL"
+    } ],
+    "employees" : [ {
+      "name" : "Claudio",
+      "surname" : "Fernandez",
+      "age" : 45,
+      "numberIdentify" : 53458703,
+      "file" : "123",
+      "workstation" : "DESPACHADOR DE VUELOS",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Lucia",
+      "surname" : "Paez",
+      "age" : 18,
+      "numberIdentify" : 22963324,
+      "file" : "123",
+      "workstation" : "AGENTE DE SERVICIO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Fabian",
+      "surname" : "Tavarez",
+      "age" : 29,
+      "numberIdentify" : 71266791,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Gabriela",
+      "surname" : "Martinez",
+      "age" : 37,
+      "numberIdentify" : 96932543,
+      "file" : "123",
+      "workstation" : "TRIPULANTE DE CABINA",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Jimena",
+      "surname" : "Gonzalez",
+      "age" : 33,
+      "numberIdentify" : 76018682,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    }, {
+      "name" : "Marcelo",
+      "surname" : "Ruiz",
+      "age" : 36,
+      "numberIdentify" : 14604544,
+      "file" : "123",
+      "workstation" : "PILOTO",
+      "status" : "ACTIVE"
+    } ],
+    "flights" : [ {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Londres",
+      "time" : null,
+      "state" : "Espera"
+    }, {
+      "code" : "YR-BAC",
+      "airplane" : {
+        "registration_number" : "YR-BAC",
+        "plane_status" : "active",
+        "capabilities" : "SMALL"
+      },
+      "door" : "1",
+      "origin" : "Buenos Aires",
+      "destiny" : "Honk Kong",
+      "time" : null,
+      "state" : "Espera"
+    } ],
+    "locations" : null
+  } ],
+  "passengers" : [ {
+    "name" : "Paulo",
+    "surname" : null,
+    "age" : 29,
+    "numberIdentify" : 5,
+    "passport_number" : "2"
+  }, {
+    "name" : "Lionel Andres",
+    "surname" : null,
+    "age" : 36,
+    "numberIdentify" : 33016244,
+    "passport_number" : "1"
+  } ],
+  "airportTicketOffice" : {
+    "pricesSet" : true,
+    "price" : 150.0,
+    "taxes" : 0.1
+  },
+  "onlineTicketOffice" : {
+    "price" : 150.0,
+    "taxes" : 0.1
+  }
 }

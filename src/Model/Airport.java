@@ -1,10 +1,10 @@
 package Model;
 
+import Exceptions.FormatIncorrectException;
 import Exceptions.InvalidIndexException;
 import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Utils.Input;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.MessageFormat;
@@ -15,9 +15,9 @@ public class Airport {
     private LinkedList<Airline> airlines;
     @JsonProperty("passengers")
     private HashSet<Passenger> passengers;
-    @JsonIgnore
+    @JsonProperty("airportTicketOffice")
     AirportTicketOffice airportTicketOffice;
-    @JsonIgnore
+    @JsonProperty("onlineTicketOffice")
     OnlineTicketOffice onlineTicketOffice;
 
     public Airport(LinkedList<Airline> airlines, HashSet<Passenger> passengers) {
@@ -159,7 +159,6 @@ public class Airport {
             try {
                 String seat = flight.selectSeat();
                 Luggage<Equipaje> luggage = Luggage.addRandomLuggage();
-                System.out.println(luggage.getLuggage().size());
                 System.out.println("Su ticket de vuelo: ");
                 AirportTicket ticket = getAirportTicketOffice().sellTicket(flight, seat, passanger, luggage);
                 ticket.printTicket();
@@ -188,16 +187,22 @@ public class Airport {
         }
     }
 
-    public Flight showAllFlightsAndSelect() {
+    public Flight showAllFlightsAndSelect() throws InvalidIndexException {
         ArrayList<Flight> flights = new ArrayList<>();
         for (Airline a : airlines) {
             flights.addAll(a.getFlights());
         }
-        System.out.println(flights);
-        System.out.println("Seleccione el indice del Vuelo que desee: ");
-        Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
-        return flights.get(choice);
+        int i=1;
+        for (Flight f : flights){
+            System.out.println(i + ")\n" + f.printFlight());
+            i++;
+        }
+            System.out.println("Seleccione el indice del Vuelo que desee: ");
+            int choice = Input.requestUserInputInt();
+            if(choice-1<0 || choice>flights.size()) {
+            throw new InvalidIndexException("Seleccionó un indice invalido");
+            }
+        return flights.get(choice-1);
 
 
     }
@@ -263,54 +268,55 @@ public class Airport {
         airportTicketOffice.getAllCosts();
     }
 
-    public void addFlight() throws NotFoundException {
-        Scanner scanner = new Scanner(System.in);
-        showAirlines();
-        int index = Input.requestUserInputInt();
-        System.out.println("Ingrese el Indice de la Aerolínea");
-        Airline airline = searchAirlineByIndex(index);
-        System.out.println("Ingrese Código de Vuelo:");
-        String code = scanner.nextLine();
-        if(!thisCodeIsInUse(code)){
+    public void addFlight(Airline airline) throws NotFoundException {
+        String code = RandomCodeGenerator.generateRandomFlightAirline(airline.getIATAcode());
+        System.out.println("Código de Vuelo: " + code);
+        if(!thisCodeExist(code)){
             airline.addFlight(code);
+        }
+        if(airline.searchFlightCode(code)!=null){
+            System.out.println("Vuelo creado con éxito");
+            airportTicketOffice.updateTicketStock(airline.searchFlightCode(code));
+        }else {
+            System.out.println("Se cancelo la creación de vuelo");
         }
     }
 
-    public boolean thisCodeIsInUse (String code){
+    public boolean thisCodeExist (String code){
         if (!airlines.isEmpty()){
             for (int i=0;i<airlines.size();i++){
-                return airlines.get(i).searchFlightCode(code);
+                if (airlines.get(i).thisCodeIsInUse(code)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    public void deleteFlight() throws InvalidIndexException {
-        Airline airline = showAndSelectAirline();
+
+    public void deleteFlight(Airline airline) throws InvalidIndexException {
         airline.showFlights();
         System.out.println("Seleccione indice del Vuelo que desee borrar: ");
         int index = Input.requestUserInputInt();
         System.out.println("Se borro el vuelo: " + airline.getFlights().remove(index-1).getCode());
     }
 
-    public void modifyFlight() throws InvalidIndexException, NotFoundException {
-        showAirlines();
-        int index = Input.requestUserInputInt();
-        System.out.println("Ingrese el Indice de la Aerolínea");
-        Airline airline = searchAirlineByIndex(index-1);
+    public void modifyFlight(Airline airline) throws InvalidIndexException, NotFoundException, FormatIncorrectException {
         airline.showFlights();
         System.out.println("Seleccione indice del Vuelo que desee Modificar: ");
-        index = Input.requestUserInputInt();
+       int index = Input.requestUserInputInt();
         Flight flight = airline.getFlights().get(index-1);
         airline.menuFlightModification(flight);
     }
 
-    public void searchFlight() throws InvalidIndexException {
-        Airline airline= showAndSelectAirline();
-        airline.showFlights();
-        System.out.println("Seleccione indice del Vuelo que desee Modificar: ");
-        int index = Input.requestUserInputInt();
-        Flight flight = airline.getFlights().get(index-1);
+    public void searchFlight(Airline airline) throws InvalidIndexException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese Código del Vuelo que busca:");
+        String code = scanner.nextLine();
+        Flight flight = airline.searchFlightCode(code);
         System.out.println(flight);
+    }
+    public void showAllFlights(Airline airline){
+        airline.showFlights();
     }
 }

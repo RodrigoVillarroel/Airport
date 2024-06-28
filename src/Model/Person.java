@@ -61,7 +61,8 @@ public class Person {
 
     @Override
     public String toString() {
-        return MessageFormat.format("Person'{'name=''{0}'', surname=''{1}'', age={2}, numberIdentify={3}'}'", getName(), getSurname(), getAge(), getNumberIdentify());
+        System.out.println("---------------------------------------------------------------------");
+        return "Nombre: " + getName() +" - " + " Apellido: " + getSurname();
     }
 
     @Override
@@ -75,9 +76,5 @@ public class Person {
         if(!(obj instanceof Person)) return false;
         Person person = (Person) obj;
         return Objects.equals(person.getNumberIdentify(), this.getNumberIdentify());
-    }
-
-    public void printPerson(){
-        System.out.println("Nombre: " + getName() + "Apellido: " + getSurname());
     }
 }

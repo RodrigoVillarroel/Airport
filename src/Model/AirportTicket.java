@@ -89,17 +89,17 @@ public class AirportTicket {
     }
 
     public void printTicket(){
-        System.out.println("--------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------");
         System.out.println("           BOARDING PASS - FLIGHT " + getCodeFligth());
-        System.out.println("--------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------");
         System.out.println("From: " + getFrom());
         System.out.println("To: " + getTo());
         System.out.println("Boarding Time: " + geBordingTime());
-        System.out.println("Passenger: " + getPassanger() + " (Passport: " + getPassanger().getNroPassport() + ")");
+        System.out.println(passenger.printPassanger());
         System.out.println("Price: $" + getPrice());
         System.out.println("Seat: " + getSeat());
         System.out.println("Gate: " + getGate());
-        System.out.println("--------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------");
     }
     // endregion
 }
