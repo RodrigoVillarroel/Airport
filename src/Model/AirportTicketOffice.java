@@ -1,12 +1,10 @@
 package Model;
 
 import Exceptions.AlreadyExistsException;
-import Exceptions.InvalidIndexException;
 import Exceptions.NotAvailableForSaleException;
 import Exceptions.NotFoundException;
 import Interfaces.ITicketManagement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -235,10 +233,10 @@ public class AirportTicketOffice extends TicketOffice implements ITicketManageme
         System.out.println("Costo de pasaje sin Multas:");
         System.out.println(getPrice());
         System.out.println("Costo de pasaje con 1 Multa:");
-        System.out.println(getPrice()+getTaxes());
+        System.out.println(getPrice() * getTaxes());
         System.out.println("Costo de pasaje con 2 Multas:");
-        System.out.println(getPrice() + (getTaxes()*2));
+        System.out.println(getPrice() * (getTaxes()*2));
         System.out.println("Costo de pasaje con 3 Multas");
-        System.out.println(getPrice() + (getTaxes()*3));
+        System.out.println(getPrice() * (getTaxes()*3));
     }
 }

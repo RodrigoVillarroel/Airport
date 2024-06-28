@@ -69,27 +69,31 @@ public class AirportController {
     // endregion
 
     // region Airlines Menu
-    private void handleAirlinesMenu(Airline airline) throws NotFoundException {
+    private void handleAirlinesMenu(Airline airline) {
         airportMenuView.displayAirlinesMenu(airline.getAirlineName(), airline.getIATAcode());
         int opcion = airportMenuView.handleUserInput();
-        switch (opcion) {
-            case 1:
-                handleFlightsMenu(airline);
-                break;
-            case 2:
-                handleAirplanesMenu();
-                break;
-            case 3:
-                handleLocationMenu();
-                break;
-            case 4:
-                handleEmployeeMenu();
-                break;
-            case 5:
-                airportMenuView.displayBackMessage();
-                break;
-            default:
-                airportMenuView.displayInvalidOptionMessage();
+        try {
+            switch (opcion) {
+                case 1:
+                    handleFlightsMenu(airline);
+                    break;
+                case 2:
+                    handleAirplanesMenu();
+                    break;
+                case 3:
+                    handleLocationMenu();
+                    break;
+                case 4:
+                    handleEmployeeMenu();
+                    break;
+                case 5:
+                    airportMenuView.displayBackMessage();
+                    break;
+                default:
+                    airportMenuView.displayInvalidOptionMessage();
+            }
+        }catch (NotFoundException e){
+            System.out.println(e.getMessage());
         }
     }
     // endregion
@@ -156,13 +160,15 @@ public class AirportController {
     }
 
     private void handleAddAirplaneOption() {
-        System.out.println(airLine.addAirplaneByKeyboard());
+        if(!airLine.addAirplaneByKeyboard()){
+            System.out.println("Se cancelo el agregado de Avión");
+        }
     }
 
     private void handleDeleteAirplaneOption() {
         Scanner scanner = new Scanner(System.in);
         airLine.listAirplanesWithOptions();
-        System.out.println("Escriba el cod del avion a eliminar: ");
+        System.out.println("Escriba el cod del avión a eliminar: ");
         String airplaneCode = scanner.nextLine();
         airLine.removeAirplaneByRegistrationNumber(airplaneCode);
     }
@@ -297,7 +303,11 @@ public class AirportController {
     }
 
     private void handleAddLocationOption() {
-        System.out.println(airLine.addLocationByKeyboard());
+        if(airLine.addLocationByKeyboard()){
+            System.out.println("Locación agregada con éxito");
+        }else {
+            System.out.println("Se cancelo la carga de Locación");
+        }
     }
 
     private void handleDeleteLocationOption() {
@@ -313,7 +323,12 @@ public class AirportController {
     private void handleFindLocationOption() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese nombre del aeropuerto:");
-        System.out.println(airLine.searchLocationForAirportName(scanner.nextLine()));
+        String location = scanner.nextLine();
+        if(airLine.searchLocationForAirportName(location) == null){
+            System.out.println("No se encontró la locación");
+        }else {
+            System.out.println(airLine.searchLocationForAirportName(location));
+        }
     }
 
     private void handleListLocationOption() {

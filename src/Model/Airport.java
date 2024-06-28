@@ -122,7 +122,7 @@ public class Airport {
         return airportTicketOffice.hasStock(flight.getOrigin(), flight.getDestiny(), flight.getTime(), airplane.getCapabilities().getSeatForLetter(), airplane.getCapabilities().getTotalCapacity(), flight.getDoor());
     }
 
-    public void sellAirportTicket() throws InvalidIndexException, NotFoundException {
+    public void sellAirportTicket() throws InvalidIndexException, NotFoundException, NotAvailableForSaleException {
         Passenger p = searchPersonByDNI();
         Airline airline = showAndSelectAirline();
         Flight flight = showAndSelectFlights(airline);
@@ -154,19 +154,38 @@ public class Airport {
         }
     }
 
-    public void buyAirportTicket(Flight flight, Passenger passanger) throws InvalidIndexException {
+    public void buyAirportTicket(Flight flight, Passenger passanger) throws InvalidIndexException, NotAvailableForSaleException {
         if (hasStock(flight)) {
             System.out.println(getAirportTicketOffice().listSeats(flight));
             try {
                 String seat = flight.selectSeat();
-                Luggage<Equipaje> luggage = Luggage.addRandomLuggage();
-                System.out.println("Su ticket de vuelo: ");
-                AirportTicket ticket = getAirportTicketOffice().sellTicket(flight, seat, passanger, luggage);
-                ticket.printTicket();
-            } catch (NotAvailableForSaleException e) {
+                if (verifyFormat(seat)) {
+                    Luggage<Equipaje> luggage = Luggage.addRandomLuggage();
+                    AirportTicket ticket = getAirportTicketOffice().sellTicket(flight, seat, passanger, luggage);
+                    ticket.printTicket();
+                }else{
+                    throw new FormatIncorrectException("Formato de Asiento Incorrecto");
+                }
+            } catch (NotAvailableForSaleException | FormatIncorrectException e) {
                 System.out.println(e.getMessage());
             }
         }
+        else {
+            throw new NotAvailableForSaleException("No hay stock disponible, regenere o cree un vuelo nuevo");
+        }
+    }
+
+    public boolean verifyFormat(String seat) throws FormatIncorrectException {
+        if (seat.length() != 2) {
+            throw new FormatIncorrectException("Formato de Asiento Incorrecto");
+        }
+        char letra = seat.charAt(0);
+        char digito = seat.charAt(1);
+
+        boolean letraEsMayuscula = Character.isUpperCase(letra);
+        boolean digitoEsNumero = Character.isDigit(digito);
+
+        return letraEsMayuscula && digitoEsNumero;
     }
 
     public void sellAirportTicketOnline() throws InvalidIndexException, NotFoundException {
@@ -213,12 +232,12 @@ public class Airport {
             Passenger p = searchPersonByDNI();
             Flight flight = showAllFlightsAndSelect();
             buyAirportTicket(flight, p);
-        } catch (NotFoundException | InvalidIndexException e) {
+        } catch (NotFoundException | InvalidIndexException | NotAvailableForSaleException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void buyTicketByDestiny() throws NotFoundException, InvalidIndexException {
+    public void buyTicketByDestiny() throws NotFoundException, InvalidIndexException, NotAvailableForSaleException {
         Scanner scanner = new Scanner(System.in);
         HashMap<String, Flight> flights = new HashMap<>();
         System.out.println("Escriba el destino al que desea viajar: ");
@@ -242,7 +261,7 @@ public class Airport {
         return false;
     }
 
-    public void selectFlight(HashMap<String, Flight> flights) throws NotFoundException, InvalidIndexException {
+    public void selectFlight(HashMap<String, Flight> flights) throws NotFoundException, InvalidIndexException, NotAvailableForSaleException {
         Scanner scanner = new Scanner(System.in);
         ArrayList<String> keys = new ArrayList<>();
         int i = 1;

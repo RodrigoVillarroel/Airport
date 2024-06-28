@@ -31,16 +31,6 @@ public class Airline {
 
     }
 
-    public Airline(String airlineName, String IATAcode, HashSet<Airplane> airplanes,
-                   HashSet<Employee> employees, ArrayList<Flight> flights, HashSet<Location> locations) {
-        setAirlineName(airlineName);
-        setIATAcode(IATAcode);
-        setAirplanes(airplanes);
-        setFlights(flights);
-        setEmployees(employees);
-        setLocations(locations);
-    }
-
     public Airline(String airlineName, String IATAcode) {
         setAirlineName(airlineName);
         setIATAcode(IATAcode);
@@ -135,7 +125,6 @@ public class Airline {
         }
         int option;
         int selection;
-        Scanner scanner = new Scanner(System.in);
         Airplane airplane = new Airplane();
         System.out.println("\nCarga de avión: ");
         airplane.setRegistrationNumber(RandomCodeGenerator.generateRandomRegistrationNumber(getIATAcode()));
@@ -146,23 +135,25 @@ public class Airline {
         System.out.println("3) CAPACIDAD ALTA: ASIENTOS DE PRIMERA CLASE: 24 / ASIENTOS CLASE EJECUTIVO: 32 / ASIENTOS CLASE ECONÓMICA PREMIUM: 64 / ASIENTOS CLASE ECONÓMICA:80");
 
         selection = Input.requestUserInputInt();
+            switch (selection) {
+                case 1:
+                    airplane.setCapabilities(AirplaneCapabilities.SMALL);
+                    break;
+                case 2:
+                    airplane.setCapabilities(AirplaneCapabilities.MEDIUM);
+                    break;
+                case 3:
+                    airplane.setCapabilities(AirplaneCapabilities.BIG);
+                    break;
+                default:
+                    System.out.println("Opción Invalida");
+                    return false;
+            }
 
-        switch (selection) {
-            case 1:
-                airplane.setCapabilities(AirplaneCapabilities.SMALL);
-                break;
-            case 2:
-                airplane.setCapabilities(AirplaneCapabilities.MEDIUM);
-                break;
-            case 3:
-                airplane.setCapabilities(AirplaneCapabilities.BIG);
-                break;
-            default:
-        }
         airplane.setStatus("available");
         System.out.println(airplane);
         System.out.println("\nDesea cargarlo? \n1) SI \n2) NO");
-        option = scanner.nextInt();
+        option = Input.requestUserInputInt();
         if (option == 1) {
             return this.addAirplane(airplane);
         } else {
@@ -225,6 +216,7 @@ public class Airline {
             int i = 1;
             for (Airplane a : getAirplanes()) {
                 System.out.println(i + ") " + a.getRegistrationNumber());
+                i++;
             }
         }
 
@@ -233,11 +225,11 @@ public class Airline {
     /**
      * METHODS CONTROL EMPLOYEES
      */
-    public boolean addEmployee(Employee employee) {
+    public void addEmployee(Employee employee) {
         if (getEmployees() == null) {
             setEmployees(new HashSet<>());
         }
-        return getEmployees().add(employee);
+        getEmployees().add(employee);
     }
 
     public void removeEmployee(Employee employee) {
@@ -253,15 +245,9 @@ public class Airline {
                     return employee;
                 }
             }
-            throw new NotFoundException("No se encontro al empleado");
+            throw new NotFoundException("No se encontró al empleado");
         }
         return null;
-    }
-
-    public void listEmployee() {
-        if (getEmployees() != null) {
-            getEmployees().forEach(System.out::println);
-        }
     }
 
     public boolean changeStatus(Integer nroIdentity) {
@@ -341,20 +327,6 @@ public class Airline {
         return false;
     }
 
-    /*public void SearchLocation(){
-
-        int selection = 0;
-        int i = 0;
-        if(getLocations()!=null){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("seleccione un aeropuerto...");
-            this.menuSearchLocation();
-            selection = scanner.nextInt();
-            Location location = searchLocationForAirportName()
-            BoardingDoor door = this.searchBoardingDoor(getLocations().);
-        }
-    }*/
-
     public Location searchLocationForAirportName(String name) {
         if (getLocations() != null) {
             for (Location location : getLocations()) {
@@ -365,40 +337,6 @@ public class Airline {
         }
         return null;
     }
-
-    /*public void menuSearchLocation(){
-        int optionDoor = 1;
-        int optionLocation = 1;
-        int selection = 0;
-        if(getLocations()!=null){
-            for (Location location : getLocations()){
-                System.out.println(optionLocation+ ") Aeropuerto: " + location.getNameAirport() + " Pais: " + location.getLocation());
-                optionLocation++;
-                for (BoardingDoor boardingDoor : location.getDoors()){
-                    System.out.println(optionDoor+ ") Door: "+ boardingDoor.getCode() + " Status: " + boardingDoor.isStatus());
-                    optionDoor++;
-                }
-                optionDoor = 1;
-            }
-        }
-    }*/
-
-    /*public BoardingDoor searchBoardingDoor(Location location){
-        if(location!=null){
-            int optionDoor = 1;
-            int selection = 0;
-            for (BoardingDoor boardingDoor : location.getDoors()){
-                System.out.println(optionDoor+ ") Door: "+ boardingDoor.getCode() + " Status: " + boardingDoor.isStatus());
-                optionDoor++;
-                switch (selection){
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                }
-            }
-        }
-    }*/
 
     //public String searchLocation()
     public void listLocation() {
@@ -497,7 +435,7 @@ public class Airline {
         System.out.println("Ingrese nombre de la Locación de Destino");
         location = scanner.nextLine();
         if (!thisLocationExists(location)) {
-            throw new NotFoundException("La locacion de Destino no se pudo encontrar, verifique la información o agréguela");
+            throw new NotFoundException("La locación de Destino no se pudo encontrar, verifique la información o agréguela");
         }
         flight.setDestiny(location);
     }
@@ -554,9 +492,9 @@ public class Airline {
         }
         LocalDate date = LocalDate.of(year, month, day);
         System.out.println("Ingrese Horario del Vuelo: (hh:mm)");
-        String fligthTime = scanner.nextLine();
-        if (formatIsCorrect(fligthTime)) {
-            String[] parts = fligthTime.split(":");
+        String flightTime = scanner.nextLine();
+        if (formatIsCorrect(flightTime)) {
+            String[] parts = flightTime.split(":");
             int hour = Integer.parseInt(parts[0]);
             int minute = Integer.parseInt(parts[1]);
 

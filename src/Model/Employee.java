@@ -50,6 +50,6 @@ public class Employee extends Person{
 
     @Override
     public String toString() {
-        return super.toString() + "Empleado: "+ getFile() + "Sector de Trabajo: " + getWorkstation() + "Estatus: " + getStatus();
+        return super.toString() + " - Empleado: "+ getFile() + " - Sector de Trabajo: " + getWorkstation() + " - Estatus: " + getStatus();
     }
 }

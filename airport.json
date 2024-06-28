@@ -4,6 +4,10 @@
     "airline_name" : "American Airlines",
     "iata_code" : "AA",
     "airplanes" : [ {
+      "registration_number" : "AA-GUO-733",
+      "plane_status" : "Not Available",
+      "capabilities" : "BIG"
+    }, {
       "registration_number" : "AA-M-6",
       "plane_status" : "Not Available",
       "capabilities" : "MEDIUM"
@@ -93,6 +97,18 @@
       "destiny" : "Andalucía",
       "time" : [ 2024, 12, 24, 12, 45 ],
       "state" : "Espera"
+    }, {
+      "code" : "AA-AOU",
+      "airplane" : {
+        "registration_number" : "AA-GUO-733",
+        "plane_status" : "Not Available",
+        "capabilities" : "BIG"
+      },
+      "door" : "236",
+      "origin" : "Madrid",
+      "destiny" : "London",
+      "time" : [ 2024, 12, 14, 13, 30 ],
+      "state" : "Espera"
     } ],
     "locations" : [ {
       "airport_name" : "Ezeiza",
@@ -111,6 +127,40 @@
         "status" : true
       }, {
         "code" : 650,
+        "status" : true
+      } ]
+    }, {
+      "airport_name" : "Hong Kong",
+      "location" : "República Popular China",
+      "doors" : [ {
+        "code" : 587,
+        "status" : true
+      }, {
+        "code" : 666,
+        "status" : true
+      }, {
+        "code" : 883,
+        "status" : true
+      }, {
+        "code" : 833,
+        "status" : true
+      }, {
+        "code" : 316,
+        "status" : true
+      }, {
+        "code" : 224,
+        "status" : true
+      }, {
+        "code" : 600,
+        "status" : true
+      }, {
+        "code" : 525,
+        "status" : true
+      }, {
+        "code" : 475,
+        "status" : true
+      }, {
+        "code" : 587,
         "status" : true
       } ]
     }, {
@@ -137,7 +187,7 @@
       "location" : "Madrid",
       "doors" : [ {
         "code" : 236,
-        "status" : true
+        "status" : false
       }, {
         "code" : 654,
         "status" : true
@@ -735,6 +785,28 @@
       "state" : "Espera"
     } ],
     "locations" : [ {
+      "airport_name" : "Adolfo Suárez Madrid-Barajas",
+      "location" : "Madrid",
+      "doors" : [ {
+        "code" : 236,
+        "status" : true
+      }, {
+        "code" : 654,
+        "status" : true
+      }, {
+        "code" : 241,
+        "status" : true
+      }, {
+        "code" : 321,
+        "status" : true
+      }, {
+        "code" : 112,
+        "status" : true
+      }, {
+        "code" : 124,
+        "status" : true
+      } ]
+    }, {
       "airport_name" : "Ezeiza",
       "location" : "Buenos Aires",
       "doors" : [ {
@@ -770,28 +842,6 @@
         "status" : true
       }, {
         "code" : 393,
-        "status" : true
-      } ]
-    }, {
-      "airport_name" : "Adolfo Suárez Madrid-Barajas",
-      "location" : "Madrid",
-      "doors" : [ {
-        "code" : 236,
-        "status" : true
-      }, {
-        "code" : 654,
-        "status" : true
-      }, {
-        "code" : 241,
-        "status" : true
-      }, {
-        "code" : 321,
-        "status" : true
-      }, {
-        "code" : 112,
-        "status" : true
-      }, {
-        "code" : 124,
         "status" : true
       } ]
     } ]
@@ -895,6 +945,28 @@
       "state" : "Espera"
     } ],
     "locations" : [ {
+      "airport_name" : "Adolfo Suárez Madrid-Barajas",
+      "location" : "Madrid",
+      "doors" : [ {
+        "code" : 236,
+        "status" : true
+      }, {
+        "code" : 654,
+        "status" : true
+      }, {
+        "code" : 241,
+        "status" : true
+      }, {
+        "code" : 321,
+        "status" : true
+      }, {
+        "code" : 112,
+        "status" : true
+      }, {
+        "code" : 124,
+        "status" : true
+      } ]
+    }, {
       "airport_name" : "Ezeiza",
       "location" : "Buenos Aires",
       "doors" : [ {
@@ -930,28 +1002,6 @@
         "status" : true
       }, {
         "code" : 393,
-        "status" : true
-      } ]
-    }, {
-      "airport_name" : "Adolfo Suárez Madrid-Barajas",
-      "location" : "Madrid",
-      "doors" : [ {
-        "code" : 236,
-        "status" : true
-      }, {
-        "code" : 654,
-        "status" : true
-      }, {
-        "code" : 241,
-        "status" : true
-      }, {
-        "code" : 321,
-        "status" : true
-      }, {
-        "code" : 112,
-        "status" : true
-      }, {
-        "code" : 124,
         "status" : true
       } ]
     } ]

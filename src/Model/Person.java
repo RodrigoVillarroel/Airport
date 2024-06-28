@@ -61,7 +61,7 @@ public class Person {
 
     @Override
     public String toString() {
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------");
         return "Nombre: " + getName() +" - " + " Apellido: " + getSurname();
     }
 

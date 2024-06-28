@@ -165,14 +165,13 @@ public class AirportMenuView {
                 "TECNICO DE OPERACIONES","TECNICO ADMINISTRATIVO","AGENTE DE SERVICIO","DESPACHADOR DE VUELOS"};
         System.out.println("\nCarga de Empleado...");
         Person person = this.displayAddPersonOption();
-        System.out.println("\nLegajo de identificacion: ");
+        System.out.println("\nLegajo de identificación: ");
         String file = scanner.nextLine();
         System.out.println("\nPuesto de trabajo: ");
         for (int i = 0; i < workstations.length; i++) {
             System.out.println(i+1 + ")" + workstations[i]);
         }
         String workStation = workstations[scanner.nextInt()-1];
-        // TODO deberia cargar el status o esta bien que este harcodeado en active ??
         String status = "active";
         return new Employee(person.getName(), person.getSurname(), person.getAge(), person.getNumberIdentify(), file, workStation, status);
     }
